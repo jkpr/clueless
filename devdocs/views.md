@@ -8,4 +8,4 @@ These are the views for the web application:
 | `/game` | [www.clueless.com/game][1] | Player lounge with sections for create game, join game, and chat |
 | `/game/<gameid>` | [www.clueless.com/game/1234][1] | Has game board, user interface for playing, chat |
 
-[1]: www.example.com
+[1]: http://www.example.com
