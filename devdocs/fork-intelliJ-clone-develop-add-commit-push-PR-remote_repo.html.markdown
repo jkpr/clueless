@@ -5,7 +5,8 @@
  * Commit and push to own Github repo
  * Make pull-request on Github
  * Add additional remote repo to git
- 
+
+
 ## 0) Fork `clueless` repository:
  
  - After you have your Github account created and are signed in, navigate to [github.com/jkpr/clueless](https://github.com/jkpr/clueless)
