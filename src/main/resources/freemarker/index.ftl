@@ -7,9 +7,9 @@
     <p>This is freemarker.</p>
     <h2>Team members</h2>
     <ul>
-    <#list members as member>
+<#list members as member>
         <li>${member}</li>
-    </#list>
+</#list>
     </ul>
     <#if footer??><#include footer></#if>
 </body>
