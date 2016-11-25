@@ -1,19 +1,34 @@
-package edu.jhu.boddybuilders;
+package app;
 
+import app.index.IndexController;
+import app.util.Path;
+import app.util.ViewUtil;
 import spark.Spark;
 
 /**
  * Hello world!
  *
  */
-public class App 
+public class Application
 {
+
     private static int views = 0;
 
     public static void main( String[] args )
     {
+        // Initialize Spark
         Spark.port(getHerokuAssignedPort());
-        Spark.get("/", (req, res) -> {
+        Spark.staticFileLocation(Path.STATIC);
+        ViewUtil.initializeFreeMarker();
+
+
+        // Initialize routes
+        Spark.get(Path.Web.INDEX, IndexController.serveIndexPage);
+
+
+
+
+        Spark.get("/count", (req, res) -> {
             views++;
             return "<h1>Hello SparkJava World!</h1><p>Views: " + String.valueOf(views) + "</p>";
         });

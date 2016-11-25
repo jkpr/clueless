@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>edu.jhu.boddybuilders</groupId>
+  <groupId>boddybuilders</groupId>
   <artifactId>clueless</artifactId>
   <version>1.0</version>
 
@@ -41,7 +41,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>edu.jhu.boddybuilders.App</mainClass>
+              <mainClass>app.Application</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -75,6 +75,21 @@
       <groupId>com.sparkjava</groupId>
       <artifactId>spark-core</artifactId>
       <version>2.5.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>9.4-1201-jdbc4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sparkjava</groupId>
+      <artifactId>spark-template-freemarker</artifactId>
+      <version>2.3</version>
     </dependency>
   </dependencies>
 </project>
