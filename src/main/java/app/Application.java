@@ -5,6 +5,8 @@ import app.util.Path;
 import app.util.ViewUtil;
 import spark.Spark;
 
+import java.util.Map;
+
 /**
  * Hello world!
  *
@@ -36,10 +38,19 @@ public class Application
 
     // Found on https://sparktutorials.github.io/2015/08/24/spark-heroku.html
     static int getHerokuAssignedPort() {
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        if (processBuilder.environment().get("PORT") != null) {
-            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        Map<String, String> env = System.getenv();
+        if (env.containsKey("PORT")) {
+            String port = env.get("PORT");
+            if (port != null && !port.equals("")) {
+                return Integer.parseInt(port);
+            }
         }
+
+        // DELETE: old way
+        //ProcessBuilder processBuilder = new ProcessBuilder();
+        //if (processBuilder.environment().get("PORT") != null) {
+        //    return Integer.parseInt(processBuilder.environment().get("PORT"));
+        //}
         return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 }
