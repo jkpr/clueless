@@ -4,9 +4,9 @@ import app.database.DatabaseConnection;
 import app.index.IndexController;
 import app.util.Path;
 import app.util.ViewUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spark.Spark;
-
-import java.util.Map;
 
 /**
  * Hello world!
@@ -14,8 +14,7 @@ import java.util.Map;
  */
 public class Application
 {
-
-    private static int views = 0;
+    private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     public static void main( String[] args )
     {
@@ -27,17 +26,10 @@ public class Application
         // Initialize Database
         DatabaseConnection.initializeConnection(getHerokuDb());
 
-
         // Initialize routes
         Spark.get(Path.Web.INDEX, IndexController.serveIndexPage);
 
-
-
-
-        Spark.get("/count", (req, res) -> {
-            views++;
-            return "<h1>Hello SparkJava World!</h1><p>Views: " + String.valueOf(views) + "</p>";
-        });
+        logger.info("Finished app initialization: port, static, freemarker, db, routes");
     }
 
     static int getHerokuAssignedPort() {

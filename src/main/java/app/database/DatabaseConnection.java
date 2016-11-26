@@ -1,6 +1,8 @@
 package app.database;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.net.URI;
@@ -13,10 +15,11 @@ import java.sql.SQLException;
  * Created by james on 11/25/16.
  */
 public class DatabaseConnection {
-    private static final int N_CONNECTIONS = 10;
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseConnection.class);
+    private static final int N_CONNECTIONS = 6;
 
     private static BasicDataSource connectionPool;
-    
+
     public static void initializeConnection(String Uri) {
         if (connectionPool != null) {
             return;
@@ -41,16 +44,18 @@ public class DatabaseConnection {
 
 
         } catch (URISyntaxException e) {
-            // Unable to parse supplied URI
-        } catch (SQLException e) {
-            // error with the tables
+            logger.warn("Unable to parse DB URI '{}'", Uri);
         }
     }
 
-    private static void assert_users() throws SQLException {
-        Connection connection = connectionPool.getConnection();
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate(DatabaseContract.Users.CREATE_TABLE);
+    private static void assert_users() {
+        try {
+            Connection connection = connectionPool.getConnection();
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(DatabaseContract.Users.CREATE_TABLE);
+        } catch (SQLException e) {
+            logger.warn("SQL exception with 'users' table: '{}'", e.getMessage());
+        }
     }
 
 

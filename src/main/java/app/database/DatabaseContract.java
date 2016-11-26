@@ -4,6 +4,8 @@ package app.database;
  * Created by james on 11/25/16.
  */
 public class DatabaseContract {
+    private DatabaseContract() {};
+
     public static final int DATABASE_VERSION = 1;
 
     public static abstract class Users {
