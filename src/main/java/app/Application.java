@@ -1,5 +1,6 @@
 package app;
 
+import app.database.DatabaseConnection;
 import app.index.IndexController;
 import app.util.Path;
 import app.util.ViewUtil;
@@ -23,6 +24,9 @@ public class Application
         Spark.staticFileLocation(Path.STATIC);
         ViewUtil.initializeFreeMarker();
 
+        // Initialize Database
+        DatabaseConnection.initializeConnection(getHerokuDb());
+
 
         // Initialize routes
         Spark.get(Path.Web.INDEX, IndexController.serveIndexPage);
@@ -36,21 +40,28 @@ public class Application
         });
     }
 
-    // Found on https://sparktutorials.github.io/2015/08/24/spark-heroku.html
     static int getHerokuAssignedPort() {
-        Map<String, String> env = System.getenv();
-        if (env.containsKey("PORT")) {
-            String port = env.get("PORT");
-            if (port != null && !port.equals("")) {
-                return Integer.parseInt(port);
-            }
+        int port = 4567;
+
+        String envPort = System.getenv().get("PORT");
+        if (envPort != null) {
+            port = Integer.parseInt(envPort);
         }
 
-        // DELETE: old way
-        //ProcessBuilder processBuilder = new ProcessBuilder();
-        //if (processBuilder.environment().get("PORT") != null) {
-        //    return Integer.parseInt(processBuilder.environment().get("PORT"));
-        //}
-        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+        //return default port if environment variable not set (i.e. on localhost)
+        return port;
+
+    }
+
+    static String getHerokuDb() {
+        String db = "postgresql://localhost:5432/mydb";
+
+        String envDb = System.getenv().get("DATABASE_URL");
+        if (envDb != null) {
+            db = envDb;
+        }
+
+        // return default db if environment variable not set
+        return db;
     }
 }
