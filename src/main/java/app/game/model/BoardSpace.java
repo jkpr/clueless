@@ -4,49 +4,49 @@ package app.game.model;
  * Created by james on 11/26/16.
  */
 public class BoardSpace {
-
-    private BoardSpace(){}
-
     // Nine rooms
-    public static final int KITCHEN = 0;
-    public static final int BALLROOM = 1;
-    public static final int CONSERVATORY = 2;
-    public static final int DINING_ROOM = 3;
-    public static final int BILLIARD_ROOM = 4;
-    public static final int LIBRARY = 5;
-    public static final int LOUNGE = 6;
-    public static final int HALL = 7;
-    public static final int STUDY = 8;
+    public static final String KITCHEN = "Kitchen";
+    public static final String BALLROOM = "Ballroom";
+    public static final String CONSERVATORY = "Conservatory";
+    public static final String DINING_ROOM = "Dining room";
+    public static final String BILLIARD_ROOM = "Billiard room";
+    public static final String LIBRARY = "Library";
+    public static final String LOUNGE = "Lounge";
+    public static final String HALL = "Hall";
+    public static final String STUDY = "Study";
 
     // Six start squares
-    public static final int SCARLET_START = 10;
-    public static final int MUSTARD_START = 11;
-    public static final int WHITE_START = 12;
-    public static final int GREEN_START = 13;
-    public static final int PEACOCK_START = 14;
-    public static final int PLUM_START = 15;
+    public static final String SCARLET_START = "Scarlet start";
+    public static final String MUSTARD_START = "Mustard start";
+    public static final String WHITE_START = "White start";
+    public static final String GREEN_START = "Green start";
+    public static final String PEACOCK_START = "Peacock start";
+    public static final String PLUM_START = "Plum start";
 
     // Twelve hallways
-    public static final int HALL__STUDY = 20;
-    public static final int HALL__LOUNGE = 21;
-    public static final int LIBRARY__STUDY = 22;
-    public static final int BILLIARD_ROOM__HALL = 23;
-    public static final int DINING_ROOM__LOUNGE = 24;
-    public static final int BILLIARD_ROOM__LIBRARY = 25;
-    public static final int BILLIARD_ROOM__DINING_ROOM = 26;
-    public static final int CONSERVATORY__LIBRARY = 27;
-    public static final int BALLROOM__BILLIARD_ROOM = 28;
-    public static final int DINING_ROOM__KITCHEN = 29;
-    public static final int BALLROOM__CONSERVATORY = 30;
-    public static final int BALLROOM__KITCHEN = 31;
+    public static final String HALL__STUDY = "Hall-Study";
+    public static final String HALL__LOUNGE = "Hall-Lounge";
+    public static final String LIBRARY__STUDY = "Library-Study";
+    public static final String BILLIARD_ROOM__HALL = "Billiard room-Hall";
+    public static final String DINING_ROOM__LOUNGE = "Dining room-Lounge";
+    public static final String BILLIARD_ROOM__LIBRARY = "Billiard room-Library";
+    public static final String BILLIARD_ROOM__DINING_ROOM = "Billiard room-Dining room";
+    public static final String CONSERVATORY__LIBRARY = "Conservatory-Library";
+    public static final String BALLROOM__BILLIARD_ROOM = "Ballroom-Billiard room";
+    public static final String DINING_ROOM__KITCHEN = "Dining room-Kitchen";
+    public static final String BALLROOM__CONSERVATORY = "Ballroom-Conservatory";
+    public static final String BALLROOM__KITCHEN = "Ballroom-Kitchen";
 
-    // Three types
-    public static final int ROOM = 40;
-    public static final int HALLWAY = 41;
-    public static final int START_SPACE = 42;
+    public final String name;
+    public final GameProperty spaceType;
 
-    public static int getType(int spaceName) {
-        switch (spaceName) {
+    public BoardSpace(String name) {
+        this.name = name;
+        spaceType = getSpaceType();
+    }
+
+    private GameProperty getSpaceType() {
+        switch(name) {
             case KITCHEN:
             case BALLROOM:
             case CONSERVATORY:
@@ -56,14 +56,14 @@ public class BoardSpace {
             case LOUNGE:
             case HALL:
             case STUDY:
-                return ROOM;
+                return GameProperty.ROOM;
             case SCARLET_START:
             case MUSTARD_START:
             case WHITE_START:
             case GREEN_START:
             case PEACOCK_START:
             case PLUM_START:
-                return START_SPACE;
+                return GameProperty.START_SPACE;
             case HALL__STUDY:
             case HALL__LOUNGE:
             case LIBRARY__STUDY:
@@ -76,11 +76,10 @@ public class BoardSpace {
             case DINING_ROOM__KITCHEN:
             case BALLROOM__CONSERVATORY:
             case BALLROOM__KITCHEN:
-                return HALLWAY;
+                return GameProperty.START_SPACE;
             default:
-                // error
-                return -1;
+                // TODO consider throwing an exception instead??
+                return null;
         }
     }
-
 }

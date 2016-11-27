@@ -46,7 +46,7 @@ public class Application
     }
 
     static String getHerokuDb() {
-        String db = "postgresql://localhost:5432/mydb";
+        String db = "postgresql://username:password@localhost:5432/mydb";
 
         String envDb = System.getenv().get("DATABASE_URL");
         if (envDb != null) {
