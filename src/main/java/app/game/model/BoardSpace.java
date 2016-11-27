@@ -1,5 +1,7 @@
 package app.game.model;
 
+import app.exception.GameModelException;
+
 /**
  * Created by james on 11/26/16.
  */
@@ -40,46 +42,9 @@ public class BoardSpace {
     public final String name;
     public final GameProperty spaceType;
 
-    public BoardSpace(String name) {
+    public BoardSpace(String name) throws GameModelException {
         this.name = name;
-        spaceType = getSpaceType();
+        spaceType = GameProperty.getType(name);
     }
 
-    private GameProperty getSpaceType() {
-        switch(name) {
-            case KITCHEN:
-            case BALLROOM:
-            case CONSERVATORY:
-            case DINING_ROOM:
-            case BILLIARD_ROOM:
-            case LIBRARY:
-            case LOUNGE:
-            case HALL:
-            case STUDY:
-                return GameProperty.ROOM;
-            case SCARLET_START:
-            case MUSTARD_START:
-            case WHITE_START:
-            case GREEN_START:
-            case PEACOCK_START:
-            case PLUM_START:
-                return GameProperty.START_SPACE;
-            case HALL__STUDY:
-            case HALL__LOUNGE:
-            case LIBRARY__STUDY:
-            case BILLIARD_ROOM__HALL:
-            case DINING_ROOM__LOUNGE:
-            case BILLIARD_ROOM__LIBRARY:
-            case BILLIARD_ROOM__DINING_ROOM:
-            case CONSERVATORY__LIBRARY:
-            case BALLROOM__BILLIARD_ROOM:
-            case DINING_ROOM__KITCHEN:
-            case BALLROOM__CONSERVATORY:
-            case BALLROOM__KITCHEN:
-                return GameProperty.START_SPACE;
-            default:
-                // TODO consider throwing an exception instead??
-                return null;
-        }
-    }
 }

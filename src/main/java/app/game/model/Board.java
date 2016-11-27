@@ -59,6 +59,8 @@ public class Board {
     private final BoardSpace BALLROOM__CONSERVATORY = new BoardSpace(BoardSpace.BALLROOM__CONSERVATORY);
     private final BoardSpace BALLROOM__KITCHEN = new BoardSpace(BoardSpace.BALLROOM__KITCHEN);
 
+    Board() throws GameModelException {}
+
     public CharacterToken getCharacterToken(String name) throws GameModelException {
         switch(name) {
             case CharacterToken.MS_SCARLET:
@@ -156,5 +158,59 @@ public class Board {
             default:
                 throw new GameModelException(name);
         }
+    }
+
+    public Set<BoardSpace> getSpaceConnections(String name) throws GameModelException {
+        Set<BoardSpace> connections = new HashSet<>();
+        switch(name) {
+            case BoardSpace.KITCHEN:
+                connections.add(DINING_ROOM__KITCHEN);
+                connections.add(BALLROOM__KITCHEN);
+                connections.add(STUDY);
+                return connections;
+            case BoardSpace.BALLROOM:
+                // TODO continue on as in KITCHEN
+            case BoardSpace.CONSERVATORY:
+            case BoardSpace.DINING_ROOM:
+            case BoardSpace.BILLIARD_ROOM:
+            case BoardSpace.LIBRARY:
+            case BoardSpace.LOUNGE:
+            case BoardSpace.HALL:
+            case BoardSpace.STUDY:
+            case BoardSpace.SCARLET_START:
+            case BoardSpace.MUSTARD_START:
+            case BoardSpace.WHITE_START:
+            case BoardSpace.GREEN_START:
+            case BoardSpace.PEACOCK_START:
+            case BoardSpace.PLUM_START:
+            case BoardSpace.HALL__STUDY:
+            case BoardSpace.HALL__LOUNGE:
+            case BoardSpace.LIBRARY__STUDY:
+            case BoardSpace.BILLIARD_ROOM__HALL:
+            case BoardSpace.DINING_ROOM__LOUNGE:
+            case BoardSpace.BILLIARD_ROOM__LIBRARY:
+            case BoardSpace.BILLIARD_ROOM__DINING_ROOM:
+            case BoardSpace.CONSERVATORY__LIBRARY:
+            case BoardSpace.BALLROOM__BILLIARD_ROOM:
+            case BoardSpace.DINING_ROOM__KITCHEN:
+            case BoardSpace.BALLROOM__CONSERVATORY:
+            case BoardSpace.BALLROOM__KITCHEN:
+            default:
+                throw new GameModelException(name);
+        }
+    }
+
+    public Set<BoardSpace> getSpaceConnections(BoardSpace space) throws GameModelException {
+        return getSpaceConnections(space.name);
+    }
+
+    public Set<CharacterToken> getSpaceOccupants(String name) {
+        // TODO: check all the character tokens if they point to this board space name
+        // stub
+        return null;
+    }
+
+    public Set<CharacterToken> getSpaceOccupants(BoardSpace space) {
+        return getSpaceOccupants(space.name);
     }
 }
