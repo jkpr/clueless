@@ -1,9 +1,9 @@
-package app.game;
+package app.game.model;
 
 /**
  * Created by james on 11/26/16.
  */
-public class Card {
+public class CardOLD {
     enum Value {
         // Rooms
         KITCHEN,
@@ -41,7 +41,7 @@ public class Card {
 
     Value value;
 
-    public Card(Value value) {
+    public CardOLD(Value value) {
         this.value = value;
     }
 

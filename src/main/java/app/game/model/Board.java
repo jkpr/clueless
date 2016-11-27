@@ -1,8 +1,8 @@
-package app.game;
+package app.game.model;
 
 import java.util.*;
 
-import static app.game.BoardSpace.*;
+import static app.game.model.BoardSpace.*;
 
 /**
  * Created by james on 11/26/16.
