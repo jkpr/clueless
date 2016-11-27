@@ -8,10 +8,10 @@ import app.exception.GameModelException;
 public class Card {
 
     public final String name;
-    public final GameProperty cardType;
+    public final GameProperty type;
 
     public Card(String name) throws GameModelException {
         this.name = name;
-        cardType = GameProperty.getType(name);
+        type = GameProperty.getType(name);
     }
 }

@@ -40,11 +40,11 @@ public class BoardSpace {
     public static final String BALLROOM__KITCHEN = "Ballroom-Kitchen";
 
     public final String name;
-    public final GameProperty spaceType;
+    public final GameProperty type;
 
     public BoardSpace(String name) throws GameModelException {
         this.name = name;
-        spaceType = GameProperty.getType(name);
+        type = GameProperty.getType(name);
     }
 
 }
