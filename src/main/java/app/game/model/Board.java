@@ -287,33 +287,71 @@ public class Board {
     }
 
     public Set<CharacterToken> getSpaceOccupants(String name) {
-        // TODO: check all the character tokens if they point to this board space name
-        // stub
         Set<CharacterToken> occupants = new HashSet<>();
 
-        if (MS_SCARLET.getCurrentSpace().name.equals(name))
+        if (MS_SCARLET.getCurrentSpace().name.equals(name)) {
             occupants.add(MS_SCARLET);
+        }
 
-        if (COL_MUSTARD.getCurrentSpace().name.equals(name))
+        if (COL_MUSTARD.getCurrentSpace().name.equals(name)) {
             occupants.add(COL_MUSTARD);
+        }
 
-        if (MRS_WHITE.getCurrentSpace().name.equals(name))
+        if (MRS_WHITE.getCurrentSpace().name.equals(name)) {
             occupants.add(MRS_WHITE);
+        }
 
-        if (MR_GREEN.getCurrentSpace().name.equals(name))
+        if (MR_GREEN.getCurrentSpace().name.equals(name)) {
             occupants.add(MR_GREEN);
+        }
 
-        if (MRS_PEACOCK.getCurrentSpace().name.equals(name))
+        if (MRS_PEACOCK.getCurrentSpace().name.equals(name)) {
             occupants.add(MRS_PEACOCK);
+        }
 
-        if (PROF_PLUM.getCurrentSpace().name.equals(name))
+        if (PROF_PLUM.getCurrentSpace().name.equals(name)) {
             occupants.add(PROF_PLUM);
+        }
 
         return occupants;
     }
 
     public Set<CharacterToken> getSpaceOccupants(BoardSpace space) {
         return getSpaceOccupants(space.name);
+    }
+
+    public Set<WeaponToken> getSpaceWeapons(String name) {
+        Set<WeaponToken> weapons = new HashSet<>();
+
+        if (CANDLESTICK.getCurrentSpace().name.equals(name)) {
+            weapons.add(CANDLESTICK);
+        }
+
+        if (KNIFE.getCurrentSpace().name.equals(name)) {
+            weapons.add(KNIFE);
+        }
+
+        if (PIPE.getCurrentSpace().name.equals(name)) {
+            weapons.add(PIPE);
+        }
+
+        if (REVOLVER.getCurrentSpace().name.equals(name)) {
+            weapons.add(REVOLVER);
+        }
+
+        if (ROPE.getCurrentSpace().name.equals(name)) {
+            weapons.add(ROPE);
+        }
+
+        if (WRENCH.getCurrentSpace().name.equals(name)) {
+            weapons.add(WRENCH);
+        }
+
+        return weapons;
+    }
+
+    public Set<WeaponToken> getSpaceWeapons(BoardSpace space) {
+        return getSpaceWeapons(space.name);
     }
 
     public boolean isDirectedConnection(String from, String to) {
@@ -354,5 +392,142 @@ public class Board {
         board.WRENCH.setCurrentSpace(board.getBoardSpace(payload.getWrench()));
 
         return board;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal = false;
+
+        if (obj instanceof Board) {
+            Board other = (Board) obj;
+            try {
+                boolean sameScarlet = MS_SCARLET.equals(other.getCharacterToken(CharacterToken.MS_SCARLET));
+                boolean sameMustard = COL_MUSTARD.equals(other.getCharacterToken(CharacterToken.COL_MUSTARD));
+                boolean sameWhite = MRS_WHITE.equals(other.getCharacterToken(CharacterToken.MRS_WHITE));
+                boolean sameGreen = MR_GREEN.equals(other.getCharacterToken(CharacterToken.MR_GREEN));
+                boolean samePeacock = MRS_PEACOCK.equals(other.getCharacterToken(CharacterToken.MRS_PEACOCK));
+                boolean samePlum = PROF_PLUM.equals(other.getCharacterToken(CharacterToken.PROF_PLUM));
+                boolean sameCharacters = sameScarlet && sameMustard && sameWhite && sameGreen && samePeacock && samePlum;
+
+                boolean sameCandlestick = CANDLESTICK.equals(other.getWeaponToken(WeaponToken.CANDLESTICK));
+                boolean sameKnife = KNIFE.equals(other.getWeaponToken(WeaponToken.KNIFE));
+                boolean samePipe = PIPE.equals(other.getWeaponToken(WeaponToken.PIPE));
+                boolean sameRevolver = REVOLVER.equals(other.getWeaponToken(WeaponToken.REVOLVER));
+                boolean sameRope = ROPE.equals(other.getWeaponToken(WeaponToken.ROPE));
+                boolean sameWrench = WRENCH.equals(other.getWeaponToken(WeaponToken.WRENCH));
+                boolean sameWeapons = sameCandlestick && sameKnife && samePipe && sameRevolver && sameRope && sameWrench;
+
+                equal = sameCharacters && sameWeapons;
+            } catch (GameModelException e) {
+                // TODO: Logger message
+                // do nothing, leave equal set to false
+            }
+        }
+
+        return equal;
+    }
+
+    public String toVisualString() {
+        return null;
+    }
+
+    public String visualTopRooms() {
+        // TODO make better (better bigger rooms)
+        int topRoomsSize = 196;
+        int roomWidth = 4;
+        int hallWidth = 4;
+
+        // TODO for future: Perhaps make visual string entirely dependent on parameters??
+        StringBuilder visual = new StringBuilder(topRoomsSize);
+        visual.append("   St        Ha        Lo   \n");
+        visual.append("  ----      ----      ----  \n");
+
+        // TODO for future: Perhaps sort so that the output string is the same every time??
+        List<Shortenable> studyOcc = new LinkedList<>(getSpaceOccupants(STUDY));
+        List<Shortenable> hallOcc = new LinkedList<>(getSpaceOccupants(HALL));
+        List<Shortenable> loungeOcc = new LinkedList<>(getSpaceOccupants(LOUNGE));
+
+        visual.append(" |");
+        visual.append(popNextShort(studyOcc, roomWidth));
+        visual.append("|----|");
+        visual.append(popNextShort(hallOcc, roomWidth));
+        visual.append("|----|");
+        visual.append(popNextShort(loungeOcc, roomWidth));
+        visual.append("| \n");
+
+        List<Shortenable> haStOcc = new LinkedList<>(getSpaceOccupants(HALL__STUDY));
+        List<Shortenable> haLoOcc = new LinkedList<>(getSpaceOccupants(HALL__LOUNGE));
+
+        visual.append(" |");
+        visual.append(popNextShort(studyOcc, roomWidth));
+        visual.append("|");
+        visual.append(popNextShort(haStOcc, hallWidth));
+        visual.append("|");
+        visual.append(popNextShort(hallOcc, roomWidth));
+        visual.append("|");
+        visual.append(popNextShort(haLoOcc, hallWidth));
+        visual.append("|");
+        visual.append(popNextShort(loungeOcc, roomWidth));
+        visual.append("| \n");
+
+        List<Shortenable> studyWeap = new LinkedList<>(getSpaceWeapons(STUDY));
+        List<Shortenable> hallWeap = new LinkedList<>(getSpaceWeapons(HALL));
+        List<Shortenable> loungeWeap = new LinkedList<>(getSpaceWeapons(LOUNGE));
+
+        List<Shortenable> haStWeap = new LinkedList<>(getSpaceWeapons(HALL__STUDY));
+        List<Shortenable> haLoWeap = new LinkedList<>(getSpaceWeapons(HALL__LOUNGE));
+
+        visual.append(" |");
+        visual.append(popNextShort(studyWeap, roomWidth));
+        visual.append("|");
+        visual.append(popNextShort(haStWeap, hallWidth));
+        visual.append("|");
+        visual.append(popNextShort(hallWeap, roomWidth));
+        visual.append("|");
+        visual.append(popNextShort(haLoWeap, hallWidth));
+        visual.append("|");
+        visual.append(popNextShort(loungeWeap, roomWidth));
+        visual.append("| \n");
+
+        visual.append(" |");
+        visual.append(popNextShort(studyWeap, roomWidth));
+        visual.append("|----|");
+        visual.append(popNextShort(hallWeap, roomWidth));
+        visual.append("|----|");
+        visual.append(popNextShort(loungeWeap, roomWidth));
+        visual.append("| \n");
+
+        visual.append("  ----      ----      ----  \n");
+
+        return visual.toString();
+    }
+
+    public String visualTopHalls() {
+        return "";
+    }
+
+    public String visualMiddleRooms() {
+        return "";
+    }
+
+    public String visualBottomHalls() {
+        return "";
+    }
+
+    public String visualBottomRooms() {
+        return "";
+    }
+
+    private String popNextShort(List<Shortenable> list, int n) {
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            if (list.isEmpty()) {
+                sb.append(" ");
+            } else {
+                Shortenable token = list.remove(0);
+                sb.append(token.toChar());
+            }
+        }
+        return sb.toString();
     }
 }

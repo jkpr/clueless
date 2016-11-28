@@ -47,4 +47,16 @@ public class BoardSpace {
         type = GameProperty.getType(name);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal = false;
+
+        if (obj instanceof BoardSpace) {
+            BoardSpace other = (BoardSpace) obj;
+            equal = name.equals(other.name);
+        }
+
+        return equal;
+    }
+
 }

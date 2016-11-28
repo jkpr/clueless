@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import static app.game.model.BoardSpace.*;
 import static org.junit.Assert.assertFalse;
@@ -43,7 +44,9 @@ public class BoardTest {
     @Test
     public void testBoardFromJson() {
         try {
-            BoardPayload payload = mapper.readValue("{    \"Ms. Scarlet\": \"Ballroom\",    \"Col. Mustard\": \"Ballroom\",    \"Mrs. White\": \"Ballroom\",    \"Mr. Green\": \"Kitchen\",    \"Mrs. Peacock\": \"Kitchen\",    \"Prof. Plum\": \"Kitchen\",    \"Candlestick\": \"Library\",    \"Knife\": \"Library\",    \"Pipe\": \"Library\",    \"Revolver\": \"Library\",    \"Rope\": \"Library\",    \"Wrench\": \"Library\"}", BoardPayload.class);
+            InputStream board1 = getClass().getResourceAsStream("/Board1.json");
+
+            BoardPayload payload = mapper.readValue(board1, BoardPayload.class);
             Board board = Board.initializeFromPayload(payload);
             System.out.println(board);
             // TODO: make a real test here
