@@ -4,6 +4,7 @@ import app.database.DatabaseConnection;
 import app.index.IndexController;
 import app.util.Path;
 import app.util.ViewUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Spark;
@@ -16,6 +17,9 @@ public class Application
 {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
+    public static DatabaseConnection connectionPool;
+    public static ObjectMapper jsonMapper;
+
     public static void main( String[] args )
     {
         // Initialize Spark
@@ -24,36 +28,41 @@ public class Application
         ViewUtil.initializeFreeMarker();
 
         // Initialize Database
-        DatabaseConnection.initializeConnection(getHerokuDb());
+        connectionPool = new DatabaseConnection(getHerokuDb());
+
+        // Initialize JSON mapper
+        jsonMapper = new ObjectMapper();
 
         // Initialize routes
         Spark.get(Path.Web.INDEX, IndexController.serveIndexPage);
 
-        logger.info("Finished app initialization: port, static, freemarker, db, routes");
+        logger.info("Finished app initialization: port, static, freemarker, db, json mapper, routes");
     }
 
     static int getHerokuAssignedPort() {
+        // default port for local development
         int port = 4567;
 
+        // search for environment variable (Heroku)
         String envPort = System.getenv().get("PORT");
         if (envPort != null) {
             port = Integer.parseInt(envPort);
         }
 
-        //return default port if environment variable not set (i.e. on localhost)
         return port;
 
     }
 
     static String getHerokuDb() {
-        String db = "postgresql://username:password@localhost:5432/mydb";
+        // default port for local development
+        String db = "postgresql://localhost:5432/mydb";
 
+        // search for environment variable (Heroku)
         String envDb = System.getenv().get("DATABASE_URL");
         if (envDb != null) {
             db = envDb;
         }
 
-        // return default db if environment variable not set
         return db;
     }
 }

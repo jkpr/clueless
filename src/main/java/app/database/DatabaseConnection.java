@@ -16,11 +16,15 @@ import java.sql.SQLException;
  */
 public class DatabaseConnection {
     private static final Logger logger = LoggerFactory.getLogger(DatabaseConnection.class);
-    private static final int N_CONNECTIONS = 6;
+    private final int N_CONNECTIONS = 6;
 
-    private static BasicDataSource connectionPool;
+    private BasicDataSource connectionPool;
 
-    public static void initializeConnection(String Uri) {
+    public DatabaseConnection(String Uri) {
+        initializeConnection(Uri);
+    }
+
+    private void initializeConnection(String Uri) {
         if (connectionPool != null) {
             return;
         }
@@ -48,7 +52,7 @@ public class DatabaseConnection {
         }
     }
 
-    private static void assert_users() {
+    private void assert_users() {
         try {
             Connection connection = connectionPool.getConnection();
             Statement stmt = connection.createStatement();

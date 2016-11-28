@@ -1,6 +1,7 @@
 package app.game.model;
 
 import app.exception.GameModelException;
+import app.json.BoardPayload;
 
 import java.util.*;
 
@@ -60,7 +61,7 @@ public class Board {
     private final BoardSpace BALLROOM__CONSERVATORY = new BoardSpace(BoardSpace.BALLROOM__CONSERVATORY);
     private final BoardSpace BALLROOM__KITCHEN = new BoardSpace(BoardSpace.BALLROOM__KITCHEN);
 
-    Board() throws GameModelException {}
+    public Board() throws GameModelException {}
 
     public CharacterToken getCharacterToken(String name) throws GameModelException {
         switch(name) {
@@ -170,112 +171,111 @@ public class Board {
                 connections.add(STUDY);
                 return connections;
             case BoardSpace.BALLROOM:
-                // TODO continue on as in KITCHEN
-				connections.add(BALLROOM__BILLIARD_ROOM);
-				connections.add(BALLROOM__CONSERVATORY);
-				connections.add(BALLROOM__KITCHEN);
-				return connections;
+                connections.add(BALLROOM__BILLIARD_ROOM);
+                connections.add(BALLROOM__CONSERVATORY);
+                connections.add(BALLROOM__KITCHEN);
+                return connections;
             case BoardSpace.CONSERVATORY:
-				connections.add(CONSERVATORY__LIBRARY);
-				connections.add(BALLROOM__CONSERVATORY);
-				connections.add(LOUNGE);
+                connections.add(CONSERVATORY__LIBRARY);
+                connections.add(BALLROOM__CONSERVATORY);
+                connections.add(LOUNGE);
                 return connections;
             case BoardSpace.DINING_ROOM:
-				connections.add(DINING_ROOM__KITCHEN);
-				connections.add(DINING_ROOM__LOUNGE);
-				connections.add(BILLIARD_ROOM__DINING_ROOM);
+                connections.add(DINING_ROOM__KITCHEN);
+                connections.add(DINING_ROOM__LOUNGE);
+                connections.add(BILLIARD_ROOM__DINING_ROOM);
                 return connections;
             case BoardSpace.BILLIARD_ROOM:
-				connections.add(BILLIARD_ROOM__DINING_ROOM);
-				connections.add(BILLIARD_ROOM__HALL);
-				connections.add(BILLIARD_ROOM__LIBRARY);
-				connections.add(BALLROOM__BILLIARD_ROOM);
+                connections.add(BILLIARD_ROOM__DINING_ROOM);
+                connections.add(BILLIARD_ROOM__HALL);
+                connections.add(BILLIARD_ROOM__LIBRARY);
+                connections.add(BALLROOM__BILLIARD_ROOM);
                 return connections;
             case BoardSpace.LIBRARY:
-				connections.add(LIBRARY__STUDY);
-				connections.add(BILLIARD_ROOM__LIBRARY);
-				connections.add(CONSERVATORY__LIBRARY);
+                connections.add(LIBRARY__STUDY);
+                connections.add(BILLIARD_ROOM__LIBRARY);
+                connections.add(CONSERVATORY__LIBRARY);
                 return connections;
             case BoardSpace.LOUNGE:
-				connections.add(HALL__LOUNGE);
-				connections.add(DINING_ROOM__LOUNGE);
-				connections.add(CONSERVATORY);
+                connections.add(HALL__LOUNGE);
+                connections.add(DINING_ROOM__LOUNGE);
+                connections.add(CONSERVATORY);
                 return connections;
             case BoardSpace.HALL:
-				connections.add(HALL__LOUNGE);
-				connections.add(HALL__STUDY);
-				connections.add(BILLIARD_ROOM__HALL);
+                connections.add(HALL__LOUNGE);
+                connections.add(HALL__STUDY);
+                connections.add(BILLIARD_ROOM__HALL);
                 return connections;
             case BoardSpace.STUDY:
-				connections.add(HALL__STUDY);
-				connections.add(LIBRARY__STUDY);
-				connections.add(KITCHEN);
+                connections.add(HALL__STUDY);
+                connections.add(LIBRARY__STUDY);
+                connections.add(KITCHEN);
                 return connections;
             case BoardSpace.SCARLET_START:
-				connections.add(HALL__LOUNGE);
+                connections.add(HALL__LOUNGE);
                 return connections;
             case BoardSpace.MUSTARD_START:
-				connections.add(DINING_ROOM__LOUNGE);
+                connections.add(DINING_ROOM__LOUNGE);
                 return connections;
             case BoardSpace.WHITE_START:
-				connections.add(BALLROOM__KITCHEN);
+                connections.add(BALLROOM__KITCHEN);
                 return connections;
             case BoardSpace.GREEN_START:
-				connections.add(BALLROOM__CONSERVATORY);
+                connections.add(BALLROOM__CONSERVATORY);
                 return connections;
             case BoardSpace.PEACOCK_START:
-				connections.add(CONSERVATORY__LIBRARY);
+                connections.add(CONSERVATORY__LIBRARY);
                 return connections;
             case BoardSpace.PLUM_START:
-				connections.add(LIBRARY__STUDY);
+                connections.add(LIBRARY__STUDY);
                 return connections;
             case BoardSpace.HALL__STUDY:
-				connections.add(HALL);
-				connections.add(STUDY);
+                connections.add(HALL);
+                connections.add(STUDY);
                 return connections;
             case BoardSpace.HALL__LOUNGE:
-				connections.add(HALL);
-				connections.add(LOUNGE);
+                connections.add(HALL);
+                connections.add(LOUNGE);
                 return connections;
             case BoardSpace.LIBRARY__STUDY:
-				connections.add(LIBRARY);
-				connections.add(STUDY);
+                connections.add(LIBRARY);
+                connections.add(STUDY);
                 return connections;
             case BoardSpace.BILLIARD_ROOM__HALL:
-				connections.add(BILLIARD_ROOM);
-				connections.add(HALL);
+                connections.add(BILLIARD_ROOM);
+                connections.add(HALL);
                 return connections;
             case BoardSpace.DINING_ROOM__LOUNGE:
-				connections.add(DINING_ROOM);
-				connections.add(LOUNGE);
+                connections.add(DINING_ROOM);
+                connections.add(LOUNGE);
                 return connections;
             case BoardSpace.BILLIARD_ROOM__LIBRARY:
-				connections.add(BILLIARD_ROOM);
-				connections.add(LIBRARY);
+                connections.add(BILLIARD_ROOM);
+                connections.add(LIBRARY);
                 return connections;
             case BoardSpace.BILLIARD_ROOM__DINING_ROOM:
-				connections.add(BILLIARD_ROOM);
-				connections.add(DINING_ROOM);
+                connections.add(BILLIARD_ROOM);
+                connections.add(DINING_ROOM);
                 return connections;
             case BoardSpace.CONSERVATORY__LIBRARY:
-				connections.add(CONSERVATORY);
-				connections.add(LIBRARY);
+                connections.add(CONSERVATORY);
+                connections.add(LIBRARY);
                 return connections;
             case BoardSpace.BALLROOM__BILLIARD_ROOM:
-				connections.add(BALLROOM);
-				connections.add(BILLIARD_ROOM);
+                connections.add(BALLROOM);
+                connections.add(BILLIARD_ROOM);
                 return connections;
             case BoardSpace.DINING_ROOM__KITCHEN:
-				connections.add(DINING_ROOM);
-				connections.add(KITCHEN);
+                connections.add(DINING_ROOM);
+                connections.add(KITCHEN);
                 return connections;
             case BoardSpace.BALLROOM__CONSERVATORY:
-				connections.add(BALLROOM);
-				connections.add(CONSERVATORY);
+                connections.add(BALLROOM);
+                connections.add(CONSERVATORY);
                 return connections;
             case BoardSpace.BALLROOM__KITCHEN:
-				connections.add(BALLROOM);
-				connections.add(KITCHEN);
+                connections.add(BALLROOM);
+                connections.add(KITCHEN);
                 return connections;
             default:
                 throw new GameModelException(name);
@@ -314,5 +314,45 @@ public class Board {
 
     public Set<CharacterToken> getSpaceOccupants(BoardSpace space) {
         return getSpaceOccupants(space.name);
+    }
+
+    public boolean isDirectedConnection(String from, String to) {
+        boolean pathFound = false;
+        try {
+            Set<BoardSpace> connections = getSpaceConnections(from);
+            for (BoardSpace space : connections) {
+                if (space.name.equals(to)) {
+                    pathFound = true;
+                    break;
+                }
+            }
+        } catch (GameModelException e) {
+            // do nothing (return false)
+        }
+        return pathFound;
+    }
+
+    public boolean isDirectedConnection(BoardSpace from, BoardSpace to) {
+        return isDirectedConnection(from.name, to.name);
+    }
+
+    public static Board initializeFromPayload(BoardPayload payload) throws GameModelException {
+        Board board = new Board();
+
+        board.MS_SCARLET.setCurrentSpace(board.getBoardSpace(payload.getMsScarlet()));
+        board.COL_MUSTARD.setCurrentSpace(board.getBoardSpace(payload.getColMustard()));
+        board.MRS_WHITE.setCurrentSpace(board.getBoardSpace(payload.getMrsWhite()));
+        board.MR_GREEN.setCurrentSpace(board.getBoardSpace(payload.getMrGreen()));
+        board.MRS_PEACOCK.setCurrentSpace(board.getBoardSpace(payload.getMrsPeacock()));
+        board.PROF_PLUM.setCurrentSpace(board.getBoardSpace(payload.getProfPlum()));
+
+        board.CANDLESTICK.setCurrentSpace(board.getBoardSpace(payload.getCandlestick()));
+        board.KNIFE.setCurrentSpace(board.getBoardSpace(payload.getKnife()));
+        board.PIPE.setCurrentSpace(board.getBoardSpace(payload.getPipe()));
+        board.REVOLVER.setCurrentSpace(board.getBoardSpace(payload.getRevolver()));
+        board.ROPE.setCurrentSpace(board.getBoardSpace(payload.getRope()));
+        board.WRENCH.setCurrentSpace(board.getBoardSpace(payload.getWrench()));
+
+        return board;
     }
 }
