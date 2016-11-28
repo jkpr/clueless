@@ -291,25 +291,25 @@ public class Board {
         // stub
         Set<CharacterToken> occupants = new HashSet<>();
 
-        if (MS_SCARLET.getCurrentSpace().name == name)
+        if (MS_SCARLET.getCurrentSpace().name.equals(name))
             occupants.add(MS_SCARLET);
 
-        if (COL_MUSTARD.getCurrentSpace().name == name)
+        if (COL_MUSTARD.getCurrentSpace().name.equals(name))
             occupants.add(COL_MUSTARD);
 
-        if (MRS_WHITE.getCurrentSpace().name == name)
+        if (MRS_WHITE.getCurrentSpace().name.equals(name))
             occupants.add(MRS_WHITE);
 
-        if (MR_GREEN.getCurrentSpace().name == name)
+        if (MR_GREEN.getCurrentSpace().name.equals(name))
             occupants.add(MR_GREEN);
 
-        if (MRS_PEACOCK.getCurrentSpace().name == name)
+        if (MRS_PEACOCK.getCurrentSpace().name.equals(name))
             occupants.add(MRS_PEACOCK);
 
-        if (PROF_PLUM.getCurrentSpace().name == name)
+        if (PROF_PLUM.getCurrentSpace().name.equals(name))
             occupants.add(PROF_PLUM);
 
-        return null;
+        return occupants;
     }
 
     public Set<CharacterToken> getSpaceOccupants(BoardSpace space) {
