@@ -109,9 +109,52 @@ public class Dealer {
         return weapons;
     }
 
-    public Card getCard(String name) {
+    public Card getCard(String name) throws  GameModelException{
         // TODO: return card just as in Board.getBoardSpace
-        return null;
+        switch(name){
+            case BoardSpace.KITCHEN:
+                return KITCHEN;
+            case BoardSpace.BALLROOM:
+                return BALLROOM;
+            case BoardSpace.CONSERVATORY:
+                return CONSERVATORY;
+            case BoardSpace.DINING_ROOM:
+                return DINING_ROOM;
+            case BoardSpace.BILLIARD_ROOM:
+                return BILLIARD_ROOM;
+            case BoardSpace.LIBRARY:
+                return LIBRARY;
+            case BoardSpace.LOUNGE:
+                return LOUNGE;
+            case BoardSpace.HALL:
+                return HALL;
+            case CharacterToken.MS_SCARLET:
+                return MS_SCARLET;
+            case CharacterToken.COL_MUSTARD:
+                return COL_MUSTARD;
+            case CharacterToken.MRS_WHITE:
+                return MRS_WHITE;
+            case CharacterToken.MR_GREEN:
+                return MR_GREEN;
+            case CharacterToken.MRS_PEACOCK:
+                return MRS_PEACOCK;
+            case CharacterToken.PROF_PLUM:
+                return PROF_PLUM;
+            case WeaponToken.CANDLESTICK:
+                return CANDLESTICK;
+            case WeaponToken.KNIFE:
+                return KNIFE;
+            case WeaponToken.PIPE:
+                return PIPE;
+            case WeaponToken.REVOLVER:
+                return REVOLVER;
+            case WeaponToken.ROPE:
+                return ROPE;
+            case WeaponToken.WRENCH:
+                return WRENCH;
+            default:
+                throw new GameModelException(name);
+        }
     }
 
     class DealResult {
