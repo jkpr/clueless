@@ -24,31 +24,25 @@ public class BoardTest {
 
     @Test
     public void testBoardSpaceConnections() {
-        try {
-            Board board = new Board();
+        Board board = new Board();
 
-            // Sample connections
-            assertTrue(board.isDirectedConnection(WHITE_START, BALLROOM__KITCHEN));
-            assertTrue(board.isDirectedConnection(LOUNGE, CONSERVATORY));
-            assertTrue(board.isDirectedConnection(CONSERVATORY, LOUNGE));
+        // Sample connections
+        assertTrue(board.isDirectedConnection(WHITE_START, BALLROOM__KITCHEN));
+        assertTrue(board.isDirectedConnection(LOUNGE, CONSERVATORY));
+        assertTrue(board.isDirectedConnection(CONSERVATORY, LOUNGE));
 
-            // Sample false connections
-            assertFalse(board.isDirectedConnection(BALLROOM__KITCHEN, WHITE_START));
-
-        } catch (GameModelException e) {
-            e.printStackTrace();
-            fail();
-        }
+        // Sample false connections
+        assertFalse(board.isDirectedConnection(BALLROOM__KITCHEN, WHITE_START));
     }
 
     @Test
     public void testBoardFromJson() {
         try {
-            InputStream board1 = getClass().getResourceAsStream("/Board1.json");
+            InputStream boardPayload = getClass().getResourceAsStream("/BoardStart.json");
 
-            BoardPayload payload = mapper.readValue(board1, BoardPayload.class);
+            BoardPayload payload = mapper.readValue(boardPayload, BoardPayload.class);
             Board board = Board.initializeFromPayload(payload);
-            System.out.println(board);
+            System.out.println(board.toVisualString());
             // TODO: make a real test here
             // TODO: read JSON from file
         } catch (IOException e) {

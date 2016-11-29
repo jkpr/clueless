@@ -18,19 +18,19 @@ public class Dealer {
     private final Card HALL = new Card(BoardSpace.HALL);
     private final Card STUDY = new Card(BoardSpace.STUDY);
 
-    private final Card MS_SCARLET = new Card(CharacterToken.MS_SCARLET);
-    private final Card COL_MUSTARD = new Card(CharacterToken.COL_MUSTARD);
-    private final Card MRS_WHITE = new Card(CharacterToken.MRS_WHITE);
-    private final Card MR_GREEN = new Card(CharacterToken.MR_GREEN);
-    private final Card MRS_PEACOCK = new Card(CharacterToken.MRS_PEACOCK);
-    private final Card PROF_PLUM = new Card(CharacterToken.PROF_PLUM);
+    private final Card MS_SCARLET = new Card(Character.MS_SCARLET);
+    private final Card COL_MUSTARD = new Card(Character.COL_MUSTARD);
+    private final Card MRS_WHITE = new Card(Character.MRS_WHITE);
+    private final Card MR_GREEN = new Card(Character.MR_GREEN);
+    private final Card MRS_PEACOCK = new Card(Character.MRS_PEACOCK);
+    private final Card PROF_PLUM = new Card(Character.PROF_PLUM);
 
-    private final Card CANDLESTICK = new Card(WeaponToken.CANDLESTICK);
-    private final Card KNIFE = new Card(WeaponToken.KNIFE);
-    private final Card PIPE = new Card(WeaponToken.PIPE);
-    private final Card REVOLVER = new Card(WeaponToken.REVOLVER);
-    private final Card ROPE = new Card(WeaponToken.ROPE);
-    private final Card WRENCH = new Card(WeaponToken.WRENCH);
+    private final Card CANDLESTICK = new Card(Weapon.CANDLESTICK);
+    private final Card KNIFE = new Card(Weapon.KNIFE);
+    private final Card PIPE = new Card(Weapon.PIPE);
+    private final Card REVOLVER = new Card(Weapon.REVOLVER);
+    private final Card ROPE = new Card(Weapon.ROPE);
+    private final Card WRENCH = new Card(Weapon.WRENCH);
 
     public Dealer() throws GameModelException {}
 
@@ -128,29 +128,29 @@ public class Dealer {
                 return LOUNGE;
             case BoardSpace.HALL:
                 return HALL;
-            case CharacterToken.MS_SCARLET:
+            case Character.MS_SCARLET:
                 return MS_SCARLET;
-            case CharacterToken.COL_MUSTARD:
+            case Character.COL_MUSTARD:
                 return COL_MUSTARD;
-            case CharacterToken.MRS_WHITE:
+            case Character.MRS_WHITE:
                 return MRS_WHITE;
-            case CharacterToken.MR_GREEN:
+            case Character.MR_GREEN:
                 return MR_GREEN;
-            case CharacterToken.MRS_PEACOCK:
+            case Character.MRS_PEACOCK:
                 return MRS_PEACOCK;
-            case CharacterToken.PROF_PLUM:
+            case Character.PROF_PLUM:
                 return PROF_PLUM;
-            case WeaponToken.CANDLESTICK:
+            case Weapon.CANDLESTICK:
                 return CANDLESTICK;
-            case WeaponToken.KNIFE:
+            case Weapon.KNIFE:
                 return KNIFE;
-            case WeaponToken.PIPE:
+            case Weapon.PIPE:
                 return PIPE;
-            case WeaponToken.REVOLVER:
+            case Weapon.REVOLVER:
                 return REVOLVER;
-            case WeaponToken.ROPE:
+            case Weapon.ROPE:
                 return ROPE;
-            case WeaponToken.WRENCH:
+            case Weapon.WRENCH:
                 return WRENCH;
             default:
                 throw new GameModelException(name);

@@ -2,161 +2,229 @@ package app.game.model;
 
 import app.exception.GameModelException;
 import app.json.BoardPayload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
-
-import static app.game.model.BoardSpace.*;
 
 /**
  * Created by james on 11/26/16.
  * Edited by chris on 11/27/16
  */
 public class Board {
+    private static final Logger logger = LoggerFactory.getLogger(Board.class);
+
     // Six character tokens
-    private final CharacterToken MS_SCARLET = new CharacterToken(CharacterToken.MS_SCARLET);
-    private final CharacterToken COL_MUSTARD = new CharacterToken(CharacterToken.COL_MUSTARD);
-    private final CharacterToken MRS_WHITE = new CharacterToken(CharacterToken.MRS_WHITE);
-    private final CharacterToken MR_GREEN = new CharacterToken(CharacterToken.MR_GREEN);
-    private final CharacterToken MRS_PEACOCK = new CharacterToken(CharacterToken.MRS_PEACOCK);
-    private final CharacterToken PROF_PLUM = new CharacterToken(CharacterToken.PROF_PLUM);
+    private Character msScarlet;
+    private Character colMustard;
+    private Character mrsWhite;
+    private Character mrGreen;
+    private Character mrsPeacock;
+    private Character profPlum;
 
     // Six weapon tokens
-    private final WeaponToken CANDLESTICK = new WeaponToken(WeaponToken.CANDLESTICK);
-    private final WeaponToken KNIFE = new WeaponToken(WeaponToken.KNIFE);
-    private final WeaponToken PIPE = new WeaponToken(WeaponToken.PIPE);
-    private final WeaponToken REVOLVER = new WeaponToken(WeaponToken.REVOLVER);
-    private final WeaponToken ROPE = new WeaponToken(WeaponToken.ROPE);
-    private final WeaponToken WRENCH = new WeaponToken(WeaponToken.WRENCH);
+    private Weapon candlestick;
+    private Weapon knife;
+    private Weapon pipe;
+    private Weapon revolver;
+    private Weapon rope;
+    private Weapon wrench;
 
     // Nine rooms
-    private final BoardSpace KITCHEN = new BoardSpace(BoardSpace.KITCHEN);
-    private final BoardSpace BALLROOM = new BoardSpace(BoardSpace.BALLROOM);
-    private final BoardSpace CONSERVATORY = new BoardSpace(BoardSpace.CONSERVATORY);
-    private final BoardSpace DINING_ROOM = new BoardSpace(BoardSpace.DINING_ROOM);
-    private final BoardSpace BILLIARD_ROOM = new BoardSpace(BoardSpace.BILLIARD_ROOM);
-    private final BoardSpace LIBRARY = new BoardSpace(BoardSpace.LIBRARY);
-    private final BoardSpace LOUNGE = new BoardSpace(BoardSpace.LOUNGE);
-    private final BoardSpace HALL = new BoardSpace(BoardSpace.HALL);
-    private final BoardSpace STUDY = new BoardSpace(BoardSpace.STUDY);
+    private BoardSpace kitchen;
+    private BoardSpace ballroom;
+    private BoardSpace conservatory;
+    private BoardSpace diningRoom;
+    private BoardSpace billiardRoom;
+    private BoardSpace library;
+    private BoardSpace lounge;
+    private BoardSpace hall;
+    private BoardSpace study;
 
     // Six start squares
-    private final BoardSpace SCARLET_START = new BoardSpace(BoardSpace.SCARLET_START);
-    private final BoardSpace MUSTARD_START = new BoardSpace(BoardSpace.MUSTARD_START);
-    private final BoardSpace WHITE_START = new BoardSpace(BoardSpace.WHITE_START);
-    private final BoardSpace GREEN_START = new BoardSpace(BoardSpace.GREEN_START);
-    private final BoardSpace PEACOCK_START = new BoardSpace(BoardSpace.PEACOCK_START);
-    private final BoardSpace PLUM_START = new BoardSpace(BoardSpace.PLUM_START);
+    private BoardSpace scarletStart;
+    private BoardSpace mustardStart;
+    private BoardSpace whiteStart;
+    private BoardSpace greenStart;
+    private BoardSpace peacockStart;
+    private BoardSpace plumStart;
 
     // Twelve hallways
-    private final BoardSpace HALL__STUDY = new BoardSpace(BoardSpace.HALL__STUDY);
-    private final BoardSpace HALL__LOUNGE = new BoardSpace(BoardSpace.HALL__LOUNGE);
-    private final BoardSpace LIBRARY__STUDY = new BoardSpace(BoardSpace.LIBRARY__STUDY);
-    private final BoardSpace BILLIARD_ROOM__HALL = new BoardSpace(BoardSpace.BILLIARD_ROOM__HALL);
-    private final BoardSpace DINING_ROOM__LOUNGE = new BoardSpace(BoardSpace.DINING_ROOM__LOUNGE);
-    private final BoardSpace BILLIARD_ROOM__LIBRARY = new BoardSpace(BoardSpace.BILLIARD_ROOM__LIBRARY);
-    private final BoardSpace BILLIARD_ROOM__DINING_ROOM = new BoardSpace(BoardSpace.BILLIARD_ROOM__DINING_ROOM);
-    private final BoardSpace CONSERVATORY__LIBRARY = new BoardSpace(BoardSpace.CONSERVATORY__LIBRARY);
-    private final BoardSpace BALLROOM__BILLIARD_ROOM = new BoardSpace(BoardSpace.BALLROOM__BILLIARD_ROOM);
-    private final BoardSpace DINING_ROOM__KITCHEN = new BoardSpace(BoardSpace.DINING_ROOM__KITCHEN);
-    private final BoardSpace BALLROOM__CONSERVATORY = new BoardSpace(BoardSpace.BALLROOM__CONSERVATORY);
-    private final BoardSpace BALLROOM__KITCHEN = new BoardSpace(BoardSpace.BALLROOM__KITCHEN);
+    private BoardSpace hallStudy;
+    private BoardSpace hallLounge;
+    private BoardSpace libraryStudy;
+    private BoardSpace billiardRoomHall;
+    private BoardSpace diningRoomLounge;
+    private BoardSpace billiardRoomLibrary;
+    private BoardSpace billiardRoomDiningRoom;
+    private BoardSpace conservatoryLibrary;
+    private BoardSpace ballroomBilliardRoom;
+    private BoardSpace diningRoomKitchen;
+    private BoardSpace ballroomConservatory;
+    private BoardSpace ballroomKitchen;
 
-    public Board() throws GameModelException {}
+    public Board() {
+        try {
+            msScarlet = new Character(Character.MS_SCARLET);
+            colMustard = new Character(Character.COL_MUSTARD);
+            mrsWhite = new Character(Character.MRS_WHITE);
+            mrGreen = new Character(Character.MR_GREEN);
+            mrsPeacock = new Character(Character.MRS_PEACOCK);
+            profPlum = new Character(Character.PROF_PLUM);
+            candlestick = new Weapon(Weapon.CANDLESTICK);
+            knife = new Weapon(Weapon.KNIFE);
+            pipe = new Weapon(Weapon.PIPE);
+            revolver = new Weapon(Weapon.REVOLVER);
+            rope = new Weapon(Weapon.ROPE);
+            wrench = new Weapon(Weapon.WRENCH);
+            kitchen = new BoardSpace(BoardSpace.KITCHEN);
+            ballroom = new BoardSpace(BoardSpace.BALLROOM);
+            conservatory = new BoardSpace(BoardSpace.CONSERVATORY);
+            diningRoom = new BoardSpace(BoardSpace.DINING_ROOM);
+            billiardRoom = new BoardSpace(BoardSpace.BILLIARD_ROOM);
+            library = new BoardSpace(BoardSpace.LIBRARY);
+            lounge = new BoardSpace(BoardSpace.LOUNGE);
+            hall = new BoardSpace(BoardSpace.HALL);
+            study = new BoardSpace(BoardSpace.STUDY);
+            scarletStart = new BoardSpace(BoardSpace.SCARLET_START);
+            mustardStart = new BoardSpace(BoardSpace.MUSTARD_START);
+            whiteStart = new BoardSpace(BoardSpace.WHITE_START);
+            greenStart = new BoardSpace(BoardSpace.GREEN_START);
+            peacockStart = new BoardSpace(BoardSpace.PEACOCK_START);
+            plumStart = new BoardSpace(BoardSpace.PLUM_START);
+            hallStudy = new BoardSpace(BoardSpace.HALL__STUDY);
+            hallLounge = new BoardSpace(BoardSpace.HALL__LOUNGE);
+            libraryStudy = new BoardSpace(BoardSpace.LIBRARY__STUDY);
+            billiardRoomHall = new BoardSpace(BoardSpace.BILLIARD_ROOM__HALL);
+            diningRoomLounge = new BoardSpace(BoardSpace.DINING_ROOM__LOUNGE);
+            billiardRoomLibrary = new BoardSpace(BoardSpace.BILLIARD_ROOM__LIBRARY);
+            billiardRoomDiningRoom = new BoardSpace(BoardSpace.BILLIARD_ROOM__DINING_ROOM);
+            conservatoryLibrary = new BoardSpace(BoardSpace.CONSERVATORY__LIBRARY);
+            ballroomBilliardRoom = new BoardSpace(BoardSpace.BALLROOM__BILLIARD_ROOM);
+            diningRoomKitchen = new BoardSpace(BoardSpace.DINING_ROOM__KITCHEN);
+            ballroomConservatory = new BoardSpace(BoardSpace.BALLROOM__CONSERVATORY);
+            ballroomKitchen = new BoardSpace(BoardSpace.BALLROOM__KITCHEN);
+        } catch (GameModelException e) {
+            logger.error("Error thrown while initializing Board. Should never happen...");
+        }
+    }
 
-    public CharacterToken getCharacterToken(String name) throws GameModelException {
+    public Character getCharacter(String name) throws GameModelException {
         switch(name) {
-            case CharacterToken.MS_SCARLET:
-                return MS_SCARLET;
-            case CharacterToken.COL_MUSTARD:
-                return COL_MUSTARD;
-            case CharacterToken.MRS_WHITE:
-                return MRS_WHITE;
-            case CharacterToken.MR_GREEN:
-                return MR_GREEN;
-            case CharacterToken.MRS_PEACOCK:
-                return MRS_PEACOCK;
-            case CharacterToken.PROF_PLUM:
-                return PROF_PLUM;
+            case Character.MS_SCARLET:
+                return msScarlet;
+            case Character.COL_MUSTARD:
+                return colMustard;
+            case Character.MRS_WHITE:
+                return mrsWhite;
+            case Character.MR_GREEN:
+                return mrGreen;
+            case Character.MRS_PEACOCK:
+                return mrsPeacock;
+            case Character.PROF_PLUM:
+                return profPlum;
             default:
                 throw new GameModelException(name);
         }
     }
 
-    public WeaponToken getWeaponToken(String name) throws GameModelException {
+    public Weapon getWeapon(String name) throws GameModelException {
         switch(name) {
-            case WeaponToken.CANDLESTICK:
-                return CANDLESTICK;
-            case WeaponToken.KNIFE:
-                return KNIFE;
-            case WeaponToken.PIPE:
-                return PIPE;
-            case WeaponToken.REVOLVER:
-                return REVOLVER;
-            case WeaponToken.ROPE:
-                return ROPE;
-            case WeaponToken.WRENCH:
-                return WRENCH;
+            case Weapon.CANDLESTICK:
+                return candlestick;
+            case Weapon.KNIFE:
+                return knife;
+            case Weapon.PIPE:
+                return pipe;
+            case Weapon.REVOLVER:
+                return revolver;
+            case Weapon.ROPE:
+                return rope;
+            case Weapon.WRENCH:
+                return wrench;
             default:
                 throw new GameModelException(name);
         }
+    }
+
+    public List<Token> getAllCharacters() {
+        List<Token> tokens = new LinkedList<>();
+        tokens.add(msScarlet);
+        tokens.add(colMustard);
+        tokens.add(mrsWhite);
+        tokens.add(mrGreen);
+        tokens.add(mrsPeacock);
+        tokens.add(profPlum);
+        return tokens;
+    }
+
+    public List<Token> getAllWeapons() {
+        List<Token> tokens = new LinkedList<>();
+        tokens.add(candlestick);
+        tokens.add(knife);
+        tokens.add(pipe);
+        tokens.add(revolver);
+        tokens.add(rope);
+        tokens.add(wrench);
+        return tokens;
     }
 
     public BoardSpace getBoardSpace(String name) throws GameModelException {
         switch(name) {
             case BoardSpace.KITCHEN:
-                return KITCHEN;
+                return kitchen;
             case BoardSpace.BALLROOM:
-                return BALLROOM;
+                return ballroom;
             case BoardSpace.CONSERVATORY:
-                return CONSERVATORY;
+                return conservatory;
             case BoardSpace.DINING_ROOM:
-                return DINING_ROOM;
+                return diningRoom;
             case BoardSpace.BILLIARD_ROOM:
-                return BILLIARD_ROOM;
+                return billiardRoom;
             case BoardSpace.LIBRARY:
-                return LIBRARY;
+                return library;
             case BoardSpace.LOUNGE:
-                return LOUNGE;
+                return lounge;
             case BoardSpace.HALL:
-                return HALL;
+                return hall;
             case BoardSpace.STUDY:
-                return STUDY;
+                return study;
             case BoardSpace.SCARLET_START:
-                return SCARLET_START;
+                return scarletStart;
             case BoardSpace.MUSTARD_START:
-                return MUSTARD_START;
+                return mustardStart;
             case BoardSpace.WHITE_START:
-                return WHITE_START;
+                return whiteStart;
             case BoardSpace.GREEN_START:
-                return GREEN_START;
+                return greenStart;
             case BoardSpace.PEACOCK_START:
-                return PEACOCK_START;
+                return peacockStart;
             case BoardSpace.PLUM_START:
-                return PLUM_START;
+                return plumStart;
             case BoardSpace.HALL__STUDY:
-                return HALL__STUDY;
+                return hallStudy;
             case BoardSpace.HALL__LOUNGE:
-                return HALL__LOUNGE;
+                return hallLounge;
             case BoardSpace.LIBRARY__STUDY:
-                return LIBRARY__STUDY;
+                return libraryStudy;
             case BoardSpace.BILLIARD_ROOM__HALL:
-                return BILLIARD_ROOM__HALL;
+                return billiardRoomHall;
             case BoardSpace.DINING_ROOM__LOUNGE:
-                return DINING_ROOM__LOUNGE;
+                return diningRoomLounge;
             case BoardSpace.BILLIARD_ROOM__LIBRARY:
-                return BILLIARD_ROOM__LIBRARY;
+                return billiardRoomLibrary;
             case BoardSpace.BILLIARD_ROOM__DINING_ROOM:
-                return BILLIARD_ROOM__DINING_ROOM;
+                return billiardRoomDiningRoom;
             case BoardSpace.CONSERVATORY__LIBRARY:
-                return CONSERVATORY__LIBRARY;
+                return conservatoryLibrary;
             case BoardSpace.BALLROOM__BILLIARD_ROOM:
-                return BALLROOM__BILLIARD_ROOM;
+                return ballroomBilliardRoom;
             case BoardSpace.DINING_ROOM__KITCHEN:
-                return DINING_ROOM__KITCHEN;
+                return diningRoomKitchen;
             case BoardSpace.BALLROOM__CONSERVATORY:
-                return BALLROOM__CONSERVATORY;
+                return ballroomConservatory;
             case BoardSpace.BALLROOM__KITCHEN:
-                return BALLROOM__KITCHEN;
+                return ballroomKitchen;
             default:
                 throw new GameModelException(name);
         }
@@ -166,116 +234,116 @@ public class Board {
         Set<BoardSpace> connections = new HashSet<>();
         switch(name) {
             case BoardSpace.KITCHEN:
-                connections.add(DINING_ROOM__KITCHEN);
-                connections.add(BALLROOM__KITCHEN);
-                connections.add(STUDY);
+                connections.add(diningRoomKitchen);
+                connections.add(ballroomKitchen);
+                connections.add(study);
                 return connections;
             case BoardSpace.BALLROOM:
-                connections.add(BALLROOM__BILLIARD_ROOM);
-                connections.add(BALLROOM__CONSERVATORY);
-                connections.add(BALLROOM__KITCHEN);
+                connections.add(ballroomBilliardRoom);
+                connections.add(ballroomConservatory);
+                connections.add(ballroomKitchen);
                 return connections;
             case BoardSpace.CONSERVATORY:
-                connections.add(CONSERVATORY__LIBRARY);
-                connections.add(BALLROOM__CONSERVATORY);
-                connections.add(LOUNGE);
+                connections.add(conservatoryLibrary);
+                connections.add(ballroomConservatory);
+                connections.add(lounge);
                 return connections;
             case BoardSpace.DINING_ROOM:
-                connections.add(DINING_ROOM__KITCHEN);
-                connections.add(DINING_ROOM__LOUNGE);
-                connections.add(BILLIARD_ROOM__DINING_ROOM);
+                connections.add(diningRoomKitchen);
+                connections.add(diningRoomLounge);
+                connections.add(billiardRoomDiningRoom);
                 return connections;
             case BoardSpace.BILLIARD_ROOM:
-                connections.add(BILLIARD_ROOM__DINING_ROOM);
-                connections.add(BILLIARD_ROOM__HALL);
-                connections.add(BILLIARD_ROOM__LIBRARY);
-                connections.add(BALLROOM__BILLIARD_ROOM);
+                connections.add(billiardRoomDiningRoom);
+                connections.add(billiardRoomHall);
+                connections.add(billiardRoomLibrary);
+                connections.add(ballroomBilliardRoom);
                 return connections;
             case BoardSpace.LIBRARY:
-                connections.add(LIBRARY__STUDY);
-                connections.add(BILLIARD_ROOM__LIBRARY);
-                connections.add(CONSERVATORY__LIBRARY);
+                connections.add(libraryStudy);
+                connections.add(billiardRoomLibrary);
+                connections.add(conservatoryLibrary);
                 return connections;
             case BoardSpace.LOUNGE:
-                connections.add(HALL__LOUNGE);
-                connections.add(DINING_ROOM__LOUNGE);
-                connections.add(CONSERVATORY);
+                connections.add(hallLounge);
+                connections.add(diningRoomLounge);
+                connections.add(conservatory);
                 return connections;
             case BoardSpace.HALL:
-                connections.add(HALL__LOUNGE);
-                connections.add(HALL__STUDY);
-                connections.add(BILLIARD_ROOM__HALL);
+                connections.add(hallLounge);
+                connections.add(hallStudy);
+                connections.add(billiardRoomHall);
                 return connections;
             case BoardSpace.STUDY:
-                connections.add(HALL__STUDY);
-                connections.add(LIBRARY__STUDY);
-                connections.add(KITCHEN);
+                connections.add(hallStudy);
+                connections.add(libraryStudy);
+                connections.add(kitchen);
                 return connections;
             case BoardSpace.SCARLET_START:
-                connections.add(HALL__LOUNGE);
+                connections.add(hallLounge);
                 return connections;
             case BoardSpace.MUSTARD_START:
-                connections.add(DINING_ROOM__LOUNGE);
+                connections.add(diningRoomLounge);
                 return connections;
             case BoardSpace.WHITE_START:
-                connections.add(BALLROOM__KITCHEN);
+                connections.add(ballroomKitchen);
                 return connections;
             case BoardSpace.GREEN_START:
-                connections.add(BALLROOM__CONSERVATORY);
+                connections.add(ballroomConservatory);
                 return connections;
             case BoardSpace.PEACOCK_START:
-                connections.add(CONSERVATORY__LIBRARY);
+                connections.add(conservatoryLibrary);
                 return connections;
             case BoardSpace.PLUM_START:
-                connections.add(LIBRARY__STUDY);
+                connections.add(libraryStudy);
                 return connections;
             case BoardSpace.HALL__STUDY:
-                connections.add(HALL);
-                connections.add(STUDY);
+                connections.add(hall);
+                connections.add(study);
                 return connections;
             case BoardSpace.HALL__LOUNGE:
-                connections.add(HALL);
-                connections.add(LOUNGE);
+                connections.add(hall);
+                connections.add(lounge);
                 return connections;
             case BoardSpace.LIBRARY__STUDY:
-                connections.add(LIBRARY);
-                connections.add(STUDY);
+                connections.add(library);
+                connections.add(study);
                 return connections;
             case BoardSpace.BILLIARD_ROOM__HALL:
-                connections.add(BILLIARD_ROOM);
-                connections.add(HALL);
+                connections.add(billiardRoom);
+                connections.add(hall);
                 return connections;
             case BoardSpace.DINING_ROOM__LOUNGE:
-                connections.add(DINING_ROOM);
-                connections.add(LOUNGE);
+                connections.add(diningRoom);
+                connections.add(lounge);
                 return connections;
             case BoardSpace.BILLIARD_ROOM__LIBRARY:
-                connections.add(BILLIARD_ROOM);
-                connections.add(LIBRARY);
+                connections.add(billiardRoom);
+                connections.add(library);
                 return connections;
             case BoardSpace.BILLIARD_ROOM__DINING_ROOM:
-                connections.add(BILLIARD_ROOM);
-                connections.add(DINING_ROOM);
+                connections.add(billiardRoom);
+                connections.add(diningRoom);
                 return connections;
             case BoardSpace.CONSERVATORY__LIBRARY:
-                connections.add(CONSERVATORY);
-                connections.add(LIBRARY);
+                connections.add(conservatory);
+                connections.add(library);
                 return connections;
             case BoardSpace.BALLROOM__BILLIARD_ROOM:
-                connections.add(BALLROOM);
-                connections.add(BILLIARD_ROOM);
+                connections.add(ballroom);
+                connections.add(billiardRoom);
                 return connections;
             case BoardSpace.DINING_ROOM__KITCHEN:
-                connections.add(DINING_ROOM);
-                connections.add(KITCHEN);
+                connections.add(diningRoom);
+                connections.add(kitchen);
                 return connections;
             case BoardSpace.BALLROOM__CONSERVATORY:
-                connections.add(BALLROOM);
-                connections.add(CONSERVATORY);
+                connections.add(ballroom);
+                connections.add(conservatory);
                 return connections;
             case BoardSpace.BALLROOM__KITCHEN:
-                connections.add(BALLROOM);
-                connections.add(KITCHEN);
+                connections.add(ballroom);
+                connections.add(kitchen);
                 return connections;
             default:
                 throw new GameModelException(name);
@@ -286,71 +354,71 @@ public class Board {
         return getSpaceConnections(space.name);
     }
 
-    public Set<CharacterToken> getSpaceOccupants(String name) {
-        Set<CharacterToken> occupants = new HashSet<>();
+    public Set<Character> getSpaceOccupants(String name) {
+        Set<Character> occupants = new HashSet<>();
 
-        if (MS_SCARLET.getCurrentSpace().name.equals(name)) {
-            occupants.add(MS_SCARLET);
+        if (msScarlet.getSpace().name.equals(name)) {
+            occupants.add(msScarlet);
         }
 
-        if (COL_MUSTARD.getCurrentSpace().name.equals(name)) {
-            occupants.add(COL_MUSTARD);
+        if (colMustard.getSpace().name.equals(name)) {
+            occupants.add(colMustard);
         }
 
-        if (MRS_WHITE.getCurrentSpace().name.equals(name)) {
-            occupants.add(MRS_WHITE);
+        if (mrsWhite.getSpace().name.equals(name)) {
+            occupants.add(mrsWhite);
         }
 
-        if (MR_GREEN.getCurrentSpace().name.equals(name)) {
-            occupants.add(MR_GREEN);
+        if (mrGreen.getSpace().name.equals(name)) {
+            occupants.add(mrGreen);
         }
 
-        if (MRS_PEACOCK.getCurrentSpace().name.equals(name)) {
-            occupants.add(MRS_PEACOCK);
+        if (mrsPeacock.getSpace().name.equals(name)) {
+            occupants.add(mrsPeacock);
         }
 
-        if (PROF_PLUM.getCurrentSpace().name.equals(name)) {
-            occupants.add(PROF_PLUM);
+        if (profPlum.getSpace().name.equals(name)) {
+            occupants.add(profPlum);
         }
 
         return occupants;
     }
 
-    public Set<CharacterToken> getSpaceOccupants(BoardSpace space) {
+    public Set<Character> getSpaceOccupants(BoardSpace space) {
         return getSpaceOccupants(space.name);
     }
 
-    public Set<WeaponToken> getSpaceWeapons(String name) {
-        Set<WeaponToken> weapons = new HashSet<>();
+    public Set<Weapon> getSpaceWeapons(String name) {
+        Set<Weapon> weapons = new HashSet<>();
 
-        if (CANDLESTICK.getCurrentSpace().name.equals(name)) {
-            weapons.add(CANDLESTICK);
+        if (candlestick.getSpace().name.equals(name)) {
+            weapons.add(candlestick);
         }
 
-        if (KNIFE.getCurrentSpace().name.equals(name)) {
-            weapons.add(KNIFE);
+        if (knife.getSpace().name.equals(name)) {
+            weapons.add(knife);
         }
 
-        if (PIPE.getCurrentSpace().name.equals(name)) {
-            weapons.add(PIPE);
+        if (pipe.getSpace().name.equals(name)) {
+            weapons.add(pipe);
         }
 
-        if (REVOLVER.getCurrentSpace().name.equals(name)) {
-            weapons.add(REVOLVER);
+        if (revolver.getSpace().name.equals(name)) {
+            weapons.add(revolver);
         }
 
-        if (ROPE.getCurrentSpace().name.equals(name)) {
-            weapons.add(ROPE);
+        if (rope.getSpace().name.equals(name)) {
+            weapons.add(rope);
         }
 
-        if (WRENCH.getCurrentSpace().name.equals(name)) {
-            weapons.add(WRENCH);
+        if (wrench.getSpace().name.equals(name)) {
+            weapons.add(wrench);
         }
 
         return weapons;
     }
 
-    public Set<WeaponToken> getSpaceWeapons(BoardSpace space) {
+    public Set<Weapon> getSpaceWeapons(BoardSpace space) {
         return getSpaceWeapons(space.name);
     }
 
@@ -377,19 +445,19 @@ public class Board {
     public static Board initializeFromPayload(BoardPayload payload) throws GameModelException {
         Board board = new Board();
 
-        board.MS_SCARLET.setCurrentSpace(board.getBoardSpace(payload.getMsScarlet()));
-        board.COL_MUSTARD.setCurrentSpace(board.getBoardSpace(payload.getColMustard()));
-        board.MRS_WHITE.setCurrentSpace(board.getBoardSpace(payload.getMrsWhite()));
-        board.MR_GREEN.setCurrentSpace(board.getBoardSpace(payload.getMrGreen()));
-        board.MRS_PEACOCK.setCurrentSpace(board.getBoardSpace(payload.getMrsPeacock()));
-        board.PROF_PLUM.setCurrentSpace(board.getBoardSpace(payload.getProfPlum()));
+        board.msScarlet.setSpace(board.getBoardSpace(payload.getMsScarlet()));
+        board.colMustard.setSpace(board.getBoardSpace(payload.getColMustard()));
+        board.mrsWhite.setSpace(board.getBoardSpace(payload.getMrsWhite()));
+        board.mrGreen.setSpace(board.getBoardSpace(payload.getMrGreen()));
+        board.mrsPeacock.setSpace(board.getBoardSpace(payload.getMrsPeacock()));
+        board.profPlum.setSpace(board.getBoardSpace(payload.getProfPlum()));
 
-        board.CANDLESTICK.setCurrentSpace(board.getBoardSpace(payload.getCandlestick()));
-        board.KNIFE.setCurrentSpace(board.getBoardSpace(payload.getKnife()));
-        board.PIPE.setCurrentSpace(board.getBoardSpace(payload.getPipe()));
-        board.REVOLVER.setCurrentSpace(board.getBoardSpace(payload.getRevolver()));
-        board.ROPE.setCurrentSpace(board.getBoardSpace(payload.getRope()));
-        board.WRENCH.setCurrentSpace(board.getBoardSpace(payload.getWrench()));
+        board.candlestick.setSpace(board.getBoardSpace(payload.getCandlestick()));
+        board.knife.setSpace(board.getBoardSpace(payload.getKnife()));
+        board.pipe.setSpace(board.getBoardSpace(payload.getPipe()));
+        board.revolver.setSpace(board.getBoardSpace(payload.getRevolver()));
+        board.rope.setSpace(board.getBoardSpace(payload.getRope()));
+        board.wrench.setSpace(board.getBoardSpace(payload.getWrench()));
 
         return board;
     }
@@ -401,25 +469,26 @@ public class Board {
         if (obj instanceof Board) {
             Board other = (Board) obj;
             try {
-                boolean sameScarlet = MS_SCARLET.equals(other.getCharacterToken(CharacterToken.MS_SCARLET));
-                boolean sameMustard = COL_MUSTARD.equals(other.getCharacterToken(CharacterToken.COL_MUSTARD));
-                boolean sameWhite = MRS_WHITE.equals(other.getCharacterToken(CharacterToken.MRS_WHITE));
-                boolean sameGreen = MR_GREEN.equals(other.getCharacterToken(CharacterToken.MR_GREEN));
-                boolean samePeacock = MRS_PEACOCK.equals(other.getCharacterToken(CharacterToken.MRS_PEACOCK));
-                boolean samePlum = PROF_PLUM.equals(other.getCharacterToken(CharacterToken.PROF_PLUM));
+                boolean sameScarlet = msScarlet.equals(other.getCharacter(Character.MS_SCARLET));
+                boolean sameMustard = colMustard.equals(other.getCharacter(Character.COL_MUSTARD));
+                boolean sameWhite = mrsWhite.equals(other.getCharacter(Character.MRS_WHITE));
+                boolean sameGreen = mrGreen.equals(other.getCharacter(Character.MR_GREEN));
+                boolean samePeacock = mrsPeacock.equals(other.getCharacter(Character.MRS_PEACOCK));
+                boolean samePlum = profPlum.equals(other.getCharacter(Character.PROF_PLUM));
                 boolean sameCharacters = sameScarlet && sameMustard && sameWhite && sameGreen && samePeacock && samePlum;
 
-                boolean sameCandlestick = CANDLESTICK.equals(other.getWeaponToken(WeaponToken.CANDLESTICK));
-                boolean sameKnife = KNIFE.equals(other.getWeaponToken(WeaponToken.KNIFE));
-                boolean samePipe = PIPE.equals(other.getWeaponToken(WeaponToken.PIPE));
-                boolean sameRevolver = REVOLVER.equals(other.getWeaponToken(WeaponToken.REVOLVER));
-                boolean sameRope = ROPE.equals(other.getWeaponToken(WeaponToken.ROPE));
-                boolean sameWrench = WRENCH.equals(other.getWeaponToken(WeaponToken.WRENCH));
+                boolean sameCandlestick = candlestick.equals(other.getWeapon(Weapon.CANDLESTICK));
+                boolean sameKnife = knife.equals(other.getWeapon(Weapon.KNIFE));
+                boolean samePipe = pipe.equals(other.getWeapon(Weapon.PIPE));
+                boolean sameRevolver = revolver.equals(other.getWeapon(Weapon.REVOLVER));
+                boolean sameRope = rope.equals(other.getWeapon(Weapon.ROPE));
+                boolean sameWrench = wrench.equals(other.getWeapon(Weapon.WRENCH));
                 boolean sameWeapons = sameCandlestick && sameKnife && samePipe && sameRevolver && sameRope && sameWrench;
 
                 equal = sameCharacters && sameWeapons;
             } catch (GameModelException e) {
-                // TODO: Logger message
+                logger.warn("Board has unexpected name");
+                e.printStackTrace();
                 // do nothing, leave equal set to false
             }
         }
@@ -428,105 +497,269 @@ public class Board {
     }
 
     public String toVisualString() {
-        return null;
+        int size = 1600;
+
+        List<Token> characters = getAllCharacters();
+        List<Token> weapons = getAllWeapons();
+
+        StringBuilder sb = new StringBuilder(size);
+        sb.append(visualTopRooms(characters, weapons));
+        sb.append(visualTopHalls(characters, weapons));
+        sb.append(visualMiddleRooms(characters, weapons));
+        sb.append(visualBottomHalls(characters, weapons));
+        sb.append(visualBottomRooms(characters, weapons));
+        return sb.toString();
     }
 
-    public String visualTopRooms() {
-        // TODO make better (better bigger rooms)
-        int topRoomsSize = 196;
-        int roomWidth = 4;
-        int hallWidth = 4;
+    private StringBuilder visualTopRooms(List<Token> characters, List<Token> weapons) {
+        int size = 350;
+        int roomWidth = 8;
+        int hallwayWidth = 7;
 
         // TODO for future: Perhaps make visual string entirely dependent on parameters??
-        StringBuilder visual = new StringBuilder(topRoomsSize);
-        visual.append("   St        Ha        Lo   \n");
-        visual.append("  ----      ----      ----  \n");
-
-        // TODO for future: Perhaps sort so that the output string is the same every time??
-        List<Shortenable> studyOcc = new LinkedList<>(getSpaceOccupants(STUDY));
-        List<Shortenable> hallOcc = new LinkedList<>(getSpaceOccupants(HALL));
-        List<Shortenable> loungeOcc = new LinkedList<>(getSpaceOccupants(LOUNGE));
-
+        StringBuilder visual = new StringBuilder(size);
+        // Row 0
+        visual.append("     St               Ha               Lo\n");
+        // Row 1
+        visual.append("  --------         --------    ");
+        if (msScarlet.getSpace().equals(scarletStart)) {
+            visual.append(msScarlet.toChar());
+        } else {
+            visual.append(" ");
+        }
+        visual.append("    --------\n");
+        // Row 2
         visual.append(" |");
-        visual.append(popNextShort(studyOcc, roomWidth));
-        visual.append("|----|");
-        visual.append(popNextShort(hallOcc, roomWidth));
-        visual.append("|----|");
-        visual.append(popNextShort(loungeOcc, roomWidth));
-        visual.append("| \n");
-
-        List<Shortenable> haStOcc = new LinkedList<>(getSpaceOccupants(HALL__STUDY));
-        List<Shortenable> haLoOcc = new LinkedList<>(getSpaceOccupants(HALL__LOUNGE));
-
+        visual.append(popNextShort(characters, study, roomWidth, 1, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(characters, hall, roomWidth, 1, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(characters, lounge, roomWidth, 1, 4));
+        visual.append("|\n");
+        // Row 3
         visual.append(" |");
-        visual.append(popNextShort(studyOcc, roomWidth));
+        visual.append(popNextShort(characters, study, roomWidth, 1, 4));
         visual.append("|");
-        visual.append(popNextShort(haStOcc, hallWidth));
+        visual.append(popNextShort(characters, hallStudy, hallwayWidth, 3, 1));
         visual.append("|");
-        visual.append(popNextShort(hallOcc, roomWidth));
+        visual.append(popNextShort(characters, hall, roomWidth, 1, 4));
         visual.append("|");
-        visual.append(popNextShort(haLoOcc, hallWidth));
+        visual.append(popNextShort(characters, hallLounge, hallwayWidth, 3, 1));
         visual.append("|");
-        visual.append(popNextShort(loungeOcc, roomWidth));
-        visual.append("| \n");
-
-        List<Shortenable> studyWeap = new LinkedList<>(getSpaceWeapons(STUDY));
-        List<Shortenable> hallWeap = new LinkedList<>(getSpaceWeapons(HALL));
-        List<Shortenable> loungeWeap = new LinkedList<>(getSpaceWeapons(LOUNGE));
-
-        List<Shortenable> haStWeap = new LinkedList<>(getSpaceWeapons(HALL__STUDY));
-        List<Shortenable> haLoWeap = new LinkedList<>(getSpaceWeapons(HALL__LOUNGE));
-
+        visual.append(popNextShort(characters, lounge, roomWidth, 1, 4));
+        visual.append("|\n");
+        // Row 4
         visual.append(" |");
-        visual.append(popNextShort(studyWeap, roomWidth));
-        visual.append("|");
-        visual.append(popNextShort(haStWeap, hallWidth));
-        visual.append("|");
-        visual.append(popNextShort(hallWeap, roomWidth));
-        visual.append("|");
-        visual.append(popNextShort(haLoWeap, hallWidth));
-        visual.append("|");
-        visual.append(popNextShort(loungeWeap, roomWidth));
-        visual.append("| \n");
-
+        visual.append(popNextShort(weapons, study, roomWidth, 5, 2));
+        visual.append("|       |");
+        visual.append(popNextShort(weapons, hall, roomWidth, 5, 2));
+        visual.append("|       |");
+        visual.append(popNextShort(weapons, lounge, roomWidth, 5, 2));
+        visual.append("|\n");
+        // Row 5
         visual.append(" |");
-        visual.append(popNextShort(studyWeap, roomWidth));
-        visual.append("|----|");
-        visual.append(popNextShort(hallWeap, roomWidth));
-        visual.append("|----|");
-        visual.append(popNextShort(loungeWeap, roomWidth));
-        visual.append("| \n");
+        visual.append(popNextShort(weapons, study, roomWidth, 3, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(weapons, hall, roomWidth, 3, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(weapons, lounge, roomWidth, 3, 4));
+        visual.append("|\n");
+        // Row 6
+        visual.append("  --------         --------         --------\n");
 
-        visual.append("  ----      ----      ----  \n");
-
-        return visual.toString();
+        return visual;
     }
 
-    public String visualTopHalls() {
-        return "";
+    private StringBuilder visualTopHalls(List<Token> characters, List<Token> weapons) {
+        int size = 200;
+        int hallwayWidth = 6;
+
+        StringBuilder visual = new StringBuilder(size);
+        // row 1
+        visual.append("  |      |         |      |         |      |\n");
+        // row 2
+        if (profPlum.getSpace().equals(plumStart)) {
+            visual.append(profPlum.toChar());
+        } else {
+            visual.append(" ");
+        }
+        visual.append(" |");
+        visual.append(popNextShort(characters, libraryStudy, hallwayWidth, 2, 1));
+        visual.append("|         |");
+        visual.append(popNextShort(characters, billiardRoomHall, hallwayWidth, 3, 1));
+        visual.append("|         |      |\n");
+        // row 3
+        visual.append("  |      |         |      |         |");
+        visual.append(popNextShort(characters, diningRoomLounge, hallwayWidth, 3, 1));
+        visual.append("|");
+        if (mrsWhite.getSpace().equals(whiteStart)) {
+            visual.append(" ");
+            visual.append(mrsWhite.toChar());
+            visual.append("\n");
+        } else {
+            visual.append("\n");
+        }
+        // row 4
+        visual.append("  |      |         |      |         |      |\n");
+        return visual;
     }
 
-    public String visualMiddleRooms() {
-        return "";
+    private StringBuilder visualMiddleRooms(List<Token> characters, List<Token> weapons) {
+        int size = 300;
+        int roomWidth = 8;
+        int hallwayWidth = 7;
+
+        StringBuilder visual = new StringBuilder(size);
+        // Row 1
+        visual.append("  --------         --------         --------\n");
+        // Row 2
+        visual.append(" |");
+        visual.append(popNextShort(characters, library, roomWidth, 1, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(characters, billiardRoom, roomWidth, 1, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(characters, diningRoom, roomWidth, 1, 4));
+        visual.append("|\n");
+        // Row 3
+        visual.append("L|");
+        visual.append(popNextShort(characters, library, roomWidth, 1, 4));
+        visual.append("|");
+        visual.append(popNextShort(characters, billiardRoomLibrary, hallwayWidth, 3, 1));
+        visual.append("|");
+        visual.append(popNextShort(characters, billiardRoom, roomWidth, 1, 4));
+        visual.append("|");
+        visual.append(popNextShort(characters, billiardRoomDiningRoom, hallwayWidth, 3, 1));
+        visual.append("|");
+        visual.append(popNextShort(characters, diningRoom, roomWidth, 1, 4));
+        visual.append("|D\n");
+        // Row 4
+        visual.append("i|");
+        visual.append(popNextShort(weapons, library, roomWidth, 5, 2));
+        visual.append("|       |");
+        visual.append(popNextShort(weapons, billiardRoom, roomWidth, 5, 2));
+        visual.append("|       |");
+        visual.append(popNextShort(weapons, diningRoom, roomWidth, 5, 2));
+        visual.append("|i\n");
+        // Row 5
+        visual.append(" |");
+        visual.append(popNextShort(weapons, library, roomWidth, 3, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(weapons, billiardRoom, roomWidth, 3, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(weapons, diningRoom, roomWidth, 3, 4));
+        visual.append("|\n");
+        // Row 6
+        visual.append("  --------         -------- Bi      --------\n");
+        return visual;
     }
 
-    public String visualBottomHalls() {
-        return "";
+    private StringBuilder visualBottomHalls(List<Token> characters, List<Token> weapons) {
+        int size = 200;
+        int hallwayWidth = 6;
+
+        StringBuilder visual = new StringBuilder(size);
+        // row 1
+        visual.append("  |      |         |      |         |      |\n");
+        // row 2
+        if (mrsPeacock.getSpace().equals(peacockStart)) {
+            visual.append(mrsPeacock.toChar());
+        } else {
+            visual.append(" ");
+        }
+        visual.append(" |");
+        visual.append(popNextShort(characters, conservatoryLibrary, hallwayWidth, 2, 1));
+        visual.append("|         |");
+        visual.append(popNextShort(characters, ballroomBilliardRoom, hallwayWidth, 3, 1));
+        visual.append("|         |      |\n");
+        // row 3
+        visual.append("  |      |         |      |         |");
+        visual.append(popNextShort(characters, diningRoomKitchen, hallwayWidth, 3, 1));
+        visual.append("|\n");
+        // row 4
+        visual.append("  |      |         |      |         |      |\n");
+        return visual;
     }
 
-    public String visualBottomRooms() {
-        return "";
+    private StringBuilder visualBottomRooms(List<Token> characters, List<Token> weapons) {
+        int size = 350;
+        int roomWidth = 8;
+        int hallwayWidth = 7;
+
+        StringBuilder visual = new StringBuilder(size);
+        // Row 1
+        visual.append("  --------         --------         --------\n");
+        // Row 2
+        visual.append(" |");
+        visual.append(popNextShort(characters, conservatory, roomWidth, 1, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(characters, ballroom, roomWidth, 1, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(characters, kitchen, roomWidth, 1, 4));
+        visual.append("|\n");
+        // Row 3
+        visual.append(" |");
+        visual.append(popNextShort(characters, conservatory, roomWidth, 1, 4));
+        visual.append("|       |");
+        visual.append(popNextShort(characters, hall, roomWidth, 1, 4));
+        visual.append("|       |");
+        visual.append(popNextShort(characters, lounge, roomWidth, 1, 4));
+        visual.append("|\n");
+        // Row 4
+        visual.append(" |");
+        visual.append(popNextShort(weapons, conservatory, roomWidth, 5, 2));
+        visual.append("|");
+        visual.append(popNextShort(characters, ballroomConservatory, hallwayWidth, 3, 1));
+        visual.append("|");
+        visual.append(popNextShort(weapons, ballroom, roomWidth, 5, 2));
+        visual.append("|");
+        visual.append(popNextShort(characters, ballroomKitchen, hallwayWidth, 3, 1));
+        visual.append("|");
+        visual.append(popNextShort(weapons, kitchen, roomWidth, 5, 2));
+        visual.append("|\n");
+        // Row 5
+        visual.append(" |");
+        visual.append(popNextShort(weapons, conservatory, roomWidth, 3, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(weapons, ballroom, roomWidth, 3, 4));
+        visual.append("|-------|");
+        visual.append(popNextShort(weapons, kitchen, roomWidth, 3, 4));
+        visual.append("|\n");
+        // Row 6
+        visual.append("  --------    ");
+        if (mrGreen.getSpace().equals(greenStart)) {
+            visual.append(mrGreen.toChar());
+        } else {
+            visual.append(" ");
+        }
+        visual.append("    --------    ");
+        if (mrsWhite.getSpace().equals(whiteStart)) {
+            visual.append(mrsWhite.toChar());
+        } else {
+            visual.append(" ");
+        }
+        visual.append("    --------\n");
+        // Row 7
+        visual.append("     Co               Ba               Ki\n");
+
+        return visual;
     }
 
-    private String popNextShort(List<Shortenable> list, int n) {
+    private String popNextShort(List<Token> list, BoardSpace space, int width, int start, int n) {
         StringBuilder sb = new StringBuilder(n);
-        for (int i = 0; i < n; i++) {
-            if (list.isEmpty()) {
-                sb.append(" ");
-            } else {
-                Shortenable token = list.remove(0);
+        for (int i = 0; i < start; i++) {
+            sb.append(" ");
+        }
+        int j = 0;
+        for(Iterator<Token> iter = list.iterator(); iter.hasNext() && j < n; ) {
+            Token token = iter.next();
+            if (token.getSpace().equals(space)) {
+                iter.remove();
+                j++;
                 sb.append(token.toChar());
             }
+        }
+        for (int i = j + start; i < width; i++) {
+            sb.append(" ");
         }
         return sb.toString();
     }
