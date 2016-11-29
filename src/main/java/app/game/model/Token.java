@@ -62,7 +62,7 @@ public abstract class Token {
     public String toString() {
         StringBuilder sb = new StringBuilder(32);
         sb.append(name);
-        sb.append("@");
+        sb.append(" @ ");
         if (space == null) {
             sb.append("null");
         } else {

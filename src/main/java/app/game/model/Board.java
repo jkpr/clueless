@@ -508,6 +508,20 @@ public class Board {
         sb.append(visualMiddleRooms(characters, weapons));
         sb.append(visualBottomHalls(characters, weapons));
         sb.append(visualBottomRooms(characters, weapons));
+
+        sb.append("\n\n");
+
+        StringJoiner sj = new StringJoiner("\n");
+        for (Token token : characters) {
+            sj.add(token.toString());
+        }
+        for (Token token : weapons) {
+            sj.add(token.toString());
+        }
+        sb.append(sj);
+        if (sj.length() > 0) {
+            sb.append("\n");
+        }
         return sb.toString();
     }
 
@@ -524,6 +538,7 @@ public class Board {
         visual.append("  --------         --------    ");
         if (msScarlet.getSpace().equals(scarletStart)) {
             visual.append(msScarlet.toChar());
+            characters.remove(msScarlet);
         } else {
             visual.append(" ");
         }
@@ -580,6 +595,7 @@ public class Board {
         // row 2
         if (profPlum.getSpace().equals(plumStart)) {
             visual.append(profPlum.toChar());
+            characters.remove(profPlum);
         } else {
             visual.append(" ");
         }
@@ -592,10 +608,11 @@ public class Board {
         visual.append("  |      |         |      |         |");
         visual.append(popNextShort(characters, diningRoomLounge, hallwayWidth, 3, 1));
         visual.append("|");
-        if (mrsWhite.getSpace().equals(whiteStart)) {
+        if (colMustard.getSpace().equals(mustardStart)) {
             visual.append(" ");
-            visual.append(mrsWhite.toChar());
+            visual.append(colMustard.toChar());
             visual.append("\n");
+            characters.remove(colMustard);
         } else {
             visual.append("\n");
         }
@@ -663,6 +680,7 @@ public class Board {
         // row 2
         if (mrsPeacock.getSpace().equals(peacockStart)) {
             visual.append(mrsPeacock.toChar());
+            characters.remove(mrsPeacock);
         } else {
             visual.append(" ");
         }
@@ -728,12 +746,14 @@ public class Board {
         visual.append("  --------    ");
         if (mrGreen.getSpace().equals(greenStart)) {
             visual.append(mrGreen.toChar());
+            characters.remove(mrGreen);
         } else {
             visual.append(" ");
         }
         visual.append("    --------    ");
         if (mrsWhite.getSpace().equals(whiteStart)) {
             visual.append(mrsWhite.toChar());
+            characters.remove(mrsWhite);
         } else {
             visual.append(" ");
         }
