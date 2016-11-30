@@ -1,7 +1,5 @@
 package app.game.model;
 
-import app.game.Player;
-
 /**
  * Created by james on 11/29/16.
  */

@@ -94,6 +94,7 @@ public class Dealer {
             Card next = allRemaining.get(i);
             result.hands.get(i % nPlayer).add(next);
         }
+        Collections.shuffle(result.hands);
 
         return result;
     }
@@ -141,7 +142,7 @@ public class Dealer {
         return weapons;
     }
 
-    public Card getCard(String name) throws  GameModelException{
+    public Card getCard(String name) throws GameModelException{
         // TODO: return card just as in Board.getBoardSpace
         switch(name){
             case BoardSpace.KITCHEN:

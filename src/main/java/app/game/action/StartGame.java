@@ -1,16 +1,39 @@
 package app.game.action;
 
 import app.game.model.GameModel;
+import app.game.model.GameStatus;
+import app.game.model.Player;
+
+import java.util.List;
 
 /**
  * Created by james on 11/26/16.
  */
 public class StartGame implements Action {
-    public boolean isLegal(GameModel model) {
-        // stub
-        return true;
+
+    String user;
+
+    public StartGame(String user) {
+        this.user = user;
     }
+
+    public boolean isLegal(GameModel model) {
+        List<Player> players = model.getPlayers();
+        boolean enoughPlayers = players.size() > GameModel.MIN_PLAYERS;
+        boolean setupPhase = model.getStatus() == GameStatus.SETUP;
+        return enoughPlayers && setupPhase;
+    }
+
     public void apply(GameModel model) {
-        // stub
+        model.createMurderAndDealCards();
+        // Set turn order and initialize fisrt turn
+        model.initializeTurns();
+        // Change game status to playing
+        model.setStatus(GameStatus.ACTIVE);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("User %s started the game", user);
     }
 }

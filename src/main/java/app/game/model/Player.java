@@ -1,6 +1,4 @@
-package app.game;
-
-import app.game.model.Card;
+package app.game.model;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,20 +8,14 @@ import java.util.List;
  * Created by james on 11/26/16.
  */
 public class Player {
-    private String user;
     private Character character;
     private List<Card> hand;
+    private boolean computerPlayer;
 
-    public Player() {
+    public Player(Character character) {
+        this.character = character;
         hand = new LinkedList<>();
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
+        computerPlayer = false;
     }
 
     public Character getCharacter() {
@@ -51,5 +43,13 @@ public class Player {
 
     public void setHand(List<Card> hand) {
         this.hand = hand;
+    }
+
+    public boolean isComputerPlayer() {
+        return computerPlayer;
+    }
+
+    public void setComputerPlayer(boolean computer) {
+        computerPlayer = computer;
     }
 }
