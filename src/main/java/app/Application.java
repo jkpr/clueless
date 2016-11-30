@@ -27,7 +27,7 @@ public class Application
         Spark.staticFileLocation(Path.STATIC);
         ViewUtil.initializeFreeMarker();
 
-        // Initialize Database
+        // Initialize Databaseuse
         connectionPool = new DatabaseConnection(getHerokuDb());
 
         // Initialize JSON mapper
