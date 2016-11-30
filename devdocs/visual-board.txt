@@ -1,0 +1,53 @@
+Example start board
+
+     St               Ha               Lo
+  --------         --------    S    --------
+ |        |-------|        |-------|        |
+ |        |       |        |       |        |
+ |     c  |       |     k  |       |     p  |
+ |        |-------|        |-------|        |
+  --------         --------         --------
+  |      |         |      |         |      |
+P |      |         |      |         |      |
+  |      |         |      |         |      | M
+  |      |         |      |         |      |
+  --------         --------         --------
+ |        |-------|        |-------|        |
+L|        |       |        |       |        |D
+i|     v  |       |     r  |       |     w  |i
+ |        |-------|        |-------|        |
+  --------         -------- Bi      --------
+  |      |         |      |         |      |
+K |      |         |      |         |      |
+  |      |         |      |         |      |
+  |      |         |      |         |      |
+  --------         --------         --------
+ |        |-------|        |-------|        |
+ |        |       |        |       |        |
+ |        |       |        |       |        |
+ |        |-------|        |-------|        |
+  --------    G    --------    W    --------
+     Co               Ba               Ki
+
+S Scarlet
+M Mustard
+W White
+G Green
+K Peacock
+P Plum
+
+c Candlestick
+k Knife
+p Pipe
+v Revolver
+r Rope
+w Wrench
+
+St Study
+Ha Hall
+Lo Lounge
+Li Library
+Di Dining room
+Co Conservatory
+Ba Ballroom
+Ki Kitchen

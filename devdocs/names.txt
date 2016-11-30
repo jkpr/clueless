@@ -1,0 +1,51 @@
+# Names for Clue-less, v1
+
+Date: 2016-11-26
+
+# Board spaces
+
+* Kitchen
+* Ballroom
+* Conservatory
+* Dining room
+* Billiard room
+* Library
+* Lounge
+* Hall
+* Study
+* Scarlet start
+* Mustard start
+* White start
+* Green start
+* Peacock start
+* Plum start
+* Hall-Study
+* Hall-Lounge
+* Library-Study
+* Billiard room-Hall
+* Dining room-Lounge
+* Billiard room-Library
+* Billiard room-Dining room
+* Conservatory-Library
+* Ballroom-Billiard room
+* Dining room-Kitchen
+* Ballroom-Conservatory
+* Ballroom-Kitchen
+
+# Characters
+
+* Ms. Scarlet
+* Col. Mustard
+* Mrs. White
+* Mr. Green
+* Mrs. Peacock
+* Prof. Plum
+
+# Weapons
+
+* candlestick
+* knife
+* pipe
+* revolver
+* rope
+* wrench

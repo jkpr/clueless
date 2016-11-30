@@ -1,0 +1,66 @@
+# Game state full, v1
+
+Date: 2016-11-26
+
+{
+    "gameId": <integer>,
+    "gameStatus": <statusCode>,
+    "winner": <player>
+    "players": {
+        <character1>: {
+            "type": <human/computer>,
+            "user": <user>
+            "hand": [
+                <card1>,
+                <card2>, 
+                ...,
+                <cardN>
+            ],
+            "notes": [
+                <note1>,
+                <note2>,
+                ...,
+                <noteN>
+            ],
+        },
+        ...,
+        <characterN>: {
+            ...
+        }
+    },
+    "turnOrder": [
+        <player1>,
+        <player2>,
+        ...,
+        <playerN>
+    ],
+    "murder": {
+        "room": <roomCard>, 
+        "weapon": <weaponCard>, 
+        "character": <characterCard>
+    },
+    "location": {
+        "Ms. Scarlet": <location>,
+        "Col. Mustard": <location>,
+        "Mrs. White": <location>,
+        "Mr. Green": <location>,
+        "Mrs. Peacock": <location>,
+        "Prof. Plum": <location>,
+        "candlestick": <room>,
+        "knife": <room>,
+        "pipe": <room>,
+        "revolver": <room>,
+        "rope": <room>
+        "wrench": <room>
+    },
+    "turn": {
+        "who": <character>,
+        "hasMoved": <true/false>,
+        "hasSuggested": <true/false>,
+        "whoCanDisprove": <player/null>,
+        "suggestedRoom": <roomCard/null>,
+        "suggestedWeapon": <weaponCard/null>,
+        "suggestedCharacter": <characterCard/null>
+    },
+    "history": [<history0>, <history1>, ..., <historyN>]
+}
