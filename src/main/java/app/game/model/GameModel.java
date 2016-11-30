@@ -11,14 +11,21 @@ import java.util.List;
  * Created by james on 11/26/16.
  */
 public class GameModel {
-    private Dealer dealer = new Dealer();
-    private Board board = new Board();
-    private List<Player> players = new LinkedList<>();
+    private Dealer dealer;
+    private Board board;
+    private List<Player> players;
     private Murder murder;
     private GameStatus status;
+    private Turn turn;
 
     public GameModel() {
+        dealer = new Dealer();
+        board = new Board();
+        players = new LinkedList<>();
+        murder = null;
         status = GameStatus.SETUP;
+        turn = new Turn();
+        
         board.initialize();
     }
 
