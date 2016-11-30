@@ -1,6 +1,8 @@
 package app.game.model;
 
 import app.exception.GameModelException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -8,42 +10,72 @@ import java.util.*;
  * Created by james on 11/27/16.
  */
 public class Dealer {
-    private final Card KITCHEN = new Card(BoardSpace.KITCHEN);
-    private final Card BALLROOM = new Card(BoardSpace.BALLROOM);
-    private final Card CONSERVATORY = new Card(BoardSpace.CONSERVATORY);
-    private final Card DINING_ROOM = new Card(BoardSpace.DINING_ROOM);
-    private final Card BILLIARD_ROOM = new Card(BoardSpace.BILLIARD_ROOM);
-    private final Card LIBRARY = new Card(BoardSpace.LIBRARY);
-    private final Card LOUNGE = new Card(BoardSpace.LOUNGE);
-    private final Card HALL = new Card(BoardSpace.HALL);
-    private final Card STUDY = new Card(BoardSpace.STUDY);
+    private static final Logger logger = LoggerFactory.getLogger(Dealer.class);
 
-    private final Card MS_SCARLET = new Card(Character.MS_SCARLET);
-    private final Card COL_MUSTARD = new Card(Character.COL_MUSTARD);
-    private final Card MRS_WHITE = new Card(Character.MRS_WHITE);
-    private final Card MR_GREEN = new Card(Character.MR_GREEN);
-    private final Card MRS_PEACOCK = new Card(Character.MRS_PEACOCK);
-    private final Card PROF_PLUM = new Card(Character.PROF_PLUM);
+    private Card msScarlet;
+    private Card colMustard;
+    private Card mrsWhite;
+    private Card mrGreen;
+    private Card mrsPeacock;
+    private Card profPlum;
 
-    private final Card CANDLESTICK = new Card(Weapon.CANDLESTICK);
-    private final Card KNIFE = new Card(Weapon.KNIFE);
-    private final Card PIPE = new Card(Weapon.PIPE);
-    private final Card REVOLVER = new Card(Weapon.REVOLVER);
-    private final Card ROPE = new Card(Weapon.ROPE);
-    private final Card WRENCH = new Card(Weapon.WRENCH);
+    private Card candlestick;
+    private Card knife;
+    private Card pipe;
+    private Card revolver;
+    private Card rope;
+    private Card wrench;
 
-    public Dealer() throws GameModelException {}
+    private Card kitchen;
+    private Card ballroom;
+    private Card conservatory;
+    private Card diningRoom;
+    private Card billiardRoom;
+    private Card library;
+    private Card lounge;
+    private Card hall;
+    private Card study;
+
+    public Dealer() {
+        try {
+            kitchen = new Card(BoardSpace.KITCHEN);
+            ballroom = new Card(BoardSpace.BALLROOM);
+            conservatory = new Card(BoardSpace.CONSERVATORY);
+            diningRoom = new Card(BoardSpace.DINING_ROOM);
+            billiardRoom = new Card(BoardSpace.BILLIARD_ROOM);
+            library = new Card(BoardSpace.LIBRARY);
+            lounge = new Card(BoardSpace.LOUNGE);
+            hall = new Card(BoardSpace.HALL);
+            study = new Card(BoardSpace.STUDY);
+            msScarlet = new Card(Character.MS_SCARLET);
+            colMustard = new Card(Character.COL_MUSTARD);
+            mrsWhite = new Card(Character.MRS_WHITE);
+            mrGreen = new Card(Character.MR_GREEN);
+            mrsPeacock = new Card(Character.MRS_PEACOCK);
+            profPlum = new Card(Character.PROF_PLUM);
+            candlestick = new Card(Weapon.CANDLESTICK);
+            knife = new Card(Weapon.KNIFE);
+            pipe = new Card(Weapon.PIPE);
+            revolver = new Card(Weapon.REVOLVER);
+            rope = new Card(Weapon.ROPE);
+            wrench = new Card(Weapon.WRENCH);
+        } catch (GameModelException e) {
+            logger.error("Error thrown while constructing Dealer. Should never happen...");
+        }
+    }
 
     public DealResult deal(int nPlayer) {
+        // TODO ensure 3 <= nPlayer <= 6
         DealResult result = new DealResult();
 
         List<Card> characters = getCharactersList();
         List<Card> weapons = getWeaponsList();
         List<Card> rooms = getRoomsList();
 
-        result.murderCharacter = randomPop(characters);
-        result.murderWeapon = randomPop(weapons);
-        result.murderRoom = randomPop(rooms);
+        Card murderCharacter = randomPop(characters);
+        Card murderWeapon = randomPop(weapons);
+        Card murderRoom = randomPop(rooms);
+        result.murder = new Murder(murderCharacter, murderWeapon, murderRoom);
 
         List<Card> allRemaining = new LinkedList<>();
         allRemaining.addAll(characters);
@@ -55,7 +87,7 @@ public class Dealer {
 
         result.hands = new ArrayList<>(nPlayer);
         for (int i = 0; i < nPlayer; i++) {
-            result.hands.add(new HashSet<>());
+            result.hands.add(new LinkedList<>());
         }
         // round-robin deal
         for (int i = 0; i < allRemaining.size(); i++) {
@@ -75,37 +107,37 @@ public class Dealer {
 
     private List<Card> getRoomsList() {
         List<Card> rooms = new LinkedList<>();
-        rooms.add(KITCHEN);
-        rooms.add(BALLROOM);
-        rooms.add(CONSERVATORY);
-        rooms.add(DINING_ROOM);
-        rooms.add(BILLIARD_ROOM);
-        rooms.add(LIBRARY);
-        rooms.add(LOUNGE);
-        rooms.add(HALL);
-        rooms.add(STUDY);
+        rooms.add(kitchen);
+        rooms.add(ballroom);
+        rooms.add(conservatory);
+        rooms.add(diningRoom);
+        rooms.add(billiardRoom);
+        rooms.add(library);
+        rooms.add(lounge);
+        rooms.add(hall);
+        rooms.add(study);
         return rooms;
     }
 
     private List<Card> getCharactersList() {
         List<Card> characters = new LinkedList<>();
-        characters.add(MS_SCARLET);
-        characters.add(COL_MUSTARD);
-        characters.add(MRS_WHITE);
-        characters.add(MR_GREEN);
-        characters.add(MRS_PEACOCK);
-        characters.add(PROF_PLUM);
+        characters.add(msScarlet);
+        characters.add(colMustard);
+        characters.add(mrsWhite);
+        characters.add(mrGreen);
+        characters.add(mrsPeacock);
+        characters.add(profPlum);
         return characters;
     }
 
     private List<Card> getWeaponsList() {
         List<Card> weapons = new LinkedList<>();
-        weapons.add(CANDLESTICK);
-        weapons.add(KNIFE);
-        weapons.add(PIPE);
-        weapons.add(REVOLVER);
-        weapons.add(ROPE);
-        weapons.add(WRENCH);
+        weapons.add(candlestick);
+        weapons.add(knife);
+        weapons.add(pipe);
+        weapons.add(revolver);
+        weapons.add(rope);
+        weapons.add(wrench);
         return weapons;
     }
 
@@ -113,55 +145,52 @@ public class Dealer {
         // TODO: return card just as in Board.getBoardSpace
         switch(name){
             case BoardSpace.KITCHEN:
-                return KITCHEN;
+                return kitchen;
             case BoardSpace.BALLROOM:
-                return BALLROOM;
+                return ballroom;
             case BoardSpace.CONSERVATORY:
-                return CONSERVATORY;
+                return conservatory;
             case BoardSpace.DINING_ROOM:
-                return DINING_ROOM;
+                return diningRoom;
             case BoardSpace.BILLIARD_ROOM:
-                return BILLIARD_ROOM;
+                return billiardRoom;
             case BoardSpace.LIBRARY:
-                return LIBRARY;
+                return library;
             case BoardSpace.LOUNGE:
-                return LOUNGE;
+                return lounge;
             case BoardSpace.HALL:
-                return HALL;
+                return hall;
             case Character.MS_SCARLET:
-                return MS_SCARLET;
+                return msScarlet;
             case Character.COL_MUSTARD:
-                return COL_MUSTARD;
+                return colMustard;
             case Character.MRS_WHITE:
-                return MRS_WHITE;
+                return mrsWhite;
             case Character.MR_GREEN:
-                return MR_GREEN;
+                return mrGreen;
             case Character.MRS_PEACOCK:
-                return MRS_PEACOCK;
+                return mrsPeacock;
             case Character.PROF_PLUM:
-                return PROF_PLUM;
+                return profPlum;
             case Weapon.CANDLESTICK:
-                return CANDLESTICK;
+                return candlestick;
             case Weapon.KNIFE:
-                return KNIFE;
+                return knife;
             case Weapon.PIPE:
-                return PIPE;
+                return pipe;
             case Weapon.REVOLVER:
-                return REVOLVER;
+                return revolver;
             case Weapon.ROPE:
-                return ROPE;
+                return rope;
             case Weapon.WRENCH:
-                return WRENCH;
+                return wrench;
             default:
                 throw new GameModelException(name);
         }
     }
 
     class DealResult {
-        Card murderCharacter;
-        Card murderWeapon;
-        Card murderRoom;
-
-        List<Set<Card>> hands;
+        Murder murder;
+        List<List<Card>> hands;
     }
 }

@@ -105,7 +105,7 @@ public class Board {
             ballroomConservatory = new BoardSpace(BoardSpace.BALLROOM__CONSERVATORY);
             ballroomKitchen = new BoardSpace(BoardSpace.BALLROOM__KITCHEN);
         } catch (GameModelException e) {
-            logger.error("Error thrown while initializing Board. Should never happen...");
+            logger.error("Error thrown while constructing Board. Should never happen...");
         }
     }
 
@@ -167,6 +167,20 @@ public class Board {
         tokens.add(rope);
         tokens.add(wrench);
         return tokens;
+    }
+
+    public List<BoardSpace> getAllRooms() {
+        List<BoardSpace> rooms = new LinkedList<>();
+        rooms.add(study);
+        rooms.add(hall);
+        rooms.add(lounge);
+        rooms.add(library);
+        rooms.add(billiardRoom);
+        rooms.add(diningRoom);
+        rooms.add(conservatory);
+        rooms.add(ballroom);
+        rooms.add(kitchen);
+        return rooms;
     }
 
     public BoardSpace getBoardSpace(String name) throws GameModelException {
@@ -460,6 +474,30 @@ public class Board {
         board.wrench.setSpace(board.getBoardSpace(payload.getWrench()));
 
         return board;
+    }
+
+    public void initialize() {
+        initialize(true);
+    }
+
+    public void initialize(boolean random) {
+        msScarlet.setSpace(scarletStart);
+        colMustard.setSpace(mustardStart);
+        mrsWhite.setSpace(whiteStart);
+        mrGreen.setSpace(greenStart);
+        mrsPeacock.setSpace(peacockStart);
+        profPlum.setSpace(plumStart);
+
+        List<Token> weapons = getAllWeapons();
+        List<BoardSpace> rooms = getAllRooms();
+        if (random) {
+            Collections.shuffle(rooms);
+        }
+        for (Iterator<BoardSpace> iter = rooms.iterator(); iter.hasNext() && !weapons.isEmpty(); ) {
+            Token weapon = weapons.remove(0);
+            BoardSpace space = iter.next();
+            weapon.setSpace(space);
+        }
     }
 
     @Override
