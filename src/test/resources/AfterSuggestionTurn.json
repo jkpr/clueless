@@ -1,0 +1,9 @@
+{
+  "who":"Mr. Green",
+  "hasMoved": false,
+  "hasSuggested": true,
+  "whoCanDisprove": "Mrs. White",
+  "suggestedCharacter": "Mrs. Peacock",
+  "suggestedWeapon": "Pipe",
+  "suggestedRoom": "Conservatory"
+}
