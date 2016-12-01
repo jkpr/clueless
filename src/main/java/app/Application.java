@@ -2,6 +2,7 @@ package app;
 
 import app.database.DatabaseConnection;
 import app.index.IndexController;
+import app.login.LoginController;
 import app.util.Path;
 import app.util.ViewUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,6 +36,7 @@ public class Application
 
         // Initialize routes
         Spark.get(Path.Web.INDEX, IndexController.serveIndexPage);
+        Spark.get(Path.Web.LOGIN, LoginController.serveLoginPage);
 
         logger.info("Finished app initialization: port, static, freemarker, db, json mapper, routes");
     }

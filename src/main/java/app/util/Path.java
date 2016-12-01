@@ -21,5 +21,6 @@ public class Path {
         public static final String DIR = "/freemarker";
         public static final String INDEX = "/index.ftl";
         public static final String FOOTER = "/footer.ftl";
+        public static final String LOGIN = "/login.ftl";
     }
 }
