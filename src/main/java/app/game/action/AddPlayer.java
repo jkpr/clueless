@@ -58,6 +58,7 @@ public class AddPlayer implements Action {
             Character character = model.getBoard().getCharacter(tokenName);
             player = new Player(character);
             model.addPlayer(player);
+            model.getHistory().addHistory(this);
         } catch (GameModelException e) {
             logger.warn("Applying action caused error for: {}", tokenName);
         }

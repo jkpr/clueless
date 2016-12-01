@@ -25,11 +25,8 @@ public class StartGame implements Action {
     }
 
     public void apply(GameModel model) {
-        model.createMurderAndDealCards();
-        // Set turn order and initialize fisrt turn
-        model.initializeTurns();
-        // Change game status to playing
-        model.setStatus(GameStatus.ACTIVE);
+        model.startGame();
+        model.getHistory().addHistory(this);
     }
 
     @Override

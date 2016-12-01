@@ -2,9 +2,7 @@ package app.game.model;
 
 import app.exception.GameModelException;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by james on 11/26/16.
@@ -16,19 +14,25 @@ public class GameModel {
     private Dealer dealer;
     private Board board;
     private List<Player> players;
+    private History history;
     private Murder murder;
     private GameStatus status;
     private Turn turn;
     private List<Player> turnOrder;
+    // TODO: make this more elegant (check history for moves)
+    private Map<Character, Boolean> wasMoved;
 
     public GameModel() {
         dealer = new Dealer();
         board = new Board();
         players = new LinkedList<>();
+        history = new History();
         murder = null;
         status = GameStatus.SETUP;
         turn = new Turn();
         turnOrder = new LinkedList<>();
+        // TODO: make this more elegant
+        wasMoved = new HashMap<>();
         
         board.initialize();
     }
@@ -42,6 +46,17 @@ public class GameModel {
             }
         }
         return null;
+    }
+
+    public void startGame() {
+        initialize();
+        status = GameStatus.ACTIVE;
+    }
+
+    public void initialize() {
+        createMurderAndDealCards();
+        initializeTurns();
+        initializeWasMoved();
     }
 
     public void createMurderAndDealCards() {
@@ -90,6 +105,21 @@ public class GameModel {
         }
     }
 
+    public void initializeWasMoved() {
+        try {
+            wasMoved = new HashMap<>();
+            wasMoved.put(board.getCharacter(Character.MS_SCARLET), false);
+            wasMoved.put(board.getCharacter(Character.COL_MUSTARD), false);
+            wasMoved.put(board.getCharacter(Character.MRS_WHITE), false);
+            wasMoved.put(board.getCharacter(Character.MR_GREEN), false);
+            wasMoved.put(board.getCharacter(Character.MRS_PEACOCK), false);
+            wasMoved.put(board.getCharacter(Character.PROF_PLUM), false);
+        } catch (GameModelException e) {
+            // should never happen
+            e.printStackTrace();
+        }
+    }
+
     public void addPlayer(Player player) {
         players.add(player);
     }
@@ -108,6 +138,14 @@ public class GameModel {
 
     public Board getBoard() {
         return board;
+    }
+
+    public Murder getMurder() {
+        return murder;
+    }
+
+    public History getHistory() {
+        return history;
     }
 
 

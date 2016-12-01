@@ -48,6 +48,7 @@ public class SetToken implements Action {
         try {
             Character character = model.getBoard().getCharacter(nextToken);
             player.setCharacter(character);
+            model.getHistory().addHistory(this);
         } catch (GameModelException e) {
             logger.warn("Applying action caused error for: {}", nextToken);
         }
