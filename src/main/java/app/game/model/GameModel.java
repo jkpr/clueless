@@ -148,5 +148,9 @@ public class GameModel {
         return history;
     }
 
+    public Turn getTurn() {
+        return turn;
+    }
+
 
 }

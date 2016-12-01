@@ -4,19 +4,19 @@ package app.game.model;
  * Created by james on 11/29/16.
  */
 public class Turn {
-    Player who;
-    boolean hasMoved;
-    boolean hasSuggested;
-    Player whoCanDisprove;
-    Card suggestedCharacter;
-    Card suggestedWeapon;
-    Card suggestedRoom;
+    private Player who;
+    private boolean hasMoved;
+    private boolean hasSuggested;
+    private Player whoCanDisprove;
+    private Card suggestedCharacter;
+    private Card suggestedWeapon;
+    private Card suggestedRoom;
 
-    Turn() {
+    public Turn() {
         nextTurn(null);
     }
 
-    void nextTurn(Player next) {
+    public void nextTurn(Player next) {
         who = next;
         hasMoved = false;
         hasSuggested = false;
@@ -24,5 +24,33 @@ public class Turn {
         suggestedCharacter = null;
         suggestedWeapon = null;
         suggestedRoom = null;
+    }
+
+    public Player getWho() {
+        return who;
+    }
+
+    public boolean getHasMoved() {
+        return hasMoved;
+    }
+
+    public boolean getHasSuggested() {
+        return hasSuggested;
+    }
+
+    public Player getWhoCanDisprove() {
+        return whoCanDisprove;
+    }
+
+    public Card getSuggestedCharacter() {
+        return suggestedCharacter;
+    }
+
+    public Card getSuggestedWeapon() {
+        return suggestedWeapon;
+    }
+
+    public Card getSuggestedRoom() {
+        return suggestedRoom;
     }
 }

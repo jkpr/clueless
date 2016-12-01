@@ -52,4 +52,13 @@ public class Player {
     public void setComputerPlayer(boolean computer) {
         computerPlayer = computer;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal = false;
+
+
+
+        return equal;
+    }
 }
