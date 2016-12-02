@@ -1,6 +1,7 @@
 package app;
 
 import app.database.DatabaseConnection;
+import app.game.GameController;
 import app.index.IndexController;
 import app.login.LoginController;
 import app.user.UserManager;
@@ -38,6 +39,8 @@ public class Application
         // Initialize routes
         Spark.get(Path.Web.INDEX, IndexController.serveIndexPage);
         Spark.get(Path.Web.LOGIN, LoginController.serveLoginPage);
+        Spark.post(Path.Web.LOGIN, LoginController.handleLoginPost);
+        Spark.get(Path.Web.GAME_LOBBY, GameController.serveGameLobby);
 
         logger.info("Finished app initialization: port, static, freemarker, db, json mapper, routes");
     }
