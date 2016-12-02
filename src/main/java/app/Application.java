@@ -3,6 +3,7 @@ package app;
 import app.database.DatabaseConnection;
 import app.index.IndexController;
 import app.login.LoginController;
+import app.user.UserManager;
 import app.util.Path;
 import app.util.ViewUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +21,7 @@ public class Application
 
     public static DatabaseConnection connectionPool;
     public static ObjectMapper jsonMapper;
+    public static UserManager userManager;
 
     public static void main( String[] args )
     {
@@ -28,11 +30,10 @@ public class Application
         Spark.staticFileLocation(Path.STATIC);
         ViewUtil.initializeFreeMarker();
 
-        // Initialize Database
+        // Initialize Database, JSON mapper, UserManager, GameManager
         connectionPool = new DatabaseConnection(getHerokuDb());
-
-        // Initialize JSON mapper
         jsonMapper = new ObjectMapper();
+        userManager = new UserManager();
 
         // Initialize routes
         Spark.get(Path.Web.INDEX, IndexController.serveIndexPage);
