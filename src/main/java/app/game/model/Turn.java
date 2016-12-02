@@ -7,6 +7,8 @@ public class Turn {
     private Player who;
     private boolean hasMoved;
     private boolean hasSuggested;
+    private boolean movedBySuggestion;
+    private boolean makeAccusation;
     private Player whoCanDisprove;
     private Card suggestedCharacter;
     private Card suggestedWeapon;
@@ -20,6 +22,8 @@ public class Turn {
         who = next;
         hasMoved = false;
         hasSuggested = false;
+        movedBySuggestion = false;
+        makeAccusation = false;
         whoCanDisprove = null;
         suggestedCharacter = null;
         suggestedWeapon = null;
@@ -36,6 +40,17 @@ public class Turn {
 
     public boolean getHasSuggested() {
         return hasSuggested;
+    }
+
+    public boolean getMovedBySuggestion() {
+        return movedBySuggestion;
+    }
+
+    public void setMovedBySuggestion(boolean input){
+        movedBySuggestion = input;
+    }
+    public boolean getMakeAccustaion(){
+        return makeAccusation;
     }
 
     public Player getWhoCanDisprove() {

@@ -16,6 +16,15 @@ public class Move implements Action {
         this.boardSpace = boardSpace;
     }
 
+    /*
+    In order to move, (1) the game status must be “started and in
+progress.” (2) It must be the Player’s token’s turn. (3) The token
+must still be able to move legally during the turn. (4) The
+destination space must be connected to the token’s current
+space. (5) If the destination space is a hallway, it must not be
+occupied. If all of those conditions hold true, then the
+operation returns True. Otherwise, it returns False.
+     */
     public boolean isLegal(GameModel model) {
         boolean legal = false;
         try {
@@ -35,6 +44,10 @@ public class Move implements Action {
         // TODO: catch NullPointerException (and return false)
         return legal;
     }
+    /*
+    Sets the Player’s token’s current BoardSpace to the destination
+BoardSpace. The Turn’s HasMoved attribute is set to True.
+     */
     public void apply(GameModel model) {
         try {
             BoardSpace destination = model.getBoard().getBoardSpace(boardSpace);

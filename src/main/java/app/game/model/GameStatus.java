@@ -6,5 +6,7 @@ package app.game.model;
 public enum GameStatus {
     SETUP,
     ACTIVE,
-    FINISHED
+    FINISHED,
+    DISPROVING_SUGGESTION,
+    STARTED_IN_PROGRESS
 }
