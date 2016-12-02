@@ -1,49 +1,25 @@
-<?php
-session_start();
-include_once 'dbconnect.php';
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" >
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.php">Boddy Builders</a>
+            <a class="navbar-brand" href="http://localhost:4567">Boddy Builder</a>
         </div>
-        <div class="collapse navbar-collapse" id="navbar1">
-            <ul class="nav navbar-nav navbar-left">
-                <li><a href="game.php">Game</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <?php if (isset($_SESSION['usr_id'])) { ?>
-                <li><p class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></p></li>
-                <li><a href="logout.ftl">Log Out</a></li>
-                <?php } else { ?>
-                <li><a href="login.ftl">Login</a></li>
-                <li><a href="register.php">Sign Up</a></li>
-                <?php } ?>
-            </ul>
-        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="http://localhost:4567">Game</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://localhost:4567/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="http://localhost:4567/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
     </div>
 </nav>
 <div class="container">
-    <h1>Welcome here.This is Home page</h1>
+    <h3> CLUE-LESS GAME </h3>
+    <p>  by Chris & James & Federico & Ibrahim </p>
 </div>
-
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/bootstrap.min.js"></script>
-</body>
-</html>
-

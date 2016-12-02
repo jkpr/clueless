@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Forgetpassword</title>
+    <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -9,6 +9,21 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">Boddy Builder</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="game.html">Game</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="signin.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+</nav>
 <div class="container">
 
     <div id="forgotpassword" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -33,7 +48,8 @@
                         <!-- Button -->
 
                         <div class="col-sm-12 controls">
-                            <a id="btn-login" href="Userprofile.html" class="btn btn-success">Submit  </a>
+                            <a id="btn-login" href="index.html" class="btn btn-success">Submit  </a>
+                            <a href="signin.html" class="pull-right need-help">Back to Login </a><span class="clearfix"></span>
 
 
                         </div>

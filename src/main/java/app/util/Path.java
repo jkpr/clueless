@@ -15,11 +15,15 @@ public class Path {
         public static final String USER = "/user";
         public static final String GAME_LOBBY = "/game";
         public static final String GAME = "/game/:id";
+        public static final String FORGOTPASSWORD = "/forgotpassword";
     }
 
     public static class Template {
         public static final String DIR = "/freemarker";
         public static final String INDEX = "/index.ftl";
         public static final String FOOTER = "/footer.ftl";
+        public static final String LOGIN = "/login.ftl";
+        public static final String FORGOTPASSWORD = "/forgotpassword.ftl";
+        public static final String SIGNUP = "/signup.ftl";
     }
 }
