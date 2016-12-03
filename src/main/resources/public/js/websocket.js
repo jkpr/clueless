@@ -1,7 +1,15 @@
-//Establish the WebSocket connection and set up event handlers
-var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/message");
+// Support TLS-specific URLs, when appropriate.
+if (window.location.protocol == "https:") {
+    var ws_scheme = "wss://";
+} else {
+    var ws_scheme = "ws://"
+};
+
+
+var webSocket = new ReconnectingWebSocket(ws_scheme + location.hostname + ":" + location.port + "/message");
+
 webSocket.onmessage = function (msg) { updateChat(msg); };
-webSocket.onclose = function () { alert("WebSocket connection closed") };
+webSocket.onclose = function () { /*alert("WebSocket connection closed")*/ };
 
 //Send message if "Send" is clicked
 id("send").addEventListener("click", function () {
