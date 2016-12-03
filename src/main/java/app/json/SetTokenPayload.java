@@ -3,7 +3,7 @@ package app.json;
 /**
  * Created by james on 12/3/16.
  */
-public class AddPlayerPayload {
+public class SetTokenPayload {
     String api;
     String who;
 

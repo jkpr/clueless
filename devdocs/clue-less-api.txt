@@ -1,27 +1,32 @@
+// User must be added with a character
 POST game/<gameid>/add
 {
     "api": "<api_key>",
-    "username": "<username>"
+    "who": "<character>"
 }
+
 
 POST game/<gameid>/chat
 {
     "api": "<api_key>",
-    "username":"<username>",
-    "message":"<message>"
+    "msg": "<message>"
 }
 
+// Choose your token
 POST game/<gameid>/token
 {
     "api": "<api_key>",
-    "set": "<token_name>"
+    "who": "<token_name>"
 }
 
+// Only the host can start the game ??
+// Might not enforce that rule
 POST game/<gameid>/start
 {
     "api": "<api_key>"
 }
 
+//
 POST game/<gameid>/move
 {
     "api": "<api_key>",

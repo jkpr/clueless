@@ -3,9 +3,9 @@ package app.json;
 /**
  * Created by james on 12/3/16.
  */
-public class AddPlayerPayload {
+public class MovePayload {
     String api;
-    String who;
+    String to;
 
     public String getApi() {
         return api;
@@ -15,11 +15,11 @@ public class AddPlayerPayload {
         this.api = api;
     }
 
-    public String getWho() {
-        return who;
+    public String getTo() {
+        return to;
     }
 
-    public void setWho(String who) {
-        this.who = who;
+    public void setTo(String to) {
+        this.to = to;
     }
 }
