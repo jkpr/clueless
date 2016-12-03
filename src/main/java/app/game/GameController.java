@@ -1,5 +1,7 @@
 package app.game;
 
+import app.json.AddPlayerPayload;
+import app.json.JsonResponse;
 import app.message.Chat;
 import app.message.Messaging;
 import app.util.Path;
@@ -14,6 +16,9 @@ import spark.Route;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import static app.Application.game;
+import static app.Application.jsonMapper;
 
 /**
  * Created by james on 11/26/16.
@@ -43,5 +48,18 @@ public class GameController {
             map.put("user", username);
             return ViewUtil.render(map, Path.Template.GAME);
         }
+    };
+
+    public static Route handleAddPlayerPost = (Request request, Response response) -> {
+        // Ignore API key for now. Only use session username.
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null) {
+            response.status(401);
+        } else {
+            String json = request.body();
+            AddPlayerPayload addPlayerPayload = jsonMapper.readValue(json, AddPlayerPayload.class);
+            JsonResponse jsonResponse = game.handleAddPlayer(username, addPlayerPayload);
+        }
+        return null;
     };
 }

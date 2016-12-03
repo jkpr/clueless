@@ -1,8 +1,6 @@
 package app.game.action;
 
 import app.game.model.GameModel;
-import app.game.model.GameProperty;
-import app.game.model.Player;
 
 /**
  * Created by james on 11/26/16.

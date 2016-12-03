@@ -17,7 +17,6 @@ public class RequestUtil {
     public static String USERNAME = "username";
     public static String PASSWORD = "password";
     public static String CURRENT_USER = "currentUser";
-    public static String LOGIN_REDIRECT = "loginRedirect";
     public static String SESSION_ID = "JSESSIONID";
 
     public static String getQueryUsername(Request request) {

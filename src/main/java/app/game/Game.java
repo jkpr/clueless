@@ -1,9 +1,13 @@
 package app.game;
 
 import app.exception.GameModelException;
+import app.game.action.Action;
+import app.game.action.AddPlayer;
 import app.game.model.Character;
 import app.game.model.GameModel;
 import app.game.model.Player;
+import app.json.AddPlayerPayload;
+import app.json.JsonResponse;
 import app.user.User;
 
 import java.util.HashMap;
@@ -39,7 +43,20 @@ public class Game {
         // TODO: may be issues with players joining without an assigned character
     }
 
-    public void handleAddPlayer() {
+    public JsonResponse handleAddPlayer(String username, AddPlayerPayload payload) {
+        JsonResponse jsonResponse = new JsonResponse();
+
+        Action action = new AddPlayer(username, payload.getWho());
+        boolean legal = action.isLegal(model);
+        if (legal) {
+            action.apply(model);
+            jsonResponse.status = 200;
+            jsonResponse.msg = action.toString();
+        } else {
+            jsonResponse.status = 403;
+            jsonResponse.msg = action.getMessage();
+        }
+        return jsonResponse;
 
     }
 
