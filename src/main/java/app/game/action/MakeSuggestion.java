@@ -6,10 +6,9 @@ import app.game.model.*;
 /**
  * Created by james on 11/26/16.
  */
-
-
 public class MakeSuggestion implements Action {
 
+    private String message;
     Player player;
     String character;
     String weapon;
@@ -20,6 +19,9 @@ public class MakeSuggestion implements Action {
         this.character = character;
         this.weapon = weapon;
         this.room = room;
+    }
+    public String getMessage() {
+        return message;
     }
 
     /*

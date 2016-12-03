@@ -10,6 +10,7 @@ import app.game.model.Player;
  */
 public class MakeAccusation implements Action {
 
+    private String message;
     Player player;
     String character;
     String weapon;
@@ -20,6 +21,9 @@ public class MakeAccusation implements Action {
         this.character = character;
         this.weapon = weapon;
         this.room = room;
+    }
+    public String getMessage() {
+        return message;
     }
     /*
     n: (1) The game status must be “started and in progress.” (2) It

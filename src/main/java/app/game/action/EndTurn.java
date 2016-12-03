@@ -2,16 +2,24 @@ package app.game.action;
 
 import app.exception.GameModelException;
 import app.game.model.*;
+import app.game.model.GameModel;
+import app.game.model.GameProperty;
+import app.game.model.Player;
 
 /**
  * Created by james on 11/26/16.
  */
 public class EndTurn implements Action {
 
+    private String message;
+
     Player player;
 
     public EndTurn(Player player, String character, String weapon, String room) {
         this.player = player;
+    }
+    public String getMessage() {
+        return message;
     }
 
     /*

@@ -16,6 +16,8 @@ import java.util.List;
 public class SetToken implements Action {
     private static final Logger logger = LoggerFactory.getLogger(SetToken.class);
 
+    private String message;
+
     private String user;
     private Player player;
     private String currentToken;
@@ -29,6 +31,7 @@ public class SetToken implements Action {
     }
 
     public boolean isLegal(GameModel model) {
+        boolean legal = false;
         try {
             Character character = model.getBoard().getCharacter(nextToken);
             boolean tokenFree = true;
@@ -39,10 +42,17 @@ public class SetToken implements Action {
                 }
             }
             boolean setupPhase = model.getStatus() == GameStatus.SETUP;
-            return setupPhase && tokenFree;
+
+            if (!setupPhase) {
+                message = "Game not in setup phase";
+            } else if (!tokenFree) {
+                message = String.format("Token unavailable: %s", nextToken);
+            }
+            legal = setupPhase && tokenFree;
         } catch (GameModelException e) {
-            return false;
+            message = String.format("Unrecognized token: %s", nextToken);
         }
+        return legal;
     }
     public void apply(GameModel model) {
         try {
@@ -58,5 +68,9 @@ public class SetToken implements Action {
     @Override
     public String toString() {
         return String.format("User %s changed tokens to be %s", user, nextToken);
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

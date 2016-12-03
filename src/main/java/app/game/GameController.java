@@ -21,7 +21,9 @@ import java.util.Map;
 public class GameController {
     private static final Logger logger = LoggerFactory.getLogger(GameController.class);
 
-    public static Route serveGameLobby = (Request request, Response response) -> {
+    // public static Route serveGameLobby ...
+
+    public static Route serveGame = (Request request, Response response) -> {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
         if (username == null) {
             response.redirect(Path.Web.LOGIN);

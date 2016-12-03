@@ -16,26 +16,25 @@ import java.util.List;
 public class AddPlayer implements Action {
     private static final Logger logger = LoggerFactory.getLogger(AddPlayer.class);
 
+    private String message;
     private String user;
     private String tokenName;
-    private Player player;
     private boolean computerPlayer;
 
     public AddPlayer(String user, String tokenName) {
         this.user = user;
         this.tokenName = tokenName;
-        player = null;
         computerPlayer = false;
     }
 
     public AddPlayer(String user, String tokenName, boolean computerPlayer) {
         this.user = user;
         this.tokenName = tokenName;
-        player = null;
         this.computerPlayer = computerPlayer;
     }
 
     public boolean isLegal(GameModel model) {
+        boolean legal = false;
         try {
             Character character = model.getBoard().getCharacter(tokenName);
             boolean tokenFree = true;
@@ -47,16 +46,26 @@ public class AddPlayer implements Action {
             }
             boolean notMax = players.size() < GameModel.MAX_PLAYERS;
             boolean setupPhase = model.getStatus() == GameStatus.SETUP;
-            return tokenFree && notMax && setupPhase;
+
+            if (!tokenFree) {
+                message = String.format("Token unavailable: %s", tokenName);
+            } else if (!notMax) {
+                message = "Game already at max players";
+            } else if (!setupPhase) {
+                message = "Game not in setup phase";
+            }
+
+            legal = tokenFree && notMax && setupPhase;
         } catch (GameModelException e) {
-            return false;
+            message = String.format("Unrecognized token: %s", tokenName);
         }
+        return legal;
     }
 
     public void apply(GameModel model) {
         try {
             Character character = model.getBoard().getCharacter(tokenName);
-            player = new Player(character);
+            Player player = new Player(character);
             model.addPlayer(player);
             model.getHistory().addHistory(this);
         } catch (GameModelException e) {
@@ -71,5 +80,9 @@ public class AddPlayer implements Action {
         } else {
             return String.format("Added user %s to the game as %s", user, tokenName);
         }
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

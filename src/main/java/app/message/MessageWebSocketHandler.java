@@ -21,8 +21,6 @@ import static app.Application.game;
 public class MessageWebSocketHandler {
     private static final Logger logger = LoggerFactory.getLogger(MessageWebSocketHandler.class);
 
-    private String sender, msg;
-
     @OnWebSocketConnect
     public void onConnect(Session session) throws Exception {
         List<HttpCookie> cookies = session.getUpgradeRequest().getCookies();
@@ -46,12 +44,13 @@ public class MessageWebSocketHandler {
     @OnWebSocketClose
     public void onClose(Session session, int statusCode, String reason) {
         String username = Messaging.sessionUsernameMap.get(session);
+        logger.info("Removing websocket for username: {}", username);
         Messaging.sessionUsernameMap.remove(session);
         Messaging.broadcastLeaveChat(username);
     }
 
     @OnWebSocketMessage
     public void onMessage(Session session, String message) {
-        Messaging.broadcastChat(sender = Messaging.sessionUsernameMap.get(session), msg = message);
+        Messaging.broadcastChat(Messaging.sessionUsernameMap.get(session), message);
     }
 }

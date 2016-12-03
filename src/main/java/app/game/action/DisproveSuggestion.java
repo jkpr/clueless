@@ -10,6 +10,9 @@ import app.game.model.Player;
  */
 public class DisproveSuggestion implements Action {
 
+
+    private String message;
+
     Player player;
     String character;
     String weapon;
@@ -45,5 +48,8 @@ Note: the which cards were suggested are set to NULL.
      */
     public void apply(GameModel model) {
         model.setStatus(GameStatus.STARTED_IN_PROGRESS);
+    }
+    public String getMessage() {
+        return message;
     }
 }

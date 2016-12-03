@@ -48,8 +48,8 @@ public class Application
         Spark.get(Path.Web.INDEX, IndexController.serveIndexPage);
         Spark.get(Path.Web.LOGIN, LoginController.serveLoginPage);
         Spark.post(Path.Web.LOGIN, LoginController.handleLoginPost);
-        Spark.get(Path.Web.GAME_LOBBY, GameController.serveGameLobby);
-
+        //Spark.get(Path.Web.GAME_LOBBY, GameController.serveGameLobby);
+        Spark.get(Path.Web.GAME, GameController.serveGame);
 
         logger.info("Finished app initialization: port, static, freemarker, db, json mapper, routes");
     }

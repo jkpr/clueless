@@ -8,6 +8,8 @@ import app.game.model.*;
  */
 public class Move implements Action {
 
+    private String message;
+
     Player player;
     String boardSpace;
 
@@ -37,9 +39,24 @@ operation returns True. Otherwise, it returns False.
             boolean unoccupied = model.getBoard().getSpaceOccupants(destination).size() == 0;
             boolean hallway = destination.type == GameProperty.HALLWAY;
             boolean open = !hallway || unoccupied;
+
+            if (!activeGame) {
+                message = "Game not being played";
+            } else if (!yourTurn) {
+                message = String.format("It is not %s's turn", player.getCharacter().getName());
+            } else if (!notMoved) {
+                message = String.format("%s has already moved this turn", player.getCharacter().getName());
+            } else if (!connected) {
+                message = String.format("%s is on board space %s and it is not connected to board space %s",
+                        player.getCharacter().getName(), player.getCharacter().getSpace().name, boardSpace);
+            } else if (!open) {
+                message = String.format("Board space %s is not open", boardSpace);
+            }
+
             legal = activeGame && yourTurn && notMoved && connected && open;
         } catch (GameModelException e) {
             // not legal. stay false
+            message = String.format("Unrecognized board space: %s", boardSpace);
         }
         // TODO: catch NullPointerException (and return false)
         return legal;
@@ -55,5 +72,9 @@ BoardSpace. The Turn’s HasMoved attribute is set to True.
         } catch (GameModelException e) {
 
         }// TODO: catch NullPointerException
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

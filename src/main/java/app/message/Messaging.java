@@ -33,6 +33,7 @@ public class Messaging {
             try {
                 session.getRemote().sendString(String.valueOf(new JSONObject()
                         .put("userMessage", createHtmlMessageFromSender(sender, message))
+                        // TODO keep only unique values because can connect from multiple tabs
                         .put("userlist", sessionUsernameMap.values())
                 ));
             } catch (Exception e) {

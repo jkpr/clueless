@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class StartGame implements Action {
 
+    private String message;
+
     String user;
 
     public StartGame(String user) {
@@ -18,10 +20,19 @@ public class StartGame implements Action {
     }
 
     public boolean isLegal(GameModel model) {
+        boolean legal = false;
         List<Player> players = model.getPlayers();
         boolean enoughPlayers = players.size() > GameModel.MIN_PLAYERS;
         boolean setupPhase = model.getStatus() == GameStatus.SETUP;
-        return enoughPlayers && setupPhase;
+
+        if (!enoughPlayers) {
+            message = "Game doest not yet have minimum players";
+        } else if (!setupPhase) {
+            message = "Game not in setup phase";
+        }
+
+        legal = enoughPlayers && setupPhase;
+        return legal;
     }
 
     public void apply(GameModel model) {
@@ -32,5 +43,9 @@ public class StartGame implements Action {
     @Override
     public String toString() {
         return String.format("User %s started the game", user);
+    }
+
+    public String getMessage() {
+        return message;
     }
 }
