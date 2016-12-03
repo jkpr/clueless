@@ -38,6 +38,7 @@ public class EndTurn implements Action {
         boolean hasMoved = model.getTurn().getHasMoved();
         boolean inHallway = player.getCharacter().getSpace().type == GameProperty.HALLWAY;
 
+        //TODO write getWasMoved method
         //boolean makeSuggestionUnable = !model.getWasMoved().get(player.getCharacter());
 
         legal = activeGame && yourTurn && (madeSuggestion || (hasMoved && inHallway));

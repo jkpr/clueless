@@ -33,12 +33,7 @@ operation returns True. Otherwise, it returns False.
      */
     public boolean isLegal(GameModel model) {
         boolean legal = false;
-        try {
-            boolean gameStatus = model.getStatus() == GameStatus.DISPROVING_SUGGESTION;
-        }
-        catch (GameModelException e){
-            return false; //TODO: Need to double-check
-        }
+        boolean gameStatus = model.getStatus() == GameStatus.DISPROVING_SUGGESTION;
 
         // stub
         return true;
@@ -49,6 +44,6 @@ information regarding who can disprove a suggestion and
 Note: the which cards were suggested are set to NULL.
      */
     public void apply(GameModel model) {
-        // stub
+        model.setStatus(GameStatus.STARTED_IN_PROGRESS);
     }
 }

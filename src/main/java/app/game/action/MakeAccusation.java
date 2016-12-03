@@ -30,16 +30,13 @@ Otherwise, it returns false.
      */
     public boolean isLegal(GameModel model) {
         boolean legal = false;
-        try{
-            boolean activeGame = model.getStatus() == GameStatus.STARTED_IN_PROGRESS;
-            boolean yourTurn = model.getTurn().getWho() == player;
-            boolean makeAccusation = model.getTurn().getMakeAccustaion();
 
-            legal = activeGame && yourTurn && makeAccusation;
-        }
-        catch (GameModelException e){
+        boolean activeGame = model.getStatus() == GameStatus.STARTED_IN_PROGRESS;
+        boolean yourTurn = model.getTurn().getWho() == player;
+        boolean makeAccusation = model.getTurn().getMakeAccustaion();
 
-        }
+        legal = activeGame && yourTurn && makeAccusation;
+
         return legal;
     }
 
@@ -60,6 +57,15 @@ sole remaining character token is the winner.
 - The current character token’s turn ends.
      */
     public void apply(GameModel model) {
-        // stub
+/*
+        if ()
+        {
+            model.setStatus(GameStatus.FINISHED);
+        }
+        else
+        {
+
+        }
+*/
     }
 }

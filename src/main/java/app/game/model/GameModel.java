@@ -152,5 +152,16 @@ public class GameModel {
         return turn;
     }
 
+    public boolean getWasMoved(Player player){
+
+        boolean wasMoved = false;
+
+        BoardSpace currentSpace = player.getCharacter().getSpace();
+
+        return wasMoved;
+        //Set<BoardSpace> connections = getBoard().getSpaceConnections();
+
+    }
+
 
 }

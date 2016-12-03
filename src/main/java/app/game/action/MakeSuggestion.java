@@ -64,5 +64,7 @@ HasSuggested is set to True.
 */
     public void apply(GameModel model) {
 
+        model.getTurn().setMovedBySuggestion(true);
+
     }
 }
