@@ -18,6 +18,11 @@ public class Player {
         computerPlayer = false;
     }
 
+    public Player() {
+        this.character = null;
+        hand = new LinkedList<>();
+        computerPlayer = false;
+    }
     public Character getCharacter() {
         return character;
     }

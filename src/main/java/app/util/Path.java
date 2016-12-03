@@ -15,10 +15,11 @@ public class Path {
         public static final String USER = "/user";
         public static final String GAME_LOBBY = "/game";
         public static final String GAME = "/game/:id";
+        public static final String MESSAGE = "/message";
     }
 
     public static class Action {
-        public static final String ADD_PLAYER = "/game/:id/add";
+        public static final String JOIN = "/game/:id/join";
         public static final String DISPROVE_SUGGESTION = "/game/:id/disprove";
         public static final String END_TURN = "/game/:id/endturn";
         public static final String MAKE_ACCUSATION = "/game/:id/accuse";
@@ -34,5 +35,6 @@ public class Path {
         public static final String FOOTER = "/footer.ftl";
         public static final String LOGIN = "/login.ftl";
         public static final String GAME_LOBBY = "/lobby.ftl";
+        public static final String GAME = "/game.ftl";
     }
 }

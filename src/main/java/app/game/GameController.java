@@ -18,6 +18,6 @@ public class GameController {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
         Map<String, Object> map = new HashMap<>();
         map.put("user", username);
-        return ViewUtil.render(map, Path.Template.GAME_LOBBY);
+        return ViewUtil.render(map, Path.Template.GAME);
     };
 }

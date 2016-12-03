@@ -1,9 +1,11 @@
 package app;
 
 import app.database.DatabaseConnection;
+import app.game.Game;
 import app.game.GameController;
 import app.index.IndexController;
 import app.login.LoginController;
+import app.message.MessageWebSocketHandler;
 import app.user.UserManager;
 import app.util.Path;
 import app.util.ViewUtil;
@@ -11,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Spark;
+
+import static spark.Spark.init;
+import static spark.Spark.webSocket;
 
 /**
  * Hello world!
@@ -23,6 +28,7 @@ public class Application
     public static DatabaseConnection connectionPool;
     public static ObjectMapper jsonMapper;
     public static UserManager userManager;
+    public static Game game;
 
     public static void main( String[] args )
     {
@@ -35,12 +41,15 @@ public class Application
         connectionPool = new DatabaseConnection(getHerokuDb());
         jsonMapper = new ObjectMapper();
         userManager = new UserManager();
+        game = new Game();
 
         // Initialize routes
+        webSocket(Path.Web.MESSAGE, MessageWebSocketHandler.class);
         Spark.get(Path.Web.INDEX, IndexController.serveIndexPage);
         Spark.get(Path.Web.LOGIN, LoginController.serveLoginPage);
         Spark.post(Path.Web.LOGIN, LoginController.handleLoginPost);
         Spark.get(Path.Web.GAME_LOBBY, GameController.serveGameLobby);
+
 
         logger.info("Finished app initialization: port, static, freemarker, db, json mapper, routes");
     }
