@@ -34,20 +34,19 @@ public class MakeSuggestion implements Action {
      */
 
     public boolean isLegal(GameModel model) {
+
         boolean legal = false;
-        try{
-            boolean activeGame = model.getStatus() == GameStatus.ACTIVE;
-            boolean yourTurn = model.getTurn().getWho() == player;
-            boolean makeSuggestion = !model.getTurn().getHasSuggested();
-            boolean hasMoved = model.getTurn().getHasMoved();
-            boolean movedBySuggestion = model.getTurn().getMovedBySuggestion();
-            boolean hasSuggested = model.getTurn().getHasSuggested();
-            boolean inSuggestedRoom = player.getCharacter().getSpace().name.equals(room);
-            legal = activeGame && yourTurn && makeSuggestion && (movedBySuggestion == true || hasMoved == true) && (hasSuggested == false) && inSuggestedRoom;
-        } catch(GameModelException e){
-            // not legal. stay false
-        }
-        // TODO: catch NullPointerException (and return false)
+
+        boolean activeGame = model.getStatus() == GameStatus.ACTIVE;
+        boolean yourTurn = model.getTurn().getWho() == player;
+        boolean makeSuggestion = !model.getTurn().getHasSuggested();
+        boolean hasMoved = model.getTurn().getHasMoved();
+        boolean movedBySuggestion = model.getTurn().getMovedBySuggestion();
+        boolean hasSuggested = model.getTurn().getHasSuggested();
+        boolean inSuggestedRoom = player.getCharacter().getSpace().name.equals(room);
+
+        legal = activeGame && yourTurn && makeSuggestion && (movedBySuggestion == true || hasMoved == true) && (hasSuggested == false) && inSuggestedRoom;
+
         return legal;
     }
 

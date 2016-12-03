@@ -9,15 +9,9 @@ import app.game.model.*;
 public class EndTurn implements Action {
 
     Player player;
-    String character;
-    String weapon;
-    String room;
 
     public EndTurn(Player player, String character, String weapon, String room) {
         this.player = player;
-        this.character = character;
-        this.weapon = weapon;
-        this.room = room;
     }
 
     /*
@@ -32,18 +26,22 @@ public class EndTurn implements Action {
 
     public boolean isLegal(GameModel model) {
         boolean legal = false;
-        try {
-            boolean activeGame = model.getStatus() == GameStatus.ACTIVE;
-            boolean yourTurn = model.getTurn().getWho() == player;
-            boolean madeSuggestion = model.getTurn().getHasSuggested();
-            boolean hasMoved = model.getTurn().getHasMoved();
-            boolean inHallway = player.getCharacter().getSpace().name.equals(GameProperty.HALLWAY.name());
 
-        }
-        catch (GameModelException e) {
-            // not legal. stay false
-        }
-        // TODO: catch NullPointerException (and return false)
+        //(1)
+        boolean activeGame = model.getStatus() == GameStatus.ACTIVE;
+
+        //(2)
+        boolean yourTurn = model.getTurn().getWho() == player;
+
+        //(3)
+        boolean madeSuggestion = model.getTurn().getHasSuggested();
+        boolean hasMoved = model.getTurn().getHasMoved();
+        boolean inHallway = player.getCharacter().getSpace().type == GameProperty.HALLWAY;
+
+        //boolean makeSuggestionUnable = !model.getWasMoved().get(player.getCharacter());
+
+        legal = activeGame && yourTurn && (madeSuggestion || (hasMoved && inHallway));
+
         return legal;
     }
 
