@@ -12,6 +12,7 @@
 </div>
 <ul id="userlist"> <!-- Built by JS --> </ul>
 <div id="chat">    <!-- Built by JS --> </div>
-<script src="js/websocket.js"></script>
+<script type="text/javascript" src="js/reconnecting-websocket.min.js"></script>
+<script type="text/javascript" src="js/websocket.js"></script>
 </body>
 </html>
