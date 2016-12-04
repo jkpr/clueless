@@ -49,7 +49,14 @@ public class Application
         Spark.get(Path.Web.LOGIN, LoginController.serveLoginPage);
         Spark.post(Path.Web.LOGIN, LoginController.handleLoginPost);
         //Spark.get(Path.Web.GAME_LOBBY, GameController.serveGameLobby);
+
+        // Game Routes
         Spark.get(Path.Web.GAME, GameController.serveGame);
+        Spark.post(Path.Action.JOIN, GameController.handleAddPlayerPost);
+        Spark.post(Path.Action.SET_TOKEN, GameController.handleSetTokenPost);
+        Spark.post(Path.Action.START_GAME, GameController.handleStartGamePost);
+        Spark.post(Path.Action.MOVE, GameController.handleMovePost);
+        Spark.post(Path.Action.END_TURN, GameController.handleEndTurnPost);
 
         logger.info("Finished app initialization: port, static, freemarker, db, json mapper, routes");
     }
