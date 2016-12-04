@@ -120,6 +120,21 @@ public class GameModel {
         }
     }
 
+    public void endTurn() {
+        wasMoved.put(turn.getWho().getCharacter(), false);
+        turn.nextTurn(getNextTurn());
+    }
+
+    private Player getNextTurn() {
+        for (Iterator<Player> iter = turnOrder.iterator(); iter.hasNext(); ) {
+            Player player = iter.next();
+            if ((player == turn.getWho()) && iter.hasNext()) {
+                return iter.next();
+            }
+        }
+        return turnOrder.get(0);
+    }
+
     public void addPlayer(Player player) {
         players.add(player);
     }

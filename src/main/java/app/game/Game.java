@@ -101,10 +101,8 @@ public class Game {
         return jsonResponse;
     }
 
-    public JsonResponse handleMove(String username, MovePayload payload) {
+    public JsonResponse handleMove(Player player, MovePayload payload) {
         JsonResponse jsonResponse = new JsonResponse();
-
-        Player player = players.get(username);
 
         Action action = new Move(player, payload.getTo());
         boolean legal = action.isLegal(model);
@@ -120,7 +118,20 @@ public class Game {
 
     }
 
-    public void handEndTurn() {
+    public JsonResponse handleEndTurn(Player player, EndTurnPayload payload) {
+        JsonResponse jsonResponse = new JsonResponse();
+
+        Action action = new EndTurn(player);
+        boolean legal = action.isLegal(model);
+        if (legal) {
+            action.apply(model);
+            jsonResponse.status = 200;
+            jsonResponse.msg = action.toString();
+        } else {
+            jsonResponse.status = 403;
+            jsonResponse.msg = action.getMessage();
+        }
+        return jsonResponse;
 
     }
 }

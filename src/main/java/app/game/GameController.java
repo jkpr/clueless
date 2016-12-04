@@ -1,9 +1,7 @@
 package app.game;
 
-import app.json.AddPlayerPayload;
-import app.json.JsonResponse;
-import app.json.SetTokenPayload;
-import app.json.StartGamePayload;
+import app.game.model.Player;
+import app.json.*;
 import app.message.Messaging;
 import app.util.Path;
 import app.util.RequestUtil;
@@ -93,4 +91,35 @@ public class GameController {
             return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
+
+    public static Route handleMovePost = (Request request, Response response) -> {
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null || game.isUserPlayer(username)) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            MovePayload movePayload = jsonMapper.readValue(json, MovePayload.class);
+            Player player = game.players.get(username);
+            JsonResponse jsonResponse = game.handleMove(player, movePayload);
+            response.status(jsonResponse.status);
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
+    };
+
+    public static Route handleEndTurnPost = (Request request, Response response) -> {
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null || game.isUserPlayer(username)) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            EndTurnPayload endTurnPayload = jsonMapper.readValue(json, EndTurnPayload.class);
+            JsonResponse jsonResponse = game.handleEndTurn(username, endTurnPayload);
+            response.status(jsonResponse.status);
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
+    };
+
+
 }
