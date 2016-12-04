@@ -115,7 +115,8 @@ public class GameController {
         } else {
             String json = request.body();
             EndTurnPayload endTurnPayload = jsonMapper.readValue(json, EndTurnPayload.class);
-            JsonResponse jsonResponse = game.handleEndTurn(username, endTurnPayload);
+            Player player = game.players.get(username);
+            JsonResponse jsonResponse = game.handleEndTurn(player, endTurnPayload);
             response.status(jsonResponse.status);
             return new JSONObject().put("msg", jsonResponse.msg);
         }
