@@ -25,5 +25,6 @@ public class Path {
         public static final String LOGIN = "/login.ftl";
         public static final String FORGOTPASSWORD = "/forgotpassword.ftl";
         public static final String SIGNUP = "/signup.ftl";
+        public static final String USER = "/user.ftl";
     }
 }

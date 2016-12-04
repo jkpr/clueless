@@ -5,6 +5,7 @@ import app.index.IndexController;
 import app.login.LoginController;
 import app.forgotpassword.ForgotpasswordController;
 import app.signup.SignupController;
+import app.user.UserController;
 import app.util.Path;
 import app.util.ViewUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,7 +42,7 @@ public class Application
         Spark.get(Path.Web.LOGIN, LoginController.serveLoginPage);
         Spark.get(Path.Web.SIGNUP, SignupController.serveSignupPage);
         Spark.get(Path.Web.FORGOTPASSWORD, ForgotpasswordController.serveForgotpasswordPage);
-
+        Spark.get(Path.Web.USER, UserController.serveUserPage);
 
         logger.info("Finished app initialization: port, static, freemarker, db, json mapper, routes");
     }
