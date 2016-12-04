@@ -115,7 +115,6 @@ public class Game {
             jsonResponse.msg = action.getMessage();
         }
         return jsonResponse;
-
     }
 
     public JsonResponse handleEndTurn(Player player, EndTurnPayload payload) {
@@ -132,6 +131,5 @@ public class Game {
             jsonResponse.msg = action.getMessage();
         }
         return jsonResponse;
-
     }
 }
