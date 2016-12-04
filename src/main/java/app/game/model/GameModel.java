@@ -167,6 +167,17 @@ public class GameModel {
         return turn;
     }
 
+    public boolean allPlayersSet() {
+        boolean allSet = true;
+        for (Player player : players) {
+            if (player.getCharacter() == null) {
+                allSet = false;
+                break;
+            }
+        }
+        return allSet;
+    }
+
     public String toVisualString() {
         StringBuilder sb = new StringBuilder();
         sb.append(board.toVisualString());

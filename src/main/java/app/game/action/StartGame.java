@@ -26,6 +26,7 @@ public class StartGame implements Action {
         List<Player> players = model.getPlayers();
         boolean enoughPlayers = players.size() > GameModel.MIN_PLAYERS;
         boolean setupPhase = model.getStatus() == GameStatus.SETUP;
+        boolean allSet = model.allPlayersSet();
 
         if (!enoughPlayers) {
             message = "Game doest not yet have minimum players";
@@ -33,9 +34,11 @@ public class StartGame implements Action {
             message = "Game not in setup phase";
         } else if (!isHost) {
             message = String.format("Only the host can start. %s is not host", user);
+        } else if (!allSet) {
+            message = String.format("Not all players have selected a token.");
         }
 
-        legal = enoughPlayers && setupPhase && isHost;
+        legal = enoughPlayers && setupPhase && isHost && allSet;
         return legal;
     }
 

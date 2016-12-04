@@ -38,7 +38,6 @@ public class Game {
         }
         players = new HashMap<>();
         players.put(user, player);
-        // TODO: may be issues with players joining without an assigned character
     }
 
     public boolean isUserPlayer(String user) {
@@ -48,11 +47,11 @@ public class Game {
     public JsonResponse handleAddPlayer(String username, AddPlayerPayload payload) {
         JsonResponse jsonResponse = new JsonResponse();
 
+        // TODO for the future: some tests for if computer added request
+        boolean userAlreadyAdded = players.keySet().contains(username);
         Player player = new Player();
-
-        Action action = new AddPlayer(username, player, payload.getWho());
+        Action action = new AddPlayer(username, player, userAlreadyAdded);
         boolean legal = action.isLegal(model);
-        // TODO: possibly check that user cannot join twice
         if (legal) {
             action.apply(model);
             if (players.isEmpty()) {

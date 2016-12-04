@@ -5,7 +5,6 @@ package app.json;
  */
 public class AddPlayerPayload {
     String api;
-    String who;
 
     public String getApi() {
         return api;
@@ -13,13 +12,5 @@ public class AddPlayerPayload {
 
     public void setApi(String api) {
         this.api = api;
-    }
-
-    public String getWho() {
-        return who;
-    }
-
-    public void setWho(String who) {
-        this.who = who;
     }
 }

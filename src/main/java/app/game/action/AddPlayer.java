@@ -1,7 +1,5 @@
 package app.game.action;
 
-import app.exception.GameModelException;
-import app.game.model.Character;
 import app.game.model.GameModel;
 import app.game.model.GameStatus;
 import app.game.model.Player;
@@ -19,67 +17,52 @@ public class AddPlayer implements Action {
     private String message;
     private String user;
     private Player player;
-    private String tokenName;
+    private boolean userAlreadyAdded;
     private boolean computerPlayer;
 
-    public AddPlayer(String user, Player player, String tokenName) {
+    public AddPlayer(String user, Player player, boolean userAlreadyAdded) {
         this.user = user;
-        this.tokenName = tokenName;
+        this.player = player;
+        this.userAlreadyAdded = userAlreadyAdded;
         computerPlayer = false;
     }
 
-    public AddPlayer(String user, Player player, String tokenName, boolean computerPlayer) {
+    public AddPlayer(String user, Player player, boolean computerPlayer, boolean userAlreadyAdded) {
         this.user = user;
-        this.tokenName = tokenName;
+        this.player = player;
+        this.userAlreadyAdded = userAlreadyAdded;
         this.computerPlayer = computerPlayer;
     }
 
     public boolean isLegal(GameModel model) {
         boolean legal = false;
-        try {
-            Character character = model.getBoard().getCharacter(tokenName);
-            boolean tokenFree = true;
-            List<Player> players = model.getPlayers();
-            for (Player player : players) {
-                if (player.getCharacter().equals(character)) {
-                    tokenFree = false;
-                }
-            }
-            boolean notMax = players.size() < GameModel.MAX_PLAYERS;
-            boolean setupPhase = model.getStatus() == GameStatus.SETUP;
+        List<Player> players = model.getPlayers();
+        boolean notMax = players.size() < GameModel.MAX_PLAYERS;
+        boolean setupPhase = model.getStatus() == GameStatus.SETUP;
 
-            if (!tokenFree) {
-                message = String.format("Token unavailable: %s", tokenName);
-            } else if (!notMax) {
-                message = "Game already at max players";
-            } else if (!setupPhase) {
-                message = "Game not in setup phase";
-            }
-
-            legal = tokenFree && notMax && setupPhase;
-        } catch (GameModelException e) {
-            message = String.format("Unrecognized token: %s", tokenName);
+        if (!notMax) {
+            message = "Game already at max players";
+        } else if (!setupPhase) {
+            message = "Game not in setup phase";
+        } else if (userAlreadyAdded) {
+            message = String.format("User %s has already joined the game", user);
         }
+
+        legal = notMax && setupPhase && !userAlreadyAdded;
         return legal;
     }
 
     public void apply(GameModel model) {
-        try {
-            Character character = model.getBoard().getCharacter(tokenName);
-            player.setCharacter(character);
-            model.addPlayer(player);
-            model.getHistory().addHistory(this);
-        } catch (GameModelException e) {
-            logger.warn("Applying action caused error for: {}", tokenName);
-        }
+        model.addPlayer(player);
+        model.getHistory().addHistory(this);
     }
 
     @Override
     public String toString() {
         if (computerPlayer) {
-            return String.format("User %s added computer player to the game as %s", user, tokenName);
+            return String.format("User %s added computer player to the game.", user);
         } else {
-            return String.format("Added user %s to the game as %s", user, tokenName);
+            return String.format("Added user %s to the game.", user);
         }
     }
 
