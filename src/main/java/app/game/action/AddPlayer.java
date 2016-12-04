@@ -18,16 +18,17 @@ public class AddPlayer implements Action {
 
     private String message;
     private String user;
+    private Player player;
     private String tokenName;
     private boolean computerPlayer;
 
-    public AddPlayer(String user, String tokenName) {
+    public AddPlayer(String user, Player player, String tokenName) {
         this.user = user;
         this.tokenName = tokenName;
         computerPlayer = false;
     }
 
-    public AddPlayer(String user, String tokenName, boolean computerPlayer) {
+    public AddPlayer(String user, Player player, String tokenName, boolean computerPlayer) {
         this.user = user;
         this.tokenName = tokenName;
         this.computerPlayer = computerPlayer;
@@ -65,7 +66,7 @@ public class AddPlayer implements Action {
     public void apply(GameModel model) {
         try {
             Character character = model.getBoard().getCharacter(tokenName);
-            Player player = new Player(character);
+            player.setCharacter(character);
             model.addPlayer(player);
             model.getHistory().addHistory(this);
         } catch (GameModelException e) {

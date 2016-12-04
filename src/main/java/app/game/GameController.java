@@ -2,11 +2,13 @@ package app.game;
 
 import app.json.AddPlayerPayload;
 import app.json.JsonResponse;
+import app.json.SetTokenPayload;
 import app.message.Chat;
 import app.message.Messaging;
 import app.util.Path;
 import app.util.RequestUtil;
 import app.util.ViewUtil;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
@@ -55,11 +57,27 @@ public class GameController {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
         if (username == null) {
             response.status(401);
+            return null;
         } else {
             String json = request.body();
             AddPlayerPayload addPlayerPayload = jsonMapper.readValue(json, AddPlayerPayload.class);
             JsonResponse jsonResponse = game.handleAddPlayer(username, addPlayerPayload);
+            response.status(jsonResponse.status);
+            return new JSONObject().put("msg", jsonResponse.msg);
         }
-        return null;
+    };
+
+    public static Route handleSetTokenPost = (Request request, Response response) -> {
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null || game.isUserPlayer(username)) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            SetTokenPayload setTokenPayload = jsonMapper.readValue(json, SetTokenPayload.class);
+            JsonResponse jsonResponse = game.handleSetToken(username, setTokenPayload);
+            response.status(jsonResponse.status);
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
     };
 }
