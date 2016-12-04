@@ -5,10 +5,16 @@ if (window.location.protocol == "https:") {
     var ws_scheme = "ws://"
 };
 
-
 var webSocket = new ReconnectingWebSocket(ws_scheme + location.hostname + ":" + location.port + "/message");
 
-webSocket.onmessage = function (msg) { updateChat(msg); };
+webSocket.onmessage = function (msg) {
+    // TODO receive a message here, determine its type, then update the appropriate area
+    var json = JSON.parse(msg.data);
+    if (json.type == "chat") {
+        updateChat(json.data);
+    }
+};
+
 webSocket.onclose = function () { /*alert("WebSocket connection closed")*/ };
 
 //Send message if "Send" is clicked
@@ -30,9 +36,8 @@ function sendMessage(message) {
 }
 
 //Update the chat-panel, and the list of connected users
-function updateChat(msg) {
-    var data = JSON.parse(msg.data);
-    insert("chat", data.userMessage);
+function updateChat(data) {
+    insert("chat", data.usermessage);
     id("userlist").innerHTML = "";
     data.userlist.forEach(function (user) {
         insert("userlist", "<li>" + user + "</li>");
