@@ -4,11 +4,11 @@
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="bootstrap/bootstrap.min.js"></script>
 </head>
-<body>
+<body background="kitten1.jpg">
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Boddy Builder</a>
+            <a class="navbar-brand" href="http://localhost:4567/user">User Profile</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a href="#">Game</a></li>

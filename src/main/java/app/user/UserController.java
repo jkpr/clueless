@@ -1,6 +1,11 @@
 package app.user;
 
 import static app.Application.userManager;
+import app.util.Path;
+import app.util.ViewUtil;
+import spark.Request;
+import spark.Response;
+import spark.Route;
 
 /**
  * Created by james on 12/1/16.
@@ -27,4 +32,10 @@ public class UserController {
             // Update the user salt and password
         }
     }
+
+    public static Route serveUserPage = (Request request, Response response) -> {
+
+        return ViewUtil.render(null, Path.Template.USER);
+
+    };
 }
