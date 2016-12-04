@@ -6,6 +6,10 @@ import app.game.model.*;
 /**
  * Created by james on 11/26/16.
  */
+/*
+5.13.3 Move
+After the game has started, players can move their tokens around the board.
+ */
 public class Move implements Action {
 
     private String message;
@@ -19,7 +23,8 @@ public class Move implements Action {
     }
 
     /*
-    In order to move, (1) the game status must be “started and in
+Operation name: IsLegal(gameState: ClueLessModel): boolean
+Description: In order to move, (1) the game status must be “started and in
 progress.” (2) It must be the Player’s token’s turn. (3) The token
 must still be able to move legally during the turn. (4) The
 destination space must be connected to the token’s current
@@ -62,7 +67,8 @@ operation returns True. Otherwise, it returns False.
         return legal;
     }
     /*
-    Sets the Player’s token’s current BoardSpace to the destination
+Operation name: apply(gameState: ClueLessModel)
+Description: Sets the Player’s token’s current BoardSpace to the destination
 BoardSpace. The Turn’s HasMoved attribute is set to True.
      */
     public void apply(GameModel model) {

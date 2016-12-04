@@ -9,6 +9,12 @@ import app.game.model.Player;
 /**
  * Created by james on 11/26/16.
  */
+
+/*
+5.13.7 EndTurn
+Players often need to end their turn if they do not make an accusation.
+ */
+
 public class EndTurn implements Action {
 
     private String message;
@@ -23,13 +29,13 @@ public class EndTurn implements Action {
     }
 
     /*
-    IsLegal(gameState: ClueLessModel): boolean
-    (1) The game status must be “started and in progress.” (2) It
-    must be the Player’s token’s turn. (3) The token must have
-    made a suggestion OR have moved and is in a hallway OR has
-    no legal move and is unable to make a suggestion. If all of
-    those conditions hold true, then the operation returns True.
-    Otherwise, it returns false.
+Operation name: IsLegal(gameState: ClueLessModel): boolean
+Description: (1) The game status must be “started and in progress.” (2) It
+must be the Player’s token’s turn. (3) The token must have
+made a suggestion OR have moved and is in a hallway OR has
+no legal move and is unable to make a suggestion. If all of
+those conditions hold true, then the operation returns True.
+Otherwise, it returns false.
     */
 
     public boolean isLegal(GameModel model) {
@@ -55,7 +61,8 @@ public class EndTurn implements Action {
     }
 
     /*
-    The turn ends for the requesting player’s token. The token’s
+Operation name: Apply(gameState: ClueLessModel)
+Description: The turn ends for the requesting player’s token. The token’s
 MovedBySuggestion attribute is set to False. The
 ClueLessModel call’s the Turn’s NextTurn operation with the
 next token in the TurnOrder.

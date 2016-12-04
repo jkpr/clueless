@@ -6,6 +6,12 @@ import app.game.model.*;
 /**
  * Created by james on 11/26/16.
  */
+
+/*
+5.13.4 MakeSuggestion
+Players make suggestions on their turn in order to learn more about the murder.
+ */
+
 public class MakeSuggestion implements Action {
 
     private String message;
@@ -25,14 +31,15 @@ public class MakeSuggestion implements Action {
     }
 
     /*
-    (1) The game status must be “started and in progress.” (2) It
-    must be the Player’s token’s turn. The token must still be able
-    to make a suggestion legally during the turn: (3) the token’s
-    MovedBySuggestion is True or the Turn’s HasMoved attribute is
-    True and (4) the Turn’s attribute HasSuggested must be False.
-    (5) The token must be located in the room that is suggested. If
-    all of those conditions hold true, then the operation returns
-    True. Otherwise, it returns False.
+Operation name: IsLegal(gameState: ClueLessModel): boolean
+Description: (1) The game status must be “started and in progress.” (2) It
+must be the Player’s token’s turn. The token must still be able
+to make a suggestion legally during the turn: (3) the token’s
+MovedBySuggestion is True or the Turn’s HasMoved attribute is
+True and (4) the Turn’s attribute HasSuggested must be False.
+(5) The token must be located in the room that is suggested. If
+all of those conditions hold true, then the operation returns
+True. Otherwise, it returns False.
      */
 
     public boolean isLegal(GameModel model) {
@@ -53,7 +60,8 @@ public class MakeSuggestion implements Action {
     }
 
 /*
-    The token corresponding to the suggested suspect is placed in
+Operation name: Apply(gameState: ClueLessModel)
+Description: The token corresponding to the suggested suspect is placed in
 the room from the suggestion. That token’s
 MovedBySuggestion attribute is set to True. The model
 determines who can disprove the suggestion starting clockwise
@@ -61,8 +69,7 @@ from the player. If someone is found, then the game status is
 set to “disproving suggestion” and the suggestion and token
 that can disprove the suggestion is temporarily stored. If
 someone can disprove or if someone cannot disprove, the turn
-information is updated to indicate a suggestion has been made:
-HasSuggested is set to True.
+information is updated to indica
 */
     public void apply(GameModel model) {
 

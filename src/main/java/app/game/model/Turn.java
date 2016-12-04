@@ -3,6 +3,15 @@ package app.game.model;
 /**
  * Created by james on 11/29/16.
  */
+
+/*
+5.14 Turn
+The Turn class is an encapsulation of all Turn information. It could be merged into the
+ClueLessModel since they are in a one-to-one composition relationship, but it is
+important to separate the functionality and the attributes of a Turn from the
+ClueLessModel class.
+ */
+
 public class Turn {
     private Player who;
     private boolean hasMoved;
@@ -17,6 +26,14 @@ public class Turn {
     public Turn() {
         nextTurn(null);
     }
+
+    /*
+Operation name: NextTurn(next: CharacterToken)
+Input: The next character token in the turn order
+Output: void
+Description: Sets this object’s CharacterToken to the next character token.
+Sets HasMoved and HasSuggested to False.
+     */
 
     public void nextTurn(Player next) {
         who = next;

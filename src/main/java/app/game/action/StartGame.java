@@ -9,6 +9,13 @@ import java.util.List;
 /**
  * Created by james on 11/26/16.
  */
+
+/*
+5.13.2 StartGame
+This ClueLessGame only emits a StartGame Action if the GameHost initiated the
+request.
+ */
+
 public class StartGame implements Action {
 
     private String message;
@@ -19,6 +26,13 @@ public class StartGame implements Action {
         this.user = user;
     }
 
+    /*
+Operation name: IsLegal(gameState: ClueLessModel): boolean
+Description: If the game status is “created but not yet started,” and if there
+are at least three CharacterTokens set to be controlled by
+player, then the operation returns True. Otherwise, it returns
+False.
+     */
     public boolean isLegal(GameModel model) {
         boolean legal = false;
         List<Player> players = model.getPlayers();
@@ -35,6 +49,10 @@ public class StartGame implements Action {
         return legal;
     }
 
+    /*
+Operation name: Apply(gameState: ClueLessModel)
+Description: Switches game status to “started and in progress.”
+     */
     public void apply(GameModel model) {
         model.startGame();
         model.getHistory().addHistory(this);

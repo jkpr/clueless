@@ -13,6 +13,13 @@ import java.util.List;
 /**
  * Created by james on 11/26/16.
  */
+
+/*
+5.13.1 SetToken
+Before the game starts, players have the opportunity to choose which character tokens
+they would like to control for the game.
+ */
+
 public class SetToken implements Action {
     private static final Logger logger = LoggerFactory.getLogger(SetToken.class);
 
@@ -29,6 +36,13 @@ public class SetToken implements Action {
         this.currentToken = player.getCharacter().getName();
         this.nextToken = nextToken;
     }
+
+    /*
+Operation name: IsLegal(gameState: ClueLessModel): boolean
+Description: If the game status is “created but not yet started,” and if the
+requested token is not yet controlled by player, then the
+operation returns True. Otherwise, it returns False.
+     */
 
     public boolean isLegal(GameModel model) {
         boolean legal = false;
@@ -54,6 +68,11 @@ public class SetToken implements Action {
         }
         return legal;
     }
+
+    /*
+Operation name: Apply(gameState: ClueLessModel)
+Description: Sets the token for the originating player to the requested token.
+     */
     public void apply(GameModel model) {
         try {
             Character character = model.getBoard().getCharacter(nextToken);

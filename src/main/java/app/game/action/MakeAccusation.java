@@ -8,6 +8,13 @@ import app.game.model.Player;
 /**
  * Created by james on 11/26/16.
  */
+
+/*
+5.13.6 MakeAccusation
+In order to win the game, players must make a correct accusation. This action is how
+making an accusation occurs in the game.
+ */
+
 public class MakeAccusation implements Action {
 
     private String message;
@@ -26,7 +33,8 @@ public class MakeAccusation implements Action {
         return message;
     }
     /*
-    n: (1) The game status must be “started and in progress.” (2) It
+Operation name: IsLegal(gameState: ClueLessModel): boolean
+Description: (1) The game status must be “started and in progress.” (2) It
 must be the Player’s token’s turn. (3) The token must still be
 able to make an accusation legally during the turn. If all of
 those conditions hold true, then the operation returns True.
@@ -45,7 +53,8 @@ Otherwise, it returns false.
     }
 
     /*
-    The model checks the three cards initialized with the action
+Operation name: Apply(gameState: ClueLessModel)
+Description: The model checks the three cards initialized with the action
 against the randomly selected room, weapon, and suspect from
 the beginning of the game. If all three cards match, then:
 - The game ends. The game status is switched to

@@ -53,11 +53,32 @@ public class GameModel {
         status = GameStatus.ACTIVE;
     }
 
+    /*
+    Operation name: InitializeModel()
+Input: void
+Output: void
+Description: Initializes the board, places the character tokens on their
+assigned board spaces, and places the weapon tokens
+randomly on rooms, at most one weapon per room.
+     */
+
     public void initialize() {
         createMurderAndDealCards();
         initializeTurns();
         initializeWasMoved();
     }
+
+    /*
+    Operation name: CreateMurderAndDealCards()
+Input: void
+Output: void
+Description: This is called by the “StartGame” action. The murder is a
+randomly selected room, weapon, and character card. The
+remaining eighteen cards are shuffled and dealt to the players.
+The dealing begins with a random player and continues
+clockwise around the board. It is possible that some players
+will have more cards than others.
+     */
 
     public void createMurderAndDealCards() {
         Dealer.DealResult result = dealer.deal(players.size());

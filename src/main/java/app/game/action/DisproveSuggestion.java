@@ -8,6 +8,13 @@ import app.game.model.Player;
 /**
  * Created by james on 11/26/16.
  */
+
+/*
+5.13.5 DisproveSuggestion
+If a character is able to disprove a suggestion, then the disprove suggestion action
+must be used.
+ */
+
 public class DisproveSuggestion implements Action {
 
 
@@ -26,7 +33,8 @@ public class DisproveSuggestion implements Action {
     }
 
     /*
-    (1) The game status must be “disproving suggestion.” (2) The
+Operation name: IsLegal(gameState: ClueLessModel): boolean
+Description: (1) The game status must be “disproving suggestion.” (2) The
 initiating player must control the character token named in the
 turn information stored by the MakeSuggestion action. (3) The
 card must belong to the player’s hand. (4) The card must match
@@ -42,7 +50,8 @@ operation returns True. Otherwise, it returns False.
         return true;
     }
     /*
-    The game status is set to “started and in progress.” The Turn’s
+Operation name: Apply(gameState: ClueLessModel)
+Description: The game status is set to “started and in progress.” The Turn’s
 information regarding who can disprove a suggestion and
 Note: the which cards were suggested are set to NULL.
      */

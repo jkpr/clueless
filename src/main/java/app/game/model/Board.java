@@ -11,6 +11,15 @@ import java.util.*;
  * Created by james on 11/26/16.
  * Edited by chris on 11/27/16
  */
+
+/*
+5.6 Board
+The Board class determines the location of the character and weapons and also
+connects the neighboring board spaces. The Board class does not worry about game
+logic, e.g. for example it can place character tokens and weapon tokens anywhere. It
+also does not know about player turns.
+ */
+
 public class Board {
     private static final Logger logger = LoggerFactory.getLogger(Board.class);
 
@@ -244,6 +253,17 @@ public class Board {
         }
     }
 
+    /*
+    Operation name: GetSpaceConnections(space: BoardSpace):
+Set<BoardSpace>
+Input: The board space
+Output: A set of board spaces that are connected to the input.
+Description: Returns all of the board spaces that are connected to the
+supplied space. These are the spaces that a character token can
+move to from the input board space. For example, if the
+supplied space is the Study. Then the connected board spaces
+are hallways 1 and 3, and the Kitchen.
+     */
     public Set<BoardSpace> getSpaceConnections(String name) throws GameModelException {
         Set<BoardSpace> connections = new HashSet<>();
         switch(name) {
@@ -363,6 +383,18 @@ public class Board {
                 throw new GameModelException(name);
         }
     }
+
+    /*
+Operation name: GetSpaceOccupants(space: BoardSpace):
+12
+Set<CharacterToken>
+Input: The board space
+Output: A set of all of the character tokens that currently occupy the
+input board space
+Description: Returns all of the characters that are present on the board
+space. This operation must query all character tokens to see if
+they are located on the input board space.
+     */
 
     public Set<BoardSpace> getSpaceConnections(BoardSpace space) throws GameModelException {
         return getSpaceConnections(space.name);

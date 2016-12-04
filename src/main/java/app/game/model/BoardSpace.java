@@ -5,6 +5,14 @@ import app.exception.GameModelException;
 /**
  * Created by james on 11/26/16.
  */
+
+/*
+5.8 BoardSpace
+This class represents each component of the board, i.e the room or hallway. Secret
+passages are not represented in the design, they only provide connections between
+one board space and another.
+ */
+
 public class BoardSpace {
     // Nine rooms
     public static final String KITCHEN = "Kitchen";
