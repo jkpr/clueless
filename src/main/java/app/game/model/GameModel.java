@@ -53,13 +53,13 @@ public class GameModel {
         status = GameStatus.ACTIVE;
     }
 
-    public void initialize() {
+    private void initialize() {
         createMurderAndDealCards();
         initializeTurns();
         initializeWasMoved();
     }
 
-    public void createMurderAndDealCards() {
+    private void createMurderAndDealCards() {
         Dealer.DealResult result = dealer.deal(players.size());
         murder = result.murder;
         for(Player player : players) {
@@ -68,7 +68,7 @@ public class GameModel {
         }
     }
 
-    public void initializeTurns() {
+    private void initializeTurns() {
         turnOrder.clear();
         try {
             Player msScarlet = getPlayerByCharacter(board.getCharacter(Character.MS_SCARLET));
@@ -105,7 +105,7 @@ public class GameModel {
         }
     }
 
-    public void initializeWasMoved() {
+    private void initializeWasMoved() {
         try {
             wasMoved = new HashMap<>();
             wasMoved.put(board.getCharacter(Character.MS_SCARLET), false);
@@ -167,5 +167,31 @@ public class GameModel {
         return turn;
     }
 
-
+    public String toVisualString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(board.toVisualString());
+        //sb.append("\n\n");
+        sb.append(turn.toVisualString());
+        sb.append("\n\n");
+        for (Player player : players) {
+            sb.append(player.toVisualString());
+            sb.append("\n");
+        }
+        List<String> moved = new ArrayList<>();
+        for (Map.Entry<Character, Boolean> entry : wasMoved.entrySet()) {
+            if (entry.getValue()) {
+                moved.add(entry.getKey().getName());
+            }
+        }
+        if (!moved.isEmpty()) {
+            sb.append("Was moved by suggestion: ");
+            sb.append(String.join(", ", moved));
+            sb.append("\n");
+        }
+        if (!players.isEmpty() || !moved.isEmpty()) {
+            sb.append("\n");
+        }
+        sb.append(murder.toVisualString());
+        return sb.toString();
+    }
 }

@@ -1,5 +1,6 @@
 package app.game.model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,9 +62,18 @@ public class Player {
     @Override
     public boolean equals(Object obj) {
         boolean equal = false;
-
-
-
         return equal;
+    }
+
+    public String toVisualString() {
+        StringBuilder sb = new StringBuilder(32);
+        sb.append(character.getName());
+        sb.append(": ");
+        List<String> handList = new ArrayList<>();
+        for (Card card : hand) {
+            handList.add(card.name);
+        }
+        sb.append(String.join(", ", handList));
+        return sb.toString();
     }
 }

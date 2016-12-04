@@ -21,4 +21,23 @@ public class Murder {
         boolean correctRoom = this.character.equals(room);
         return correctCharacter && correctWeapon && correctRoom;
     }
+
+    public Card getCharacter() {
+        return character;
+    }
+
+    public Card getWeapon() {
+        return weapon;
+    }
+
+    public Card getRoom() {
+        return room;
+    }
+
+    public String toVisualString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Murder: ");
+        sb.append(String.join(", ", character.name, weapon.name, room.name));
+        return sb.toString();
+    }
 }

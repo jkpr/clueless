@@ -797,7 +797,7 @@ public class Board {
         }
         visual.append("    --------\n");
         // Row 7
-        visual.append("     Co               Ba               Ki\n");
+        visual.append("     Co               Ba               Ki");
 
         return visual;
     }
