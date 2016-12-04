@@ -1,15 +1,11 @@
 package app.game;
 
 import app.exception.GameModelException;
-import app.game.action.Action;
-import app.game.action.AddPlayer;
-import app.game.action.SetToken;
+import app.game.action.*;
 import app.game.model.Character;
 import app.game.model.GameModel;
 import app.game.model.Player;
-import app.json.AddPlayerPayload;
-import app.json.JsonResponse;
-import app.json.SetTokenPayload;
+import app.json.*;
 import app.user.User;
 
 import java.util.HashMap;
@@ -56,8 +52,12 @@ public class Game {
 
         Action action = new AddPlayer(username, player, payload.getWho());
         boolean legal = action.isLegal(model);
+        // TODO: possibly check that user cannot join twice
         if (legal) {
             action.apply(model);
+            if (players.isEmpty()) {
+                host = username;
+            }
             players.put(username, player);
             jsonResponse.status = 200;
             jsonResponse.msg = action.toString();
@@ -85,11 +85,38 @@ public class Game {
         return jsonResponse;
     }
 
-    public void handleStartGame() {
+    public JsonResponse handleStartGame(String username, StartGamePayload payload) {
+        JsonResponse jsonResponse = new JsonResponse();
 
+        Action action = new StartGame(username, username.equals(host));
+        boolean legal = action.isLegal(model);
+        if (legal) {
+            action.apply(model);
+            jsonResponse.status = 200;
+            jsonResponse.msg = action.toString();
+        } else {
+            jsonResponse.status = 403;
+            jsonResponse.msg = action.getMessage();
+        }
+        return jsonResponse;
     }
 
-    public void handleMove() {
+    public JsonResponse handleMove(String username, MovePayload payload) {
+        JsonResponse jsonResponse = new JsonResponse();
+
+        Player player = players.get(username);
+
+        Action action = new Move(player, payload.getTo());
+        boolean legal = action.isLegal(model);
+        if (legal) {
+            action.apply(model);
+            jsonResponse.status = 200;
+            jsonResponse.msg = action.toString();
+        } else {
+            jsonResponse.status = 403;
+            jsonResponse.msg = action.getMessage();
+        }
+        return jsonResponse;
 
     }
 

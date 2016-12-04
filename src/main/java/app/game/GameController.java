@@ -3,7 +3,7 @@ package app.game;
 import app.json.AddPlayerPayload;
 import app.json.JsonResponse;
 import app.json.SetTokenPayload;
-import app.message.Chat;
+import app.json.StartGamePayload;
 import app.message.Messaging;
 import app.util.Path;
 import app.util.RequestUtil;
@@ -16,7 +16,6 @@ import spark.Response;
 import spark.Route;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import static app.Application.game;
@@ -76,6 +75,20 @@ public class GameController {
             String json = request.body();
             SetTokenPayload setTokenPayload = jsonMapper.readValue(json, SetTokenPayload.class);
             JsonResponse jsonResponse = game.handleSetToken(username, setTokenPayload);
+            response.status(jsonResponse.status);
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
+    };
+
+    public static Route handleStartGamePost = (Request request, Response response) -> {
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null || game.isUserPlayer(username)) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            StartGamePayload startGamePayload = jsonMapper.readValue(json, StartGamePayload.class);
+            JsonResponse jsonResponse = game.handleStartGame(username, startGamePayload);
             response.status(jsonResponse.status);
             return new JSONObject().put("msg", jsonResponse.msg);
         }
