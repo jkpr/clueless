@@ -5,6 +5,8 @@ import app.game.Game;
 import app.game.GameController;
 import app.index.IndexController;
 import app.login.LoginController;
+import app.forgotpassword.ForgotpasswordController;
+import app.signup.SignupController;
 import app.message.MessageWebSocketHandler;
 import app.user.UserManager;
 import app.util.Path;
@@ -47,6 +49,8 @@ public class Application
         webSocket(Path.Web.MESSAGE, MessageWebSocketHandler.class);
         Spark.get(Path.Web.INDEX, IndexController.serveIndexPage);
         Spark.get(Path.Web.LOGIN, LoginController.serveLoginPage);
+        Spark.get(Path.Web.SIGNUP, SignupController.serveSignupPage);
+        Spark.get(Path.Web.FORGOTPASSWORD, ForgotpasswordController.serveForgotpasswordPage);
         Spark.post(Path.Web.LOGIN, LoginController.handleLoginPost);
         //Spark.get(Path.Web.GAME_LOBBY, GameController.serveGameLobby);
 
