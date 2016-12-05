@@ -14,19 +14,19 @@ public enum GameProperty {
 
     static GameProperty getType(String name) throws GameModelException {
         switch(name) {
-            case CharacterToken.MS_SCARLET:
-            case CharacterToken.COL_MUSTARD:
-            case CharacterToken.MRS_WHITE:
-            case CharacterToken.MR_GREEN:
-            case CharacterToken.MRS_PEACOCK:
-            case CharacterToken.PROF_PLUM:
+            case Character.MS_SCARLET:
+            case Character.COL_MUSTARD:
+            case Character.MRS_WHITE:
+            case Character.MR_GREEN:
+            case Character.MRS_PEACOCK:
+            case Character.PROF_PLUM:
                 return CHARACTER;
-            case WeaponToken.CANDLESTICK:
-            case WeaponToken.KNIFE:
-            case WeaponToken.PIPE:
-            case WeaponToken.REVOLVER:
-            case WeaponToken.ROPE:
-            case WeaponToken.WRENCH:
+            case Weapon.CANDLESTICK:
+            case Weapon.KNIFE:
+            case Weapon.PIPE:
+            case Weapon.REVOLVER:
+            case Weapon.ROPE:
+            case Weapon.WRENCH:
                 return WEAPON;
             case BoardSpace.KITCHEN:
             case BoardSpace.BALLROOM:

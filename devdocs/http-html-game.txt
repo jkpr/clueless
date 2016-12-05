@@ -1,0 +1,44 @@
+Three vertical partitions: 
+
+1. Game notes
+2. Game board
+3. Chat
+
+-------------------------------------------------------------------------
+|                |          notifications                 |             |
+|                |                                        |             |
+|                |                                        |             |
+|                |                                        |             |
+|                |                                        |             |
+|  notes         |          board                         |  chat       |
+|                |                                        |             |
+|                |                                        |             |
+|                |                                        |             |
+|                |                                        |             |
+|                |                                        |             |
+|                |                                        |             |
+|  cards         |           status        actions        |             |
+-------------------------------------------------------------------------
+
+Notes for the player are on the left.
+Cards are the cards the player has on the bottom left.
+Notifications that come from the game as a result of an action are on the top.
+Game status (who is connected, whose turn it is) is on the bottom.
+Buttons for the different actions (move, suggest, accuse) are on the bottom right.
+Chat interface is on the right.
+
+when an action is selected, then a pop up appears to get a selection.
+click move button, then get a pop up to choose a location to move to.
+
+
+For real-time updates, the websocket should connect at 
+/game/<gameid>/messages
+
+
+All actions lead to POSTs (possibly chat as well)
+
+For example, move goes to 
+
+/game/<gameid>/move
+
+The game updates its internal state, and it sends a message to each connected client with notifications, gamestate, status, chat, etc. The message comes over the websocket.

@@ -15,7 +15,7 @@ import java.util.Map;
 public class IndexController {
     public static Route serveIndexPage = (Request request, Response response) -> {
         Map<String, Object> map = new HashMap<>();
-        String[] members = {"Christopher Chang", "Federico Esparza", "James Pringle", "Ibrahim Salla"};
+        String[] members = {"Christopher Chang", "James Pringle", "Ibrahim Salla"};
         map.put("members", members);
         map.put("footer", Path.Template.FOOTER);
         return ViewUtil.render(map, Path.Template.INDEX);

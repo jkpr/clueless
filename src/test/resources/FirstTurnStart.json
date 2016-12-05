@@ -1,0 +1,9 @@
+{
+  "who":"Ms. Scarlet",
+  "hasMoved": false,
+  "hasSuggested": false,
+  "whoCanDisprove": null,
+  "suggestedCharacter": null,
+  "suggestedWeapon": null,
+  "suggestedRoom": null
+}
