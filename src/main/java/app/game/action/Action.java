@@ -8,4 +8,5 @@ import app.game.model.GameModel;
 public interface Action {
     boolean isLegal(GameModel model);
     void apply(GameModel model);
+    String getMessage();
 }

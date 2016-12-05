@@ -1,0 +1,62 @@
+// User must be added with a character
+POST game/<gameid>/add
+{
+    "api": "<api_key>",
+    "who": "<character>"
+}
+
+
+POST game/<gameid>/chat
+{
+    "api": "<api_key>",
+    "msg": "<message>"
+}
+
+// Choose your token
+POST game/<gameid>/token
+{
+    "api": "<api_key>",
+    "who": "<token_name>"
+}
+
+// Only the host can start the game ??
+// Might not enforce that rule
+POST game/<gameid>/start
+{
+    "api": "<api_key>"
+}
+
+//
+POST game/<gameid>/move
+{
+    "api": "<api_key>",
+    "to": "<space>"
+}
+
+POST game/<gameid>/suggest
+{
+    "api": "<api_key>",
+    "character": "<character>",
+    "weapon": "<weapon>",
+    "room": "<room>"
+}
+
+POST game/<gameid>/disprove
+{
+    "api": "<api_key>",
+    "card": "<card>"
+}
+
+POST game/<gameid>/accuse
+{
+    "api": "<api_key>",
+    "character": "<character>",
+    "weapon": "<weapon>",
+    "room": "<room>"
+}
+
+POST game/<gameid>/endturn
+{
+    "api": "<api_key>"
+}
+

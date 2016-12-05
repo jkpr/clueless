@@ -1,0 +1,9 @@
+{
+  "who":"Col. Mustard",
+  "hasMoved": true,
+  "hasSuggested": true,
+  "whoCanDisprove": null,
+  "suggestedCharacter": null,
+  "suggestedWeapon": null,
+  "suggestedRoom": null
+}

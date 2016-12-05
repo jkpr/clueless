@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import static app.game.model.BoardSpace.*;
 import static org.junit.Assert.assertFalse;
@@ -23,29 +24,25 @@ public class BoardTest {
 
     @Test
     public void testBoardSpaceConnections() {
-        try {
-            Board board = new Board();
+        Board board = new Board();
 
-            // Sample connections
-            assertTrue(board.isDirectedConnection(WHITE_START, BALLROOM__KITCHEN));
-            assertTrue(board.isDirectedConnection(LOUNGE, CONSERVATORY));
-            assertTrue(board.isDirectedConnection(CONSERVATORY, LOUNGE));
+        // Sample connections
+        assertTrue(board.isDirectedConnection(WHITE_START, BALLROOM__KITCHEN));
+        assertTrue(board.isDirectedConnection(LOUNGE, CONSERVATORY));
+        assertTrue(board.isDirectedConnection(CONSERVATORY, LOUNGE));
 
-            // Sample false connections
-            assertFalse(board.isDirectedConnection(BALLROOM__KITCHEN, WHITE_START));
-
-        } catch (GameModelException e) {
-            e.printStackTrace();
-            fail();
-        }
+        // Sample false connections
+        assertFalse(board.isDirectedConnection(BALLROOM__KITCHEN, WHITE_START));
     }
 
     @Test
     public void testBoardFromJson() {
         try {
-            BoardPayload payload = mapper.readValue("{    \"Ms. Scarlet\": \"Ballroom\",    \"Col. Mustard\": \"Ballroom\",    \"Mrs. White\": \"Ballroom\",    \"Mr. Green\": \"Kitchen\",    \"Mrs. Peacock\": \"Kitchen\",    \"Prof. Plum\": \"Kitchen\",    \"Candlestick\": \"Library\",    \"Knife\": \"Library\",    \"Pipe\": \"Library\",    \"Revolver\": \"Library\",    \"Rope\": \"Library\",    \"Wrench\": \"Library\"}", BoardPayload.class);
+            InputStream boardPayload = getClass().getResourceAsStream("/BoardStart.json");
+
+            BoardPayload payload = mapper.readValue(boardPayload, BoardPayload.class);
             Board board = Board.initializeFromPayload(payload);
-            System.out.println(board);
+            System.out.println(board.toVisualString());
             // TODO: make a real test here
             // TODO: read JSON from file
         } catch (IOException e) {
