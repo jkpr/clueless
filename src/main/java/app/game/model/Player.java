@@ -1,5 +1,8 @@
 package app.game.model;
 
+import app.json.PlayerPayload;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,9 +64,33 @@ public class Player {
     @Override
     public boolean equals(Object obj) {
         boolean equal = false;
-
-
-
         return equal;
+    }
+
+    public boolean controls(Character character) {
+        if (this.character == null) {
+            return false;
+        } else {
+            return this.character.getName().equals(character.getName());
+        }
+    }
+
+    public String toVisualString() {
+        StringBuilder sb = new StringBuilder(32);
+        if (character == null) {
+            sb.append("Player not yet set");
+        } else {
+            sb.append(character.getName());
+            sb.append(": ");
+            List<String> handList = new ArrayList<>();
+            for (Card card : hand) {
+                handList.add(card.name);
+            }
+            sb.append(String.join(", ", handList));
+            if (hand.isEmpty()) {
+                sb.append("no cards yet");
+            }
+        }
+        return sb.toString();
     }
 }

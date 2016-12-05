@@ -20,13 +20,13 @@ public class SetToken implements Action {
 
     private String user;
     private Player player;
-    private String currentToken;
+    private Character currentCharacter;
     private String nextToken;
 
     public SetToken(String user, Player player, String nextToken) {
         this.user = user;
         this.player = player;
-        this.currentToken = player.getCharacter().getName();
+        this.currentCharacter = player.getCharacter();
         this.nextToken = nextToken;
     }
 
@@ -37,7 +37,7 @@ public class SetToken implements Action {
             boolean tokenFree = true;
             List<Player> players = model.getPlayers();
             for (Player player : players) {
-                if (player.getCharacter().equals(character)) {
+                if (player.controls(character)) {
                     tokenFree = false;
                 }
             }
@@ -49,7 +49,8 @@ public class SetToken implements Action {
                 message = String.format("Token unavailable: %s", nextToken);
             }
             legal = setupPhase && tokenFree;
-        } catch (GameModelException e) {
+            //} catch (GameModelException e) {
+        } catch (Exception e) {
             message = String.format("Unrecognized token: %s", nextToken);
         }
         return legal;

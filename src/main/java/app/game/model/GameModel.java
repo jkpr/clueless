@@ -1,6 +1,10 @@
 package app.game.model;
 
 import app.exception.GameModelException;
+import app.json.GameModelPayload;
+import app.json.PlayerPayload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -8,6 +12,8 @@ import java.util.*;
  * Created by james on 11/26/16.
  */
 public class GameModel {
+    private static final Logger logger = LoggerFactory.getLogger(GameModel.class);
+
     public static final int MIN_PLAYERS = 3;
     public static final int MAX_PLAYERS = 6;
 
@@ -53,13 +59,13 @@ public class GameModel {
         status = GameStatus.ACTIVE;
     }
 
-    public void initialize() {
+    private void initialize() {
         createMurderAndDealCards();
         initializeTurns();
         initializeWasMoved();
     }
 
-    public void createMurderAndDealCards() {
+    private void createMurderAndDealCards() {
         Dealer.DealResult result = dealer.deal(players.size());
         murder = result.murder;
         for(Player player : players) {
@@ -68,7 +74,7 @@ public class GameModel {
         }
     }
 
-    public void initializeTurns() {
+    private void initializeTurns() {
         turnOrder.clear();
         try {
             Player msScarlet = getPlayerByCharacter(board.getCharacter(Character.MS_SCARLET));
@@ -105,7 +111,7 @@ public class GameModel {
         }
     }
 
-    public void initializeWasMoved() {
+    private void initializeWasMoved() {
         try {
             wasMoved = new HashMap<>();
             wasMoved.put(board.getCharacter(Character.MS_SCARLET), false);
@@ -159,6 +165,10 @@ public class GameModel {
         return murder;
     }
 
+    public void setMurder(Murder murder) {
+        this.murder = murder;
+    }
+
     public History getHistory() {
         return history;
     }
@@ -167,5 +177,89 @@ public class GameModel {
         return turn;
     }
 
+    public boolean allPlayersSet() {
+        boolean allSet = true;
+        for (Player player : players) {
+            if (player.getCharacter() == null) {
+                allSet = false;
+                break;
+            }
+        }
+        return allSet;
+    }
 
+    // create for brand new, initialize to setup existing
+    public static GameModel createFromPayload(GameModelPayload payload) throws GameModelException {
+        GameModel model = new GameModel();
+        // Board
+        model.board.initializeFromPayload(payload.getBoard());
+        // Players
+        for (PlayerPayload playerPayload : payload.getPlayers()) {
+            Player player = new Player();
+            player.setCharacter(model.board.getCharacter(playerPayload.getCharacter()));
+            for (String card : playerPayload.getHand()) {
+                player.acceptCard(model.dealer.getCard(card));
+            }
+            model.addPlayer(player);
+        }
+        // Murder
+        Card character = model.dealer.getCard(payload.getMurder().getCharacter());
+        Card weapon = model.dealer.getCard(payload.getMurder().getWeapon());
+        Card room = model.dealer.getCard(payload.getMurder().getRoom());
+        Murder murder = new Murder(character, weapon, room);
+        model.setMurder(murder);
+        // TODO Make sure all the cards are dealt, if not throw GameModelException
+        // Turn order
+        for (String name : payload.getTurnOrder()) {
+            Player player = model.getPlayerByCharacter(model.board.getCharacter(name));
+            if (player == null) {
+                throw new GameModelException();
+            }
+            model.turnOrder.add(player);
+        }
+        // TODO make sure the turn order is correct
+        // Turn
+        model.turn.setWho(model.getPlayerByCharacter(model.board.getCharacter(payload.getTurn().getWho())));
+        model.turn.setHasMoved(payload.getTurn().getHasMoved());
+        model.turn.setHasSuggested(payload.getTurn().getHasSuggested());
+        model.turn.setWhoCanDisprove(model.getPlayerByCharacter(model.board.getCharacter(payload.getTurn().getWhoCanDisprove())));
+        model.turn.setSuggestedCharacter(model.dealer.getCard(payload.getTurn().getSuggestedCharacter()));
+        model.turn.setSuggestedWeapon(model.dealer.getCard(payload.getTurn().getSuggestedWeapon()));
+        model.turn.setSuggestedRoom(model.dealer.getCard(payload.getTurn().getSuggestedRoom()));
+
+
+        // TODO implement History sometime
+
+        return model;
+    }
+
+    public String toVisualString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(board.toVisualString());
+        //sb.append("\n\n");
+        sb.append(turn.toVisualString());
+        sb.append("\n\n");
+        for (Player player : players) {
+            sb.append(player.toVisualString());
+            sb.append("\n");
+        }
+        List<String> moved = new ArrayList<>();
+        for (Map.Entry<Character, Boolean> entry : wasMoved.entrySet()) {
+            if (entry.getValue()) {
+                moved.add(entry.getKey().getName());
+            }
+        }
+        if (!moved.isEmpty()) {
+            sb.append("Was moved by suggestion: ");
+            sb.append(String.join(", ", moved));
+            sb.append("\n");
+        }
+        if (!players.isEmpty() || !moved.isEmpty()) {
+            sb.append("\n");
+        }
+        if (murder != null) {
+            sb.append(murder.toVisualString());
+        }
+        return sb.toString();
+    }
 }

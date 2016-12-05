@@ -1,5 +1,7 @@
 package app.game.model;
 
+import app.json.MurderPayload;
+
 /**
  * Created by james on 11/29/16.
  */
@@ -20,5 +22,26 @@ public class Murder {
         boolean correctWeapon = this.character.equals(weapon);
         boolean correctRoom = this.character.equals(room);
         return correctCharacter && correctWeapon && correctRoom;
+    }
+
+    public Card getCharacter() {
+        return character;
+    }
+
+    public Card getWeapon() {
+        return weapon;
+    }
+
+    public Card getRoom() {
+        return room;
+    }
+
+
+
+    public String toVisualString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Murder: ");
+        sb.append(String.join(", ", character.name, weapon.name, room.name));
+        return sb.toString();
     }
 }

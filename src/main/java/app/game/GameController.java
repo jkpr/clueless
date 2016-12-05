@@ -18,6 +18,7 @@ import java.util.Map;
 
 import static app.Application.game;
 import static app.Application.jsonMapper;
+import static app.message.Messaging.broadcastGame;
 
 /**
  * Created by james on 11/26/16.
@@ -45,7 +46,9 @@ public class GameController {
             //}
             Map<String, Object> map = new HashMap<>();
             map.put("user", username);
-            return ViewUtil.render(map, Path.Template.GAME);
+            map.put("game", game.getGameForUser(username));
+            //return ViewUtil.render(map, Path.Template.GAME);
+            return ViewUtil.render(map, "/testgame.ftl");
         }
     };
 
@@ -60,13 +63,17 @@ public class GameController {
             AddPlayerPayload addPlayerPayload = jsonMapper.readValue(json, AddPlayerPayload.class);
             JsonResponse jsonResponse = game.handleAddPlayer(username, addPlayerPayload);
             response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
             return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 
     public static Route handleSetTokenPost = (Request request, Response response) -> {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || game.isUserPlayer(username)) {
+        if (username == null || !game.isUserPlayer(username)) {
+        //if (username == null) {
             response.status(401);
             return null;
         } else {
@@ -74,13 +81,16 @@ public class GameController {
             SetTokenPayload setTokenPayload = jsonMapper.readValue(json, SetTokenPayload.class);
             JsonResponse jsonResponse = game.handleSetToken(username, setTokenPayload);
             response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
             return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 
     public static Route handleStartGamePost = (Request request, Response response) -> {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || game.isUserPlayer(username)) {
+        if (username == null || !game.isUserPlayer(username)) {
             response.status(401);
             return null;
         } else {
@@ -88,13 +98,16 @@ public class GameController {
             StartGamePayload startGamePayload = jsonMapper.readValue(json, StartGamePayload.class);
             JsonResponse jsonResponse = game.handleStartGame(username, startGamePayload);
             response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
             return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 
     public static Route handleMovePost = (Request request, Response response) -> {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || game.isUserPlayer(username)) {
+        if (username == null || !game.isUserPlayer(username)) {
             response.status(401);
             return null;
         } else {
@@ -103,13 +116,16 @@ public class GameController {
             Player player = game.players.get(username);
             JsonResponse jsonResponse = game.handleMove(player, movePayload);
             response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
             return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 
     public static Route handleEndTurnPost = (Request request, Response response) -> {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || game.isUserPlayer(username)) {
+        if (username == null || !game.isUserPlayer(username)) {
             response.status(401);
             return null;
         } else {
@@ -118,6 +134,9 @@ public class GameController {
             Player player = game.players.get(username);
             JsonResponse jsonResponse = game.handleEndTurn(player, endTurnPayload);
             response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
             return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
