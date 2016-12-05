@@ -41,7 +41,7 @@ public class BoardTest {
             InputStream boardPayload = getClass().getResourceAsStream("/BoardStart.json");
 
             BoardPayload payload = mapper.readValue(boardPayload, BoardPayload.class);
-            Board board = Board.initializeFromPayload(payload);
+            Board board = Board.createFromPayload(payload);
             System.out.println(board.toVisualString());
             // TODO: make a real test here
             // TODO: read JSON from file
