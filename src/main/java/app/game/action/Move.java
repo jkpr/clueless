@@ -38,7 +38,7 @@ public class Move implements Action {
             } else if (!notMoved) {
                 message = String.format("%s has already moved this turn", player.getCharacter().getName());
             } else if (!connected) {
-                message = String.format("%s is on board space %s and it is not connected to board space %s",
+                message = String.format("%s is on board space \"%s\" and it is not connected to board space \"%s\"",
                         player.getCharacter().getName(), player.getCharacter().getSpace().name, boardSpace);
             } else if (!open) {
                 message = String.format("Board space %s is not open", boardSpace);
@@ -64,5 +64,10 @@ public class Move implements Action {
 
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s moved to %s", player.getCharacter().getName(), boardSpace);
     }
 }

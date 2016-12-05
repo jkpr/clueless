@@ -7,6 +7,7 @@
 <body>
 <div id="game">
 <!-- TO BE FILLED IN BY SCRIPT -->
+${game}
 </div>
 <div>
 <hr/>
@@ -53,7 +54,7 @@
 <div id="postResult"></div>
 </div>
 
-
+<script type="text/javascript" src="js/reconnecting-websocket.min.js"></script>
 <script type="text/javascript" src="js/test-websocket.js"></script>
 <script type="text/javascript" src="js/game-forms.js"></script>
 </body>

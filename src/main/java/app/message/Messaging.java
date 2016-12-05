@@ -3,6 +3,8 @@ package app.message;
 import org.eclipse.jetty.websocket.api.Session;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -10,12 +12,16 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
+import static app.Application.game;
+
 import static j2html.TagCreator.*;
 
 /**
  * Created by james on 12/2/16.
  */
 public class Messaging {
+    private static final Logger logger = LoggerFactory.getLogger(Messaging.class);
+
     public static final String TYPE = "type";
     public static final String DATA = "data";
     // Message types
@@ -35,6 +41,22 @@ public class Messaging {
 
     public static void sendChat(String sender, String message) {
 
+    }
+
+    public static void broadcastGame() {
+        logger.info("Broadcasting game");
+        sessionUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
+            try {
+                JSONObject data = new JSONObject()
+                        .put(TYPE, GAME)
+                        .put(DATA, game.getGameForUser(sessionUsernameMap.get(session)));
+                session.getRemote().sendString(String.valueOf(data));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     //Sends a message from one user to all users, along with a list of current usernames

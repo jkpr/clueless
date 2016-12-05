@@ -24,7 +24,7 @@ public class StartGame implements Action {
     public boolean isLegal(GameModel model) {
         boolean legal = false;
         List<Player> players = model.getPlayers();
-        boolean enoughPlayers = players.size() > GameModel.MIN_PLAYERS;
+        boolean enoughPlayers = players.size() >= GameModel.MIN_PLAYERS;
         boolean setupPhase = model.getStatus() == GameStatus.SETUP;
         boolean allSet = model.allPlayersSet();
 

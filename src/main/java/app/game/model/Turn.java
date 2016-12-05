@@ -81,22 +81,26 @@ public class Turn {
     public String toVisualString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Turn information: ");
-        sb.append(who.getCharacter().getName());
-        sb.append(".");
-        if (hasMoved) {
-            sb.append(" Has moved.");
-        }
-        if (hasSuggested) {
-            sb.append(" Has suggested.");
-        }
-        if (suggestedCharacter != null) {
-            sb.append("\n Current suggestion: ");
-            sb.append(String.join(", ", suggestedCharacter.name, suggestedWeapon.name, suggestedRoom.name));
-            sb.append(". Who can disprove: ");
-            if (whoCanDisprove == null) {
-                sb.append("no one");
-            } else {
-                sb.append(whoCanDisprove.getCharacter().getName());
+        if (who == null) {
+            sb.append("game not yet started so no turn info");
+        } else {
+            sb.append(who.getCharacter().getName());
+            sb.append(".");
+            if (hasMoved) {
+                sb.append(" Has moved.");
+            }
+            if (hasSuggested) {
+                sb.append(" Has suggested.");
+            }
+            if (suggestedCharacter != null) {
+                sb.append("\n Current suggestion: ");
+                sb.append(String.join(", ", suggestedCharacter.name, suggestedWeapon.name, suggestedRoom.name));
+                sb.append(". Who can disprove: ");
+                if (whoCanDisprove == null) {
+                    sb.append("no one");
+                } else {
+                    sb.append(whoCanDisprove.getCharacter().getName());
+                }
             }
         }
         return sb.toString();

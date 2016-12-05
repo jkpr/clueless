@@ -1,6 +1,8 @@
 package app.game.model;
 
 import app.exception.GameModelException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -8,6 +10,8 @@ import java.util.*;
  * Created by james on 11/26/16.
  */
 public class GameModel {
+    private static final Logger logger = LoggerFactory.getLogger(GameModel.class);
+
     public static final int MIN_PLAYERS = 3;
     public static final int MAX_PLAYERS = 6;
 
@@ -179,30 +183,40 @@ public class GameModel {
     }
 
     public String toVisualString() {
+        logger.info("toVisualString: 1");
         StringBuilder sb = new StringBuilder();
         sb.append(board.toVisualString());
+        logger.info("toVisualString: 2");
         //sb.append("\n\n");
         sb.append(turn.toVisualString());
+        logger.info("toVisualString: 3");
         sb.append("\n\n");
         for (Player player : players) {
             sb.append(player.toVisualString());
             sb.append("\n");
         }
+        logger.info("toVisualString: 4");
         List<String> moved = new ArrayList<>();
         for (Map.Entry<Character, Boolean> entry : wasMoved.entrySet()) {
             if (entry.getValue()) {
                 moved.add(entry.getKey().getName());
             }
         }
+        logger.info("toVisualString: 5");
         if (!moved.isEmpty()) {
             sb.append("Was moved by suggestion: ");
             sb.append(String.join(", ", moved));
             sb.append("\n");
         }
+        logger.info("toVisualString: 6");
         if (!players.isEmpty() || !moved.isEmpty()) {
             sb.append("\n");
         }
-        sb.append(murder.toVisualString());
+        logger.info("toVisualString: 7");
+        if (murder != null) {
+            sb.append(murder.toVisualString());
+        }
+        logger.info("toVisualString: 8");
         return sb.toString();
     }
 }

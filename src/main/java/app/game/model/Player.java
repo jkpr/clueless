@@ -75,13 +75,20 @@ public class Player {
 
     public String toVisualString() {
         StringBuilder sb = new StringBuilder(32);
-        sb.append(character.getName());
-        sb.append(": ");
-        List<String> handList = new ArrayList<>();
-        for (Card card : hand) {
-            handList.add(card.name);
+        if (character == null) {
+            sb.append("Player not yet set");
+        } else {
+            sb.append(character.getName());
+            sb.append(": ");
+            List<String> handList = new ArrayList<>();
+            for (Card card : hand) {
+                handList.add(card.name);
+            }
+            sb.append(String.join(", ", handList));
+            if (hand.isEmpty()) {
+                sb.append("no cards yet");
+            }
         }
-        sb.append(String.join(", ", handList));
         return sb.toString();
     }
 }

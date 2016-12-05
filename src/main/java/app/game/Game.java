@@ -135,4 +135,11 @@ public class Game {
         }
         return jsonResponse;
     }
+
+    /**
+     * Get the game for the user (called by GameController)
+     */
+    public String getGameForUser(String user) {
+        return model.toVisualString();
+    }
 }
