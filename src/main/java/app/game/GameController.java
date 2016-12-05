@@ -45,7 +45,8 @@ public class GameController {
             //}
             Map<String, Object> map = new HashMap<>();
             map.put("user", username);
-            return ViewUtil.render(map, Path.Template.GAME);
+            //return ViewUtil.render(map, Path.Template.GAME);
+            return ViewUtil.render(map, "/testgame.html");
         }
     };
 
@@ -65,8 +66,10 @@ public class GameController {
     };
 
     public static Route handleSetTokenPost = (Request request, Response response) -> {
+        logger.info("Got set token post");
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || game.isUserPlayer(username)) {
+        if (username == null || !game.isUserPlayer(username)) {
+        //if (username == null) {
             response.status(401);
             return null;
         } else {

@@ -7,6 +7,8 @@ import app.game.model.GameModel;
 import app.game.model.Player;
 import app.json.*;
 import app.user.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +17,8 @@ import java.util.Map;
  * Created by james on 11/26/16.
  */
 public class Game {
+    private static final Logger logger = LoggerFactory.getLogger(Game.class);
+
     String host;
     GameModel model;
 

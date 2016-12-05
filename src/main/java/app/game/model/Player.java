@@ -65,6 +65,14 @@ public class Player {
         return equal;
     }
 
+    public boolean controls(Character character) {
+        if (this.character == null) {
+            return false;
+        } else {
+            return this.character.getName().equals(character.getName());
+        }
+    }
+
     public String toVisualString() {
         StringBuilder sb = new StringBuilder(32);
         sb.append(character.getName());
