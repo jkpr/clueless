@@ -54,6 +54,10 @@ public class Turn {
         return suggestedRoom;
     }
 
+    public void setWho(Player who) {
+        this.who = who;
+    }
+
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
     }

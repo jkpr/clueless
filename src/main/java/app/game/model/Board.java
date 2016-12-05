@@ -456,24 +456,28 @@ public class Board {
         return isDirectedConnection(from.name, to.name);
     }
 
-    public static Board initializeFromPayload(BoardPayload payload) throws GameModelException {
+    // create new board from payload
+    public static Board createFromPayload(BoardPayload payload) throws GameModelException {
         Board board = new Board();
-
-        board.msScarlet.setSpace(board.getBoardSpace(payload.getMsScarlet()));
-        board.colMustard.setSpace(board.getBoardSpace(payload.getColMustard()));
-        board.mrsWhite.setSpace(board.getBoardSpace(payload.getMrsWhite()));
-        board.mrGreen.setSpace(board.getBoardSpace(payload.getMrGreen()));
-        board.mrsPeacock.setSpace(board.getBoardSpace(payload.getMrsPeacock()));
-        board.profPlum.setSpace(board.getBoardSpace(payload.getProfPlum()));
-
-        board.candlestick.setSpace(board.getBoardSpace(payload.getCandlestick()));
-        board.knife.setSpace(board.getBoardSpace(payload.getKnife()));
-        board.pipe.setSpace(board.getBoardSpace(payload.getPipe()));
-        board.revolver.setSpace(board.getBoardSpace(payload.getRevolver()));
-        board.rope.setSpace(board.getBoardSpace(payload.getRope()));
-        board.wrench.setSpace(board.getBoardSpace(payload.getWrench()));
-
+        board.initializeFromPayload(payload);
         return board;
+    }
+
+    // initialize existing board from payload
+    public void initializeFromPayload(BoardPayload payload) throws GameModelException {
+        msScarlet.setSpace(getBoardSpace(payload.getMsScarlet()));
+        colMustard.setSpace(getBoardSpace(payload.getColMustard()));
+        mrsWhite.setSpace(getBoardSpace(payload.getMrsWhite()));
+        mrGreen.setSpace(getBoardSpace(payload.getMrGreen()));
+        mrsPeacock.setSpace(getBoardSpace(payload.getMrsPeacock()));
+        profPlum.setSpace(getBoardSpace(payload.getProfPlum()));
+
+        candlestick.setSpace(getBoardSpace(payload.getCandlestick()));
+        knife.setSpace(getBoardSpace(payload.getKnife()));
+        pipe.setSpace(getBoardSpace(payload.getPipe()));
+        revolver.setSpace(getBoardSpace(payload.getRevolver()));
+        rope.setSpace(getBoardSpace(payload.getRope()));
+        wrench.setSpace(getBoardSpace(payload.getWrench()));
     }
 
     public void initialize() {

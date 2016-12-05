@@ -1,6 +1,8 @@
 package app.game.model;
 
 import app.exception.GameModelException;
+import app.json.GameModelPayload;
+import app.json.PlayerPayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -163,6 +165,10 @@ public class GameModel {
         return murder;
     }
 
+    public void setMurder(Murder murder) {
+        this.murder = murder;
+    }
+
     public History getHistory() {
         return history;
     }
@@ -182,41 +188,78 @@ public class GameModel {
         return allSet;
     }
 
+    // create for brand new, initialize to setup existing
+    public static GameModel createFromPayload(GameModelPayload payload) throws GameModelException {
+        GameModel model = new GameModel();
+        // Board
+        model.board.initializeFromPayload(payload.getBoard());
+        // Players
+        for (PlayerPayload playerPayload : payload.getPlayers()) {
+            Player player = new Player();
+            player.setCharacter(model.board.getCharacter(playerPayload.getCharacter()));
+            for (String card : playerPayload.getHand()) {
+                player.acceptCard(model.dealer.getCard(card));
+            }
+            model.addPlayer(player);
+        }
+        // Murder
+        Card character = model.dealer.getCard(payload.getMurder().getCharacter());
+        Card weapon = model.dealer.getCard(payload.getMurder().getWeapon());
+        Card room = model.dealer.getCard(payload.getMurder().getRoom());
+        Murder murder = new Murder(character, weapon, room);
+        model.setMurder(murder);
+        // TODO Make sure all the cards are dealt, if not throw GameModelException
+        // Turn order
+        for (String name : payload.getTurnOrder()) {
+            Player player = model.getPlayerByCharacter(model.board.getCharacter(name));
+            if (player == null) {
+                throw new GameModelException();
+            }
+            model.turnOrder.add(player);
+        }
+        // TODO make sure the turn order is correct
+        // Turn
+        model.turn.setWho(model.getPlayerByCharacter(model.board.getCharacter(payload.getTurn().getWho())));
+        model.turn.setHasMoved(payload.getTurn().getHasMoved());
+        model.turn.setHasSuggested(payload.getTurn().getHasSuggested());
+        model.turn.setWhoCanDisprove(model.getPlayerByCharacter(model.board.getCharacter(payload.getTurn().getWhoCanDisprove())));
+        model.turn.setSuggestedCharacter(model.dealer.getCard(payload.getTurn().getSuggestedCharacter()));
+        model.turn.setSuggestedWeapon(model.dealer.getCard(payload.getTurn().getSuggestedWeapon()));
+        model.turn.setSuggestedRoom(model.dealer.getCard(payload.getTurn().getSuggestedRoom()));
+
+
+        // TODO implement History sometime
+
+        return model;
+    }
+
     public String toVisualString() {
-        logger.info("toVisualString: 1");
         StringBuilder sb = new StringBuilder();
         sb.append(board.toVisualString());
-        logger.info("toVisualString: 2");
         //sb.append("\n\n");
         sb.append(turn.toVisualString());
-        logger.info("toVisualString: 3");
         sb.append("\n\n");
         for (Player player : players) {
             sb.append(player.toVisualString());
             sb.append("\n");
         }
-        logger.info("toVisualString: 4");
         List<String> moved = new ArrayList<>();
         for (Map.Entry<Character, Boolean> entry : wasMoved.entrySet()) {
             if (entry.getValue()) {
                 moved.add(entry.getKey().getName());
             }
         }
-        logger.info("toVisualString: 5");
         if (!moved.isEmpty()) {
             sb.append("Was moved by suggestion: ");
             sb.append(String.join(", ", moved));
             sb.append("\n");
         }
-        logger.info("toVisualString: 6");
         if (!players.isEmpty() || !moved.isEmpty()) {
             sb.append("\n");
         }
-        logger.info("toVisualString: 7");
         if (murder != null) {
             sb.append(murder.toVisualString());
         }
-        logger.info("toVisualString: 8");
         return sb.toString();
     }
 }

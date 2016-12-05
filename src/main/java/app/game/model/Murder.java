@@ -1,5 +1,7 @@
 package app.game.model;
 
+import app.json.MurderPayload;
+
 /**
  * Created by james on 11/29/16.
  */
@@ -33,6 +35,8 @@ public class Murder {
     public Card getRoom() {
         return room;
     }
+
+
 
     public String toVisualString() {
         StringBuilder sb = new StringBuilder();
