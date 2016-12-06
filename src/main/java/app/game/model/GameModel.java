@@ -31,6 +31,7 @@ public class GameModel {
     public GameModel() {
         dealer = new Dealer();
         board = new Board();
+        board.initialize();
         players = new LinkedList<>();
         history = new History();
         murder = null;
@@ -39,8 +40,9 @@ public class GameModel {
         turnOrder = new LinkedList<>();
         // TODO: make this more elegant
         wasMoved = new HashMap<>();
+        initializeWasMoved();
         
-        board.initialize();
+
     }
 
     public Player getPlayerByCharacter(Character character) {
@@ -62,7 +64,6 @@ public class GameModel {
     private void initialize() {
         createMurderAndDealCards();
         initializeTurns();
-        initializeWasMoved();
     }
 
     private void createMurderAndDealCards() {
@@ -230,7 +231,45 @@ public class GameModel {
 
         // TODO implement History sometime
 
+        // Game status
+        model.status = payload.getStatus();
+
+        // Was moved
+        for (Map.Entry<String, Boolean> entry : payload.getWasMoved().entrySet()) {
+            Character token = model.getBoard().getCharacter(entry.getKey());
+            model.wasMoved.put(token, entry.getValue());
+        }
+        // TODO make sure all characters are in there
+
         return model;
+    }
+
+    public GameModelPayload toPayload() {
+        GameModelPayload payload = new GameModelPayload();
+        payload.setStatus(status);
+        payload.setBoard(board.toPayload());
+        List<PlayerPayload> playerPayloads = new ArrayList<>();
+        for (Player player : players) {
+            playerPayloads.add(player.toPayload());
+        }
+        payload.setPlayers(playerPayloads);
+        if (murder != null) {
+            payload.setMurder(murder.toPayload());
+        }
+        List<String> turnOrderString = new ArrayList<>();
+        for (Player player : turnOrder) {
+            turnOrderString.add(player.getCharacter().getName());
+        }
+        payload.setTurnOrder(turnOrderString);
+        payload.setTurn(turn.toPayload());
+
+        payload.setWasMoved(new HashMap<>());
+        for (Map.Entry<Character, Boolean> entry : wasMoved.entrySet()) {
+            payload.getWasMoved().put(entry.getKey().getName(), entry.getValue());
+        }
+
+        // TODO history
+        return payload;
     }
 
     public String toVisualString() {

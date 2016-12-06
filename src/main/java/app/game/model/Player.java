@@ -93,4 +93,25 @@ public class Player {
         }
         return sb.toString();
     }
+
+    public PlayerPayload toPayload() {
+        PlayerPayload payload = new PlayerPayload();
+        // character
+        if (character != null) {
+            payload.setCharacter(character.getName());
+        }
+        // cards
+        List<String> cards = new ArrayList<>();
+        for (Card card : hand) {
+            cards.add(card.name);
+        }
+        payload.setHand(cards);
+        // computer
+        if (computerPlayer) {
+            payload.setType("computer");
+        } else {
+            payload.setType("human");
+        }
+        return payload;
+    }
 }

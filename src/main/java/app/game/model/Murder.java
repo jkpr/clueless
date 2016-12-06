@@ -44,4 +44,12 @@ public class Murder {
         sb.append(String.join(", ", character.name, weapon.name, room.name));
         return sb.toString();
     }
+
+    public MurderPayload toPayload() {
+        MurderPayload payload = new MurderPayload();
+        payload.setCharacter(character.name);
+        payload.setWeapon(weapon.name);
+        payload.setRoom(room.name);
+        return payload;
+    }
 }

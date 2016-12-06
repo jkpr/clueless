@@ -1,18 +1,23 @@
 package app.json;
 
+import app.game.model.GameModel;
+import app.game.model.GameStatus;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jpringle on 12/4/16.
  */
 public class GameModelPayload {
-    //TODO GameModel status
-    //TODO wasMoved
+
+    private GameStatus status;
     private BoardPayload board;
     private List<PlayerPayload> players;
     private MurderPayload murder;
     private List<String> turnOrder;
     private TurnPayload turn;
+    private Map<String, Boolean> wasMoved;
     private List<String> history;
 
     public BoardPayload getBoard() {
@@ -61,5 +66,21 @@ public class GameModelPayload {
 
     public void setHistory(List<String> history) {
         this.history = history;
+    }
+
+    public GameStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GameStatus status) {
+        this.status = status;
+    }
+
+    public Map<String, Boolean> getWasMoved() {
+        return wasMoved;
+    }
+
+    public void setWasMoved(Map<String, Boolean> wasMoved) {
+        this.wasMoved = wasMoved;
     }
 }

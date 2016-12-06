@@ -1,5 +1,7 @@
 package app.game.model;
 
+import app.json.TurnPayload;
+
 /**
  * Created by james on 11/29/16.
  */
@@ -108,5 +110,23 @@ public class Turn {
             }
         }
         return sb.toString();
+    }
+
+    public TurnPayload toPayload() {
+        TurnPayload payload = new TurnPayload();
+        if (who != null) {
+            payload.setWho(who.getCharacter().getName());
+        }
+        payload.setHasMoved(hasMoved);
+        payload.setHasSuggested(hasSuggested);
+        if (whoCanDisprove != null) {
+            payload.setWhoCanDisprove(whoCanDisprove.getCharacter().getName());
+        }
+        if (suggestedCharacter != null) {
+            payload.setSuggestedCharacter(suggestedCharacter.name);
+            payload.setSuggestedWeapon(suggestedWeapon.name);
+            payload.setSuggestedRoom(suggestedRoom.name);
+        }
+        return payload;
     }
 }

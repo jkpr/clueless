@@ -825,4 +825,23 @@ public class Board {
         }
         return sb.toString();
     }
+
+    public BoardPayload toPayload() {
+        BoardPayload payload = new BoardPayload();
+        // characters
+        payload.setMsScarlet(msScarlet.getSpace().name);
+        payload.setColMustard(colMustard.getSpace().name);
+        payload.setMrsWhite(mrsWhite.getSpace().name);
+        payload.setMrGreen(mrGreen.getSpace().name);
+        payload.setMrsPeacock(mrsPeacock.getSpace().name);
+        payload.setProfPlum(profPlum.getSpace().name);
+        // weapons
+        payload.setCandlestick(candlestick.getSpace().name);
+        payload.setKnife(knife.getSpace().name);
+        payload.setPipe(pipe.getSpace().name);
+        payload.setRevolver(revolver.getSpace().name);
+        payload.setRope(rope.getSpace().name);
+        payload.setWrench(wrench.getSpace().name);
+        return payload;
+    }
 }
