@@ -5,12 +5,18 @@ import app.game.action.Action;
 import app.game.action.Move;
 import app.game.model.GameModel;
 import app.game.model.Player;
+import app.json.GameModelPayload;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+
+import java.io.IOException;
 
 /**
  * Created by jpringle on 12/4/16.
  */
 public class GameModelTest {
+
+    ObjectMapper mapper = new ObjectMapper();
 
     @Test
     public void testVisualString() {
@@ -31,5 +37,17 @@ public class GameModelTest {
         } catch (GameModelException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testPayload() {
+        GameModel model = new GameModel();
+        GameModelPayload payload = model.toPayload();
+        try {
+            mapper.writeValue(System.out, payload);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
