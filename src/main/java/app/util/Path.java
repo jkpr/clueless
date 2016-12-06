@@ -16,6 +16,7 @@ public class Path {
         public static final String FORGOTPASSWORD = "/forgotpassword";
         public static final String GAME = "/game";
         public static final String MESSAGE = "/message";
+        public static final String GAME_PLAY = "/game-play";
 
         //public static final String GAME_LOBBY = "/game";
         //public static final String GAME = "/game/:id";
@@ -56,5 +57,6 @@ public class Path {
         public static final String SIGNUP = "/signup.ftl";
         public static final String GAME_LOBBY = "/lobby.ftl";
         public static final String GAME = "/game.ftl";
+        public static final String GAME_PLAY = "/game-play.ftl";
     }
 }
