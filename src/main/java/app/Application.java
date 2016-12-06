@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Spark;
+import app.gameplay.GamePlayController;
 
 import static spark.Spark.init;
 import static spark.Spark.webSocket;
@@ -52,6 +53,7 @@ public class Application
         Spark.get(Path.Web.SIGNUP, SignupController.serveSignupPage);
         Spark.get(Path.Web.FORGOTPASSWORD, ForgotpasswordController.serveForgotpasswordPage);
         Spark.post(Path.Web.LOGIN, LoginController.handleLoginPost);
+        Spark.get(Path.Web.GAME_PLAY, GamePlayController.serveGamePlayPage);
         //Spark.get(Path.Web.GAME_LOBBY, GameController.serveGameLobby);
 
         // Game Routes
