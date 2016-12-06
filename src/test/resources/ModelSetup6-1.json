@@ -1,0 +1,38 @@
+{
+  "status":"SETUP",
+  "board": {
+    "Ms. Scarlet":"Scarlet start",
+    "Col. Mustard":"Mustard start",
+    "Mrs. White":"White start",
+    "Mr. Green":"Green start",
+    "Mrs. Peacock":"Peacock start",
+    "Prof. Plum":"Plum start",
+    "Candlestick":"Library",
+    "Knife":"Ballroom",
+    "Pipe":"Hall",
+    "Revolver":"Lounge",
+    "Rope":"Conservatory",
+    "Wrench":"Kitchen"
+  },
+  "players":[],
+  "murder":null,
+  "turnOrder":[],
+  "turn": {
+    "who":null,
+    "hasMoved":false,
+    "hasSuggested":false,
+    "whoCanDisprove":null,
+    "suggestedCharacter":null,
+    "suggestedWeapon":null,
+    "suggestedRoom":null
+  },
+  "wasMoved": {
+    "Mrs. White":false,
+    "Mrs. Peacock":false,
+    "Ms. Scarlet":false,
+    "Prof. Plum":false,
+    "Col. Mustard":false,
+    "Mr. Green":false
+  },
+  "history":null
+}
