@@ -19,14 +19,11 @@ public class EndTurn implements Action {
 
     private String message;
 
-    Player player;
+    private Player player;
 
-    public EndTurn(Player player, String character, String weapon, String room) {
-        this.player = player;
-    }
-    public String getMessage() {
-        return message;
-    }
+    public EndTurn(Player player) {
+        this.player = player;}
+
 
     /*
 Operation name: IsLegal(gameState: ClueLessModel): boolean
@@ -47,6 +44,12 @@ Otherwise, it returns false.
         //(2)
         boolean yourTurn = model.getTurn().getWho() == player;
 
+        if (!activeGame) {
+            message = "Game not being played";
+        } else if (!yourTurn) {
+            message = String.format("It is not %s's turn", player.getCharacter().getName());
+        }
+
         //(3)
         boolean madeSuggestion = model.getTurn().getHasSuggested();
         boolean hasMoved = model.getTurn().getHasMoved();
@@ -55,7 +58,8 @@ Otherwise, it returns false.
         //TODO write getWasMoved method
         //boolean makeSuggestionUnable = !model.getWasMoved().get(player.getCharacter());
 
-        legal = activeGame && yourTurn && (madeSuggestion || (hasMoved && inHallway));
+        //legal = activeGame && yourTurn && (madeSuggestion || (hasMoved && inHallway));
+        legal = activeGame && yourTurn;
 
         return legal;
     }
@@ -70,5 +74,15 @@ next token in the TurnOrder.
     public void apply(GameModel model) {
         model.getTurn().setMovedBySuggestion(false);
         model.getTurn().nextTurn(player);
+        model.endTurn();
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s ended his/her turn", player.getCharacter().getName());
     }
 }

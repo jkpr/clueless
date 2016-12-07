@@ -1,10 +1,12 @@
 package app.game;
 
-import app.message.Chat;
+import app.game.model.Player;
+import app.json.*;
 import app.message.Messaging;
 import app.util.Path;
 import app.util.RequestUtil;
 import app.util.ViewUtil;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
@@ -12,8 +14,11 @@ import spark.Response;
 import spark.Route;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
+
+import static app.Application.game;
+import static app.Application.jsonMapper;
+import static app.message.Messaging.broadcastGame;
 
 /**
  * Created by james on 11/26/16.
@@ -41,7 +46,100 @@ public class GameController {
             //}
             Map<String, Object> map = new HashMap<>();
             map.put("user", username);
-            return ViewUtil.render(map, Path.Template.GAME);
+            map.put("game", game.getGameForUser(username));
+            //return ViewUtil.render(map, Path.Template.GAME);
+            return ViewUtil.render(map, "/testgame.ftl");
         }
     };
+
+    public static Route handleAddPlayerPost = (Request request, Response response) -> {
+        // Ignore API key for now. Only use session username.
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            AddPlayerPayload addPlayerPayload = jsonMapper.readValue(json, AddPlayerPayload.class);
+            JsonResponse jsonResponse = game.handleAddPlayer(username, addPlayerPayload);
+            response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
+    };
+
+    public static Route handleSetTokenPost = (Request request, Response response) -> {
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null || !game.isUserPlayer(username)) {
+        //if (username == null) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            SetTokenPayload setTokenPayload = jsonMapper.readValue(json, SetTokenPayload.class);
+            JsonResponse jsonResponse = game.handleSetToken(username, setTokenPayload);
+            response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
+    };
+
+    public static Route handleStartGamePost = (Request request, Response response) -> {
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null || !game.isUserPlayer(username)) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            StartGamePayload startGamePayload = jsonMapper.readValue(json, StartGamePayload.class);
+            JsonResponse jsonResponse = game.handleStartGame(username, startGamePayload);
+            response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
+    };
+
+    public static Route handleMovePost = (Request request, Response response) -> {
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null || !game.isUserPlayer(username)) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            MovePayload movePayload = jsonMapper.readValue(json, MovePayload.class);
+            Player player = game.players.get(username);
+            JsonResponse jsonResponse = game.handleMove(player, movePayload);
+            response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
+    };
+
+    public static Route handleEndTurnPost = (Request request, Response response) -> {
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null || !game.isUserPlayer(username)) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            EndTurnPayload endTurnPayload = jsonMapper.readValue(json, EndTurnPayload.class);
+            Player player = game.players.get(username);
+            JsonResponse jsonResponse = game.handleEndTurn(player, endTurnPayload);
+            response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
+    };
+
+
 }

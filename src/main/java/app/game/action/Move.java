@@ -52,7 +52,7 @@ operation returns True. Otherwise, it returns False.
             } else if (!notMoved) {
                 message = String.format("%s has already moved this turn", player.getCharacter().getName());
             } else if (!connected) {
-                message = String.format("%s is on board space %s and it is not connected to board space %s",
+                message = String.format("%s is on board space \"%s\" and it is not connected to board space \"%s\"",
                         player.getCharacter().getName(), player.getCharacter().getSpace().name, boardSpace);
             } else if (!open) {
                 message = String.format("Board space %s is not open", boardSpace);
@@ -75,6 +75,7 @@ BoardSpace. The Turn’s HasMoved attribute is set to True.
         try {
             BoardSpace destination = model.getBoard().getBoardSpace(boardSpace);
             player.getCharacter().setSpace(destination);
+            model.getTurn().setHasMoved(true);
         } catch (GameModelException e) {
 
         }// TODO: catch NullPointerException
@@ -82,5 +83,10 @@ BoardSpace. The Turn’s HasMoved attribute is set to True.
 
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s moved to %s", player.getCharacter().getName(), boardSpace);
     }
 }

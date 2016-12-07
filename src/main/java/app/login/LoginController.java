@@ -35,7 +35,7 @@ public class LoginController {
             if (getQueryLoginRedirect(request) != null) {
                 response.redirect(getQueryLoginRedirect(request));
             } else {
-                response.redirect(Path.Web.GAME_LOBBY);
+                response.redirect(Path.Web.GAME);
             }
             return null;
         } else {

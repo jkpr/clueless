@@ -85,4 +85,56 @@ Sets HasMoved and HasSuggested to False.
     public Card getSuggestedRoom() {
         return suggestedRoom;
     }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
+
+    public void setHasSuggested(boolean hasSuggested) {
+        this.hasSuggested = hasSuggested;
+    }
+
+    public void setWhoCanDisprove(Player whoCanDisprove) {
+        this.whoCanDisprove = whoCanDisprove;
+    }
+
+    public void setSuggestedCharacter(Card suggestedCharacter) {
+        this.suggestedCharacter = suggestedCharacter;
+    }
+
+    public void setSuggestedWeapon(Card suggestedWeapon) {
+        this.suggestedWeapon = suggestedWeapon;
+    }
+
+    public void setSuggestedRoom(Card suggestedRoom) {
+        this.suggestedRoom = suggestedRoom;
+    }
+
+    public String toVisualString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Turn information: ");
+        if (who == null) {
+            sb.append("game not yet started so no turn info");
+        } else {
+            sb.append(who.getCharacter().getName());
+            sb.append(".");
+            if (hasMoved) {
+                sb.append(" Has moved.");
+            }
+            if (hasSuggested) {
+                sb.append(" Has suggested.");
+            }
+            if (suggestedCharacter != null) {
+                sb.append("\n Current suggestion: ");
+                sb.append(String.join(", ", suggestedCharacter.name, suggestedWeapon.name, suggestedRoom.name));
+                sb.append(". Who can disprove: ");
+                if (whoCanDisprove == null) {
+                    sb.append("no one");
+                } else {
+                    sb.append(whoCanDisprove.getCharacter().getName());
+                }
+            }
+        }
+        return sb.toString();
+    }
 }

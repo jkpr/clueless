@@ -829,7 +829,7 @@ they are located on the input board space.
         }
         visual.append("    --------\n");
         // Row 7
-        visual.append("     Co               Ba               Ki\n");
+        visual.append("     Co               Ba               Ki");
 
         return visual;
     }
