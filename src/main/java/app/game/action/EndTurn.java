@@ -37,6 +37,7 @@ public class EndTurn implements Action {
 
     public void apply(GameModel model) {
         model.endTurn();
+        model.getHistory().addHistory(this);
     }
 
     public String getMessage() {

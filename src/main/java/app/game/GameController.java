@@ -13,6 +13,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,7 +47,7 @@ public class GameController {
             //}
             Map<String, Object> map = new HashMap<>();
             map.put("user", username);
-            map.put("game", game.getGameForUser(username));
+            map.put("game", game.getVisualModel());
             //return ViewUtil.render(map, Path.Template.GAME);
             return ViewUtil.render(map, "/testgame.ftl");
         }
@@ -59,14 +60,19 @@ public class GameController {
             response.status(401);
             return null;
         } else {
-            String json = request.body();
-            AddPlayerPayload addPlayerPayload = jsonMapper.readValue(json, AddPlayerPayload.class);
-            JsonResponse jsonResponse = game.handleAddPlayer(username, addPlayerPayload);
-            response.status(jsonResponse.status);
-            if (jsonResponse.status == 200) {
-                broadcastGame();
+            try {
+                String json = request.body();
+                AddPlayerPayload addPlayerPayload = jsonMapper.readValue(json, AddPlayerPayload.class);
+                JsonResponse jsonResponse = game.handleAddPlayer(username, addPlayerPayload);
+                response.status(jsonResponse.status);
+                if (jsonResponse.status == 200) {
+                    broadcastGame();
+                }
+                return new JSONObject().put("msg", jsonResponse.msg);
+            } catch (IOException e) {
+                response.status(400);
+                return null;
             }
-            return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 
@@ -77,14 +83,19 @@ public class GameController {
             response.status(401);
             return null;
         } else {
-            String json = request.body();
-            SetTokenPayload setTokenPayload = jsonMapper.readValue(json, SetTokenPayload.class);
-            JsonResponse jsonResponse = game.handleSetToken(username, setTokenPayload);
-            response.status(jsonResponse.status);
-            if (jsonResponse.status == 200) {
-                broadcastGame();
+            try {
+                String json = request.body();
+                SetTokenPayload setTokenPayload = jsonMapper.readValue(json, SetTokenPayload.class);
+                JsonResponse jsonResponse = game.handleSetToken(username, setTokenPayload);
+                response.status(jsonResponse.status);
+                if (jsonResponse.status == 200) {
+                    broadcastGame();
+                }
+                return new JSONObject().put("msg", jsonResponse.msg);
+            } catch (IOException e) {
+                response.status(400);
+                return null;
             }
-            return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 
@@ -94,14 +105,19 @@ public class GameController {
             response.status(401);
             return null;
         } else {
-            String json = request.body();
-            StartGamePayload startGamePayload = jsonMapper.readValue(json, StartGamePayload.class);
-            JsonResponse jsonResponse = game.handleStartGame(username, startGamePayload);
-            response.status(jsonResponse.status);
-            if (jsonResponse.status == 200) {
-                broadcastGame();
+            try {
+                String json = request.body();
+                StartGamePayload startGamePayload = jsonMapper.readValue(json, StartGamePayload.class);
+                JsonResponse jsonResponse = game.handleStartGame(username, startGamePayload);
+                response.status(jsonResponse.status);
+                if (jsonResponse.status == 200) {
+                    broadcastGame();
+                }
+                return new JSONObject().put("msg", jsonResponse.msg);
+            } catch (IOException e) {
+                response.status(400);
+                return null;
             }
-            return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 
@@ -111,15 +127,20 @@ public class GameController {
             response.status(401);
             return null;
         } else {
-            String json = request.body();
-            MovePayload movePayload = jsonMapper.readValue(json, MovePayload.class);
-            Player player = game.players.get(username);
-            JsonResponse jsonResponse = game.handleMove(player, movePayload);
-            response.status(jsonResponse.status);
-            if (jsonResponse.status == 200) {
-                broadcastGame();
+            try {
+                String json = request.body();
+                MovePayload movePayload = jsonMapper.readValue(json, MovePayload.class);
+                Player player = game.players.get(username);
+                JsonResponse jsonResponse = game.handleMove(player, movePayload);
+                response.status(jsonResponse.status);
+                if (jsonResponse.status == 200) {
+                    broadcastGame();
+                }
+                return new JSONObject().put("msg", jsonResponse.msg);
+            } catch (IOException e) {
+                response.status(400);
+                return null;
             }
-            return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 
@@ -129,33 +150,44 @@ public class GameController {
             response.status(401);
             return null;
         } else {
-            String json = request.body();
-            EndTurnPayload endTurnPayload = jsonMapper.readValue(json, EndTurnPayload.class);
-            Player player = game.players.get(username);
-            JsonResponse jsonResponse = game.handleEndTurn(player, endTurnPayload);
-            response.status(jsonResponse.status);
-            if (jsonResponse.status == 200) {
-                broadcastGame();
+            try {
+                String json = request.body();
+                EndTurnPayload endTurnPayload = jsonMapper.readValue(json, EndTurnPayload.class);
+                Player player = game.players.get(username);
+                JsonResponse jsonResponse = game.handleEndTurn(player, endTurnPayload);
+                response.status(jsonResponse.status);
+                if (jsonResponse.status == 200) {
+                    broadcastGame();
+                }
+                return new JSONObject().put("msg", jsonResponse.msg);
+            } catch (IOException e) {
+                response.status(400);
+                return null;
             }
-            return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 
     public static Route handleMakeSuggestionPost = (Request request, Response response) -> {
+        logger.info("Inside GameController#handleMakeSuggestion");
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
         if (username == null || !game.isUserPlayer(username)) {
             response.status(401);
             return null;
         } else {
-            String json = request.body();
-            MakeSuggestionPayload payload = jsonMapper.readValue(json, MakeSuggestionPayload.class);
-            Player player = game.players.get(username);
-            JsonResponse jsonResponse = game.handleMakeSuggestion(player, payload);
-            response.status(jsonResponse.status);
-            if (jsonResponse.status == 200) {
-                broadcastGame();
+            try {
+                String json = request.body();
+                MakeSuggestionPayload payload = jsonMapper.readValue(json, MakeSuggestionPayload.class);
+                Player player = game.players.get(username);
+                JsonResponse jsonResponse = game.handleMakeSuggestion(player, payload);
+                response.status(jsonResponse.status);
+                if (jsonResponse.status == 200) {
+                    broadcastGame();
+                }
+                return new JSONObject().put("msg", jsonResponse.msg);
+            } catch (IOException e) {
+                response.status(400);
+                return null;
             }
-            return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 
@@ -165,15 +197,20 @@ public class GameController {
             response.status(401);
             return null;
         } else {
-            String json = request.body();
-            DisproveSuggestionPayload payload = jsonMapper.readValue(json, DisproveSuggestionPayload.class);
-            Player player = game.players.get(username);
-            JsonResponse jsonResponse = game.handleDisproveSuggestion(player, payload);
-            response.status(jsonResponse.status);
-            if (jsonResponse.status == 200) {
-                broadcastGame();
+            try {
+                String json = request.body();
+                DisproveSuggestionPayload payload = jsonMapper.readValue(json, DisproveSuggestionPayload.class);
+                Player player = game.players.get(username);
+                JsonResponse jsonResponse = game.handleDisproveSuggestion(player, payload);
+                response.status(jsonResponse.status);
+                if (jsonResponse.status == 200) {
+                    broadcastGame();
+                }
+                return new JSONObject().put("msg", jsonResponse.msg);
+            } catch (IOException e) {
+                response.status(400);
+                return null;
             }
-            return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 
@@ -183,15 +220,20 @@ public class GameController {
             response.status(401);
             return null;
         } else {
-            String json = request.body();
-            MakeAccusationPayload payload = jsonMapper.readValue(json, MakeAccusationPayload.class);
-            Player player = game.players.get(username);
-            JsonResponse jsonResponse = game.handleMakeAccusation(player, payload);
-            response.status(jsonResponse.status);
-            if (jsonResponse.status == 200) {
-                broadcastGame();
+            try {
+                String json = request.body();
+                MakeAccusationPayload payload = jsonMapper.readValue(json, MakeAccusationPayload.class);
+                Player player = game.players.get(username);
+                JsonResponse jsonResponse = game.handleMakeAccusation(player, payload);
+                response.status(jsonResponse.status);
+                if (jsonResponse.status == 200) {
+                    broadcastGame();
+                }
+                return new JSONObject().put("msg", jsonResponse.msg);
+            } catch (IOException e) {
+                response.status(400);
+                return null;
             }
-            return new JSONObject().put("msg", jsonResponse.msg);
         }
     };
 

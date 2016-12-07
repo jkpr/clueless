@@ -60,6 +60,7 @@ public class Move implements Action {
             BoardSpace destination = model.getBoard().getBoardSpace(boardSpace);
             player.getCharacter().setSpace(destination);
             model.getTurn().setHasMoved(true);
+            model.getHistory().addHistory(this);
         } catch (GameModelException e) {
 
         }// TODO: catch NullPointerException

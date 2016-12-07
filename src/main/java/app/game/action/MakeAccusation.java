@@ -98,6 +98,7 @@ public class MakeAccusation implements Action {
             sb.append(" is incorrect and is removed from active gameplay.");
         }
         message = sb.toString();
+        model.getHistory().addHistory(this);
     }
 
     public String getMessage() {

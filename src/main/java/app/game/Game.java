@@ -6,12 +6,20 @@ import app.game.model.Character;
 import app.game.model.GameModel;
 import app.game.model.Player;
 import app.json.*;
+import app.message.Messaging;
 import app.user.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static app.Application.jsonMapper;
 
 /**
  * Created by james on 11/26/16.
@@ -139,6 +147,7 @@ public class Game {
     public JsonResponse handleMakeSuggestion(Player player, MakeSuggestionPayload payload) {
         JsonResponse jsonResponse = new JsonResponse();
 
+        logger.info("Inside Game# handle make suggestion");
         Action action = new MakeSuggestion(player, payload.getCharacter(), payload.getWeapon());
         boolean legal = action.isLegal(model);
         if (legal) {
@@ -189,7 +198,61 @@ public class Game {
     /**
      * Get the game for the user (called by GameController)
      */
-    public String getGameForUser(String user) {
+    public JSONObject getGameForUser(String user) {
+        JSONObject json = new JSONObject();
+        Player player = players.get(user);
+
+        try {
+            if (player != null) {
+                Character character = player.getCharacter();
+                if (character != null) {
+                    json.put(Messaging.CHARACTER, character.getName());
+                } else {
+                    json.put(Messaging.CHARACTER, "");
+                }
+            } else {
+                json.put(Messaging.CHARACTER, "");
+            }
+
+            json.put(Messaging.CHARACTER, players.get(user).getCharacter().getName());
+            json.put(Messaging.NOTIFICATION, model.getHistory().peek().toString(player));
+            json.put(Messaging.BOARD, jsonMapper.writeValueAsString(model.getBoard().toPayload()));
+            json.put(Messaging.STATUS, model.getStatus().toString());
+            json.put(Messaging.STATUS_MESSAGE, model.getStatusMessage());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return json;
+    }
+
+
+    public String getBoardForUser(String user) {
         return model.toVisualString();
+    }
+
+    public String getVisualModel() {
+        List<String> addedUsers = new ArrayList<>();
+        for (String username : players.keySet()) {
+            addedUsers.add(username);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("Users that are playing: ");
+        sb.append(String.join(", ", addedUsers));
+        if (addedUsers.size() == 0) {
+            sb.append("none have joined yet");
+        }
+        sb.append("\n");
+        if (host != null) {
+            sb.append("Host is ");
+            sb.append(host);
+        } else {
+            sb.append("The first user to join the game becomes host");
+        }
+        sb.append("\n<hr/>\n");
+        sb.append(model.toVisualString());
+        return sb.toString();
     }
 }

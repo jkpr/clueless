@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by james on 11/26/16.
@@ -24,9 +25,8 @@ public class GameModel {
     private Murder murder;
     private GameStatus status;
     private Turn turn;
-    private List<Player> turnOrder;
     // TODO: make this more elegant (check history for moves)
-    private Map<Character, Boolean> wasMoved;
+    private Map<String, Boolean> wasMoved;
     private Player winner;
 
     public GameModel() {
@@ -38,7 +38,6 @@ public class GameModel {
         murder = null;
         status = GameStatus.SETUP;
         turn = new Turn();
-        turnOrder = new LinkedList<>();
         // TODO: make this more elegant
         wasMoved = new HashMap<>();
         initializeWasMoved();
@@ -77,7 +76,7 @@ public class GameModel {
     }
 
     private void initializeTurns() {
-        turnOrder.clear();
+        List<Player> turnOrder = new LinkedList<>();
         try {
             Player msScarlet = getPlayerByCharacter(board.getCharacter(Character.MS_SCARLET));
             Player colMustard = getPlayerByCharacter(board.getCharacter(Character.COL_MUSTARD));
@@ -86,61 +85,74 @@ public class GameModel {
             Player mrsPeacock = getPlayerByCharacter(board.getCharacter(Character.MRS_PEACOCK));
             Player profPlum = getPlayerByCharacter(board.getCharacter(Character.PROF_PLUM));
             if (msScarlet != null) {
+                msScarlet.setStatus(GameStatus.ACTIVE);
                 turnOrder.add(msScarlet);
             }
             if (colMustard != null) {
+                colMustard.setStatus(GameStatus.ACTIVE);
                 turnOrder.add(colMustard);
             }
             if (mrsWhite != null) {
+                mrsWhite.setStatus(GameStatus.ACTIVE);
                 turnOrder.add(mrsWhite);
             }
             if (mrGreen != null) {
+                mrGreen.setStatus(GameStatus.ACTIVE);
                 turnOrder.add(mrGreen);
             }
             if (mrsPeacock != null) {
+                mrsPeacock.setStatus(GameStatus.ACTIVE);
                 turnOrder.add(mrsPeacock);
             }
             if (profPlum != null) {
+                profPlum.setStatus(GameStatus.ACTIVE);
                 turnOrder.add(profPlum);
             }
-            turn.nextTurn(turnOrder.get(0));
+            players = turnOrder;
+            if (players.size() > 0) {
+                turn.nextTurn(players.get(0));
+            } else {
+                // should never happen
+                turn.nextTurn(null);
+            }
         } catch (GameModelException e) {
             // should never happen
-            e.printStackTrace();
-        } catch (IndexOutOfBoundsException e) {
-            // should never happen because the action ensures there are players first
             e.printStackTrace();
         }
     }
 
     private void initializeWasMoved() {
-        try {
-            wasMoved = new HashMap<>();
-            wasMoved.put(board.getCharacter(Character.MS_SCARLET), false);
-            wasMoved.put(board.getCharacter(Character.COL_MUSTARD), false);
-            wasMoved.put(board.getCharacter(Character.MRS_WHITE), false);
-            wasMoved.put(board.getCharacter(Character.MR_GREEN), false);
-            wasMoved.put(board.getCharacter(Character.MRS_PEACOCK), false);
-            wasMoved.put(board.getCharacter(Character.PROF_PLUM), false);
-        } catch (GameModelException e) {
-            // should never happen
-            e.printStackTrace();
-        }
+        wasMoved = new HashMap<>();
+        wasMoved.put(Character.MS_SCARLET, false);
+        wasMoved.put(Character.COL_MUSTARD, false);
+        wasMoved.put(Character.MRS_WHITE, false);
+        wasMoved.put(Character.MR_GREEN, false);
+        wasMoved.put(Character.MRS_PEACOCK, false);
+        wasMoved.put(Character.PROF_PLUM, false);
     }
 
     public void endTurn() {
-        wasMoved.put(turn.getWho().getCharacter(), false);
+        wasMoved.put(turn.getWho().getCharacter().getName(), false);
         turn.nextTurn(getNextTurn());
     }
 
     private Player getNextTurn() {
-        for (Iterator<Player> iter = turnOrder.iterator(); iter.hasNext(); ) {
+        List<Player> activePlayers = getActivePlayers();
+        for (Iterator<Player> iter = activePlayers.iterator(); iter.hasNext(); ) {
             Player player = iter.next();
             if ((player == turn.getWho()) && iter.hasNext()) {
+
                 return iter.next();
             }
         }
-        return turnOrder.get(0);
+        return activePlayers.get(0);
+    }
+
+    private List<Player> getActivePlayers() {
+        List<Player> activePlayers = players.stream()
+                .filter(p -> p.getStatus() == GameStatus.ACTIVE)
+                .collect(Collectors.toList());
+        return activePlayers;
     }
 
     public void addPlayer(Player player) {
@@ -180,11 +192,11 @@ public class GameModel {
     }
 
     public List<Player> getTurnOrder() {
-        return turnOrder;
+        return getActivePlayers();
     }
 
     public void removeFromTurnOrder(Player player) {
-        turnOrder.remove(player);
+        player.setStatus(GameStatus.FINISHED);
     }
 
     public boolean allPlayersSet() {
@@ -219,15 +231,6 @@ public class GameModel {
         Murder murder = new Murder(character, weapon, room);
         model.setMurder(murder);
         // TODO Make sure all the cards are dealt, if not throw GameModelException
-        // Turn order
-        for (String name : payload.getTurnOrder()) {
-            Player player = model.getPlayerByCharacter(model.board.getCharacter(name));
-            if (player == null) {
-                throw new GameModelException();
-            }
-            model.turnOrder.add(player);
-        }
-        // TODO make sure the turn order is correct
         // Turn
         model.turn.setWho(model.getPlayerByCharacter(model.board.getCharacter(payload.getTurn().getWho())));
         model.turn.setHasMoved(payload.getTurn().getHasMoved());
@@ -246,7 +249,7 @@ public class GameModel {
         // Was moved
         for (Map.Entry<String, Boolean> entry : payload.getWasMoved().entrySet()) {
             Character token = model.getBoard().getCharacter(entry.getKey());
-            model.wasMoved.put(token, entry.getValue());
+            model.wasMoved.put(token.getName(), entry.getValue());
         }
         // TODO make sure all characters are in there
 
@@ -265,16 +268,11 @@ public class GameModel {
         if (murder != null) {
             payload.setMurder(murder.toPayload());
         }
-        List<String> turnOrderString = new ArrayList<>();
-        for (Player player : turnOrder) {
-            turnOrderString.add(player.getCharacter().getName());
-        }
-        payload.setTurnOrder(turnOrderString);
         payload.setTurn(turn.toPayload());
 
         payload.setWasMoved(new HashMap<>());
-        for (Map.Entry<Character, Boolean> entry : wasMoved.entrySet()) {
-            payload.getWasMoved().put(entry.getKey().getName(), entry.getValue());
+        for (Map.Entry<String, Boolean> entry : wasMoved.entrySet()) {
+            payload.getWasMoved().put(entry.getKey(), entry.getValue());
         }
 
         // TODO history
@@ -287,17 +285,28 @@ public class GameModel {
         //sb.append("\n\n");
         sb.append(turn.toVisualString());
         sb.append("\n\n");
-        for (Player player : players) {
-            sb.append(player.toVisualString());
+        long unsetCount = players.stream().filter(p -> !p.isCharacterSet()).count();
+        if (unsetCount > 0) {
+            sb.append("Number of unset players: ");
+            sb.append(unsetCount);
             sb.append("\n");
         }
+        if (players.size() - unsetCount > 0) {
+            for (Player player : players) {
+                if (player.isCharacterSet()) {
+                    sb.append(player.toVisualString());
+                    sb.append("\n");
+                }
+            }
+        }
         List<String> moved = new ArrayList<>();
-        for (Map.Entry<Character, Boolean> entry : wasMoved.entrySet()) {
+        for (Map.Entry<String, Boolean> entry : wasMoved.entrySet()) {
             if (entry.getValue()) {
-                moved.add(entry.getKey().getName());
+                moved.add(entry.getKey());
             }
         }
         if (!moved.isEmpty()) {
+            sb.append("\n");
             sb.append("Was moved by suggestion: ");
             sb.append(String.join(", ", moved));
             sb.append("\n");
@@ -312,7 +321,7 @@ public class GameModel {
     }
 
     public boolean wasMoved(Character character) {
-        return wasMoved.get(character);
+        return wasMoved.get(character.getName());
     }
 
     public Dealer getDealer() {
@@ -361,5 +370,24 @@ public class GameModel {
 
     public void setWinner(Player winner) {
         this.winner = winner;
+    }
+
+    public String getStatusMessage() {
+        if (status == GameStatus.SETUP) {
+            return "In setup...";
+        } else if (status == GameStatus.ACTIVE) {
+            String name = turn.getWho().getCharacter().getName();
+            return String.format("It is %s's turn", name);
+        } else if (status == GameStatus.ACTIVE_SUGGESTION) {
+            String name = turn.getWhoCanDisprove().getCharacter().getName();
+            return String.format("%s can disprove", name);
+        } else { // status == GameStatus.FINISHED
+            String name = winner.getCharacter().getName();
+            return String.format("%s has won the game", name);
+        }
+    }
+
+    public Map<String, Boolean> getWasMoved() {
+        return wasMoved;
     }
 }

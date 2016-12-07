@@ -69,3 +69,11 @@ $( "#makeAccusation" ).submit(function( event ) {
     event.preventDefault();
 });
 
+$( "#endTurn" ).submit(function( event ) {
+    $.post("/game/endturn", JSON.stringify({"api":null}), function(data) {
+        $( "#postResult" ).html(data);
+    }).fail( function(data) {
+        $( "#postResult" ).html(data.responseText);
+    });
+    event.preventDefault();
+});

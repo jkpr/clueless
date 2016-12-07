@@ -28,4 +28,12 @@ public class GameModelException extends Exception {
         status = 0;
         this.message = message;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public int getStatus() {
+        return status;
+    }
 }

@@ -5,6 +5,7 @@ Game action workflow:
 3. Create a method in Game that will handle an incoming JSON message.
 4. Return an informative message to the POST
 5. If action successful send to all, if action failed send to sender:
+ - which character you control
  - the updated board,
  - a notification message about the action,
  - the game status,

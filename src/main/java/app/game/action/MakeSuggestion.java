@@ -3,6 +3,8 @@ package app.game.action;
 import app.exception.GameModelException;
 import app.game.model.*;
 import app.game.model.Character;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
  * Created by james on 11/26/16.
  */
 public class MakeSuggestion implements Action {
+    private static final Logger logger = LoggerFactory.getLogger(MakeSuggestion.class);
 
     private String message;
     // TODO: message?
@@ -40,14 +43,12 @@ public class MakeSuggestion implements Action {
             boolean weaponType = weaponCard.type == GameProperty.WEAPON;
             boolean roomType = roomCard.type == GameProperty.ROOM;
             boolean correctCards = characterType && weaponType && roomType;
-
             boolean activeGame = model.getStatus() == GameStatus.ACTIVE;
             boolean yourTurn = model.getTurn().getWho() == player;
             boolean wasMoved = model.wasMoved(player.getCharacter());
             boolean hasMoved = model.getTurn().getHasMoved();
             boolean hasNotSuggested = !model.getTurn().getHasSuggested();
-            boolean inCorrectRoom = player.getCharacter().getName().equals(roomCard.name);
-
+            boolean inCorrectRoom = player.getCharacter().getSpace().name.equals(roomCard.name);
 
             if (!activeGame) {
                 message = "Game not being played";
@@ -76,8 +77,12 @@ public class MakeSuggestion implements Action {
     }
     public void apply(GameModel model) {
         try {
+            model.getTurn().setHasSuggested(true);
             Token characterToken = model.getBoard().getCharacter(characterCard.name);
             characterToken.setSpace(model.getBoard().getBoardSpace(roomCard.name));
+            Token weaponToken = model.getBoard().getWeapon(weaponCard.name);
+            weaponToken.setSpace(model.getBoard().getBoardSpace(roomCard.name));
+            model.getWasMoved().put(characterCard.name, true);
             List<Player> playersSuggested = model.getWhoCanDisprove(characterCard, weaponCard, roomCard);
             if (playersSuggested != null) {
                 model.setStatus(GameStatus.ACTIVE_SUGGESTION);
@@ -87,9 +92,8 @@ public class MakeSuggestion implements Action {
                 model.getTurn().setSuggestedWeapon(weaponCard);
                 model.getTurn().setSuggestedRoom(roomCard);
             }
-
             StringBuilder sb = new StringBuilder();
-            sb.append(String.format("%s suggested it was %s with the %s in the %s", player.getCharacter().getName(), characterCard.name, weaponCard.name, roomCard.name));
+            sb.append(String.format("%s suggested it was %s with the %s in the %s.", player.getCharacter().getName(), characterCard.name, weaponCard.name, roomCard.name));
             if (playersSuggested != null) {
                 Player whoCanDisprove = playersSuggested.remove(playersSuggested.size() - 1);
                 List<String> whoCannot = new LinkedList<>();
@@ -108,6 +112,7 @@ public class MakeSuggestion implements Action {
                 sb.append(" No one can disprove.");
             }
             toString = sb.toString();
+            model.getHistory().addHistory(this);
         } catch (GameModelException e) {
             // should never happen ...
             e.printStackTrace();

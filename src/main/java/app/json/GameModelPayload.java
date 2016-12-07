@@ -15,7 +15,6 @@ public class GameModelPayload {
     private BoardPayload board;
     private List<PlayerPayload> players;
     private MurderPayload murder;
-    private List<String> turnOrder;
     private TurnPayload turn;
     private Map<String, Boolean> wasMoved;
     private List<String> history;
@@ -50,14 +49,6 @@ public class GameModelPayload {
 
     public void setMurder(MurderPayload murder) {
         this.murder = murder;
-    }
-
-    public List<String> getTurnOrder() {
-        return turnOrder;
-    }
-
-    public void setTurnOrder(List<String> turnOrder) {
-        this.turnOrder = turnOrder;
     }
 
     public List<String> getHistory() {

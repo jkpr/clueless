@@ -65,7 +65,7 @@ public class DisproveSuggestion implements Action {
 
         model.setStatus(GameStatus.ACTIVE);
         model.getTurn().clearSuggestion();
-
+        model.getHistory().addHistory(this);
     }
     public String getMessage() {
         return message;
@@ -73,9 +73,9 @@ public class DisproveSuggestion implements Action {
 
     public String toString(Player player) {
         if (privy.contains(player)) {
-            return String.format("%s revealed the %s card to %s", privy.get(1).getCharacter().getName(), cardString, privy.get(0).getCharacter().getName());
+            return String.format("%s revealed the %s card to %s", privy.get(0).getCharacter().getName(), cardString, privy.get(1).getCharacter().getName());
         } else {
-            return String.format("%s revealed a card to %s", privy.get(1).getCharacter().getName(), privy.get(0).getCharacter().getName());
+            return String.format("%s revealed a card to %s", privy.get(0).getCharacter().getName(), privy.get(1).getCharacter().getName());
         }
     }
 }
