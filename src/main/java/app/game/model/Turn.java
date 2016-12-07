@@ -129,4 +129,11 @@ public class Turn {
         }
         return payload;
     }
+
+    public void clearSuggestion() {
+        whoCanDisprove = null;
+        suggestedCharacter = null;
+        suggestedWeapon = null;
+        suggestedRoom = null;
+    }
 }
