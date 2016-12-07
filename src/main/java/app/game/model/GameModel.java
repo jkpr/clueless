@@ -27,6 +27,7 @@ public class GameModel {
     private List<Player> turnOrder;
     // TODO: make this more elegant (check history for moves)
     private Map<Character, Boolean> wasMoved;
+    private Player winner;
 
     public GameModel() {
         dealer = new Dealer();
@@ -42,7 +43,7 @@ public class GameModel {
         wasMoved = new HashMap<>();
         initializeWasMoved();
         
-
+        winner = null;
     }
 
     public Player getPlayerByCharacter(Character character) {
@@ -352,5 +353,13 @@ public class GameModel {
         }
         // No one found
         return null;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
     }
 }

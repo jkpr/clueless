@@ -69,6 +69,7 @@ public class MakeAccusation implements Action {
         isAccusationCorrect = model.getMurder().isCorrectAccusation(characterCard, weaponCard, roomCard);
         if (isAccusationCorrect) {
             model.setStatus(GameStatus.FINISHED);
+            model.setWinner(player);
         } else {
             // order is important
             model.endTurn();
@@ -76,6 +77,7 @@ public class MakeAccusation implements Action {
             // check for winner by default
             if (model.getTurnOrder().size() == 1) {
                 model.setStatus(GameStatus.FINISHED);
+                model.setWinner(model.getTurnOrder().get(0));
             }
         }
         StringBuilder sb = new StringBuilder();
