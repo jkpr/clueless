@@ -17,10 +17,10 @@ public class Murder {
         this.room = room;
     }
 
-    public boolean isCorrectAssumption(Card character, Card weapon, Card room) {
-        boolean correctCharacter = this.character.equals(character);
-        boolean correctWeapon = this.character.equals(weapon);
-        boolean correctRoom = this.character.equals(room);
+    public boolean isCorrectAccusation(Card character, Card weapon, Card room) {
+        boolean correctCharacter = this.character == character;
+        boolean correctWeapon = this.character == weapon;
+        boolean correctRoom = this.character == room;
         return correctCharacter && correctWeapon && correctRoom;
     }
 

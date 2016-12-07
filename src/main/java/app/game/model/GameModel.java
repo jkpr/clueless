@@ -178,6 +178,14 @@ public class GameModel {
         return turn;
     }
 
+    public List<Player> getTurnOrder() {
+        return turnOrder;
+    }
+
+    public void removeFromTurnOrder(Player player) {
+        turnOrder.remove(player);
+    }
+
     public boolean allPlayersSet() {
         boolean allSet = true;
         for (Player player : players) {
