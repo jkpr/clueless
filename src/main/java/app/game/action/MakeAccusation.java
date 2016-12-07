@@ -93,6 +93,7 @@ public class MakeAccusation implements Action {
         } else {
             sb.append(" is incorrect and is removed from active gameplay.");
         }
+        message = sb.toString();
     }
 
     public String getMessage() {
@@ -102,5 +103,9 @@ public class MakeAccusation implements Action {
     @Override
     public String toString() {
         return String.format("%s made an accusation: it was %s with the %s in the %s.", player.getCharacter().getName(), character, weapon, room);
+    }
+
+    public String toString(Player player) {
+        return toString();
     }
 }

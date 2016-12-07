@@ -119,6 +119,10 @@ public class MakeSuggestion implements Action {
         return toString;
     }
 
+    public String toString(Player player) {
+        return toString();
+    }
+
     public String getMessage() {
         return message;
     }

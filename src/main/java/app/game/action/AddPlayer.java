@@ -66,6 +66,10 @@ public class AddPlayer implements Action {
         }
     }
 
+    public String toString(Player player) {
+        return toString();
+    }
+
     public String getMessage() {
         return message;
     }

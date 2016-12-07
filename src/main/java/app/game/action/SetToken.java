@@ -71,6 +71,10 @@ public class SetToken implements Action {
         return String.format("User %s changed tokens to be %s", user, nextToken);
     }
 
+    public String toString(Player player) {
+        return toString();
+    }
+
     public String getMessage() {
         return message;
     }

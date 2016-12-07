@@ -47,4 +47,8 @@ public class EndTurn implements Action {
     public String toString() {
         return String.format("%s ended his/her turn", player.getCharacter().getName());
     }
+
+    public String toString(Player player) {
+        return toString();
+    }
 }

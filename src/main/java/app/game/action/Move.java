@@ -73,4 +73,8 @@ public class Move implements Action {
     public String toString() {
         return String.format("%s moved to %s", player.getCharacter().getName(), boardSpace);
     }
+
+    public String toString(Player player) {
+        return toString();
+    }
 }

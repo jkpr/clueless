@@ -136,6 +136,57 @@ public class Game {
         return jsonResponse;
     }
 
+    public JsonResponse handleMakeSuggestion(Player player, MakeSuggestionPayload payload) {
+        JsonResponse jsonResponse = new JsonResponse();
+
+        Action action = new MakeSuggestion(player, payload.getCharacter(), payload.getWeapon());
+        boolean legal = action.isLegal(model);
+        if (legal) {
+            action.apply(model);
+            jsonResponse.status = 200;
+            jsonResponse.msg = action.toString();
+        } else {
+            jsonResponse.status = 403;
+            jsonResponse.msg = action.getMessage();
+        }
+
+        return jsonResponse;
+    }
+
+    public JsonResponse handleDisproveSuggestion(Player player, DisproveSuggestionPayload payload) {
+        JsonResponse jsonResponse = new JsonResponse();
+
+        DisproveSuggestion action = new DisproveSuggestion(player, payload.getCard());
+        boolean legal = action.isLegal(model);
+        if (legal) {
+            action.apply(model);
+            jsonResponse.status = 200;
+            jsonResponse.msg = action.toString(player);
+        } else {
+            jsonResponse.status = 403;
+            jsonResponse.msg = action.getMessage();
+        }
+
+        return jsonResponse;
+    }
+
+    public JsonResponse handleMakeAccusation(Player player, MakeAccusationPayload payload) {
+        JsonResponse jsonResponse = new JsonResponse();
+
+        Action action = new MakeAccusation(player, payload.getCharacter(), payload.getWeapon(), payload.getRoom());
+        boolean legal = action.isLegal(model);
+        if (legal) {
+            action.apply(model);
+            jsonResponse.status = 200;
+            jsonResponse.msg = action.getMessage();
+        } else {
+            jsonResponse.status = 403;
+            jsonResponse.msg = action.getMessage();
+        }
+
+        return jsonResponse;
+    }
+
     /**
      * Get the game for the user (called by GameController)
      */

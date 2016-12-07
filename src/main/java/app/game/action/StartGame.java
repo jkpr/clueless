@@ -52,6 +52,10 @@ public class StartGame implements Action {
         return String.format("User %s started the game", user);
     }
 
+    public String toString(Player player) {
+        return toString();
+    }
+
     public String getMessage() {
         return message;
     }
