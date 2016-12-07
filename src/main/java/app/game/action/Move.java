@@ -24,6 +24,7 @@ public class Move implements Action {
             boolean activeGame = model.getStatus() == GameStatus.ACTIVE;
             boolean yourTurn = model.getTurn().getWho() == player;
             boolean notMoved = !model.getTurn().getHasMoved();
+            boolean notSuggested = !model.getTurn().getHasSuggested();
             BoardSpace origin = player.getCharacter().getSpace();
             BoardSpace destination = model.getBoard().getBoardSpace(boardSpace);
             boolean connected = model.getBoard().isDirectedConnection(origin, destination);
@@ -42,9 +43,11 @@ public class Move implements Action {
                         player.getCharacter().getName(), player.getCharacter().getSpace().name, boardSpace);
             } else if (!open) {
                 message = String.format("Board space %s is not open", boardSpace);
+            } else if (!notSuggested) {
+                message = String.format("%s has suggested this turn and thus cannot move", player.getCharacter().getName());
             }
 
-            legal = activeGame && yourTurn && notMoved && connected && open;
+            legal = activeGame && yourTurn && notMoved && notSuggested && connected && open;
         } catch (GameModelException e) {
             // not legal. stay false
             message = String.format("Unrecognized board space: %s", boardSpace);

@@ -301,4 +301,48 @@ public class GameModel {
         }
         return sb.toString();
     }
+
+    public boolean wasMoved(Character character) {
+        return wasMoved.get(character);
+    }
+
+    public Dealer getDealer() {
+        return dealer;
+    }
+
+    public List<Player> getWhoCanDisprove(Card character, Card weapon, Card room) {
+        List<Player> playersSuggestion = new ArrayList<>();
+
+        Player currentPlayer = turn.getWho();
+        Iterator<Player> iter = players.iterator();
+        while (iter.hasNext()) {
+            Player player = iter.next();
+            if (player == currentPlayer) {
+                break;
+            }
+        }
+
+        // loop back to the beginning
+        if (!iter.hasNext()) {
+            iter = players.iterator();
+        }
+
+        while (iter.hasNext()) {
+            Player player = iter.next();
+            if (player == currentPlayer) {
+                break;
+            }
+            playersSuggestion.add(player);
+            List<Card> hand = player.getHand();
+            if (hand.contains(character) || hand.contains(weapon) || hand.contains(room)) {
+                return playersSuggestion;
+            }
+            // loop back to the beginning
+            if (!iter.hasNext()) {
+                iter = players.iterator();
+            }
+        }
+        // No one found
+        return null;
+    }
 }
