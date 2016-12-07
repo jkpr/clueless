@@ -44,7 +44,6 @@ public class Messaging {
     }
 
     public static void broadcastGame() {
-        logger.info("Broadcasting game");
         sessionUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
             try {
                 JSONObject data = new JSONObject()

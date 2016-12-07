@@ -62,6 +62,9 @@ public class Application
         Spark.post(Path.Action.SET_TOKEN, GameController.handleSetTokenPost);
         Spark.post(Path.Action.START_GAME, GameController.handleStartGamePost);
         Spark.post(Path.Action.MOVE, GameController.handleMovePost);
+        Spark.post(Path.Action.MAKE_SUGGESTION, GameController.handleMakeSuggestionPost);
+        Spark.post(Path.Action.DISPROVE_SUGGESTION, GameController.handleDisproveSuggestionPost);
+        Spark.post(Path.Action.MAKE_ACCUSATION, GameController.handleMakeAccusationPost);
         Spark.post(Path.Action.END_TURN, GameController.handleEndTurnPost);
 
         logger.info("Finished app initialization: port, static, freemarker, db, json mapper, routes");

@@ -19,8 +19,8 @@ public class Murder {
 
     public boolean isCorrectAccusation(Card character, Card weapon, Card room) {
         boolean correctCharacter = this.character == character;
-        boolean correctWeapon = this.character == weapon;
-        boolean correctRoom = this.character == room;
+        boolean correctWeapon = this.weapon == weapon;
+        boolean correctRoom = this.room == room;
         return correctCharacter && correctWeapon && correctRoom;
     }
 

@@ -183,7 +183,6 @@ public class Game {
             jsonResponse.status = 403;
             jsonResponse.msg = action.getMessage();
         }
-
         return jsonResponse;
     }
 

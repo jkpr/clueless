@@ -141,5 +141,59 @@ public class GameController {
         }
     };
 
+    public static Route handleMakeSuggestionPost = (Request request, Response response) -> {
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null || !game.isUserPlayer(username)) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            MakeSuggestionPayload payload = jsonMapper.readValue(json, MakeSuggestionPayload.class);
+            Player player = game.players.get(username);
+            JsonResponse jsonResponse = game.handleMakeSuggestion(player, payload);
+            response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
+    };
+
+    public static Route handleDisproveSuggestionPost = (Request request, Response response) -> {
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null || !game.isUserPlayer(username)) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            DisproveSuggestionPayload payload = jsonMapper.readValue(json, DisproveSuggestionPayload.class);
+            Player player = game.players.get(username);
+            JsonResponse jsonResponse = game.handleDisproveSuggestion(player, payload);
+            response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
+    };
+
+    public static Route handleMakeAccusationPost = (Request request, Response response) -> {
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username == null || !game.isUserPlayer(username)) {
+            response.status(401);
+            return null;
+        } else {
+            String json = request.body();
+            MakeAccusationPayload payload = jsonMapper.readValue(json, MakeAccusationPayload.class);
+            Player player = game.players.get(username);
+            JsonResponse jsonResponse = game.handleMakeAccusation(player, payload);
+            response.status(jsonResponse.status);
+            if (jsonResponse.status == 200) {
+                broadcastGame();
+            }
+            return new JSONObject().put("msg", jsonResponse.msg);
+        }
+    };
+
 
 }

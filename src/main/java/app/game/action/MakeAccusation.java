@@ -2,11 +2,15 @@ package app.game.action;
 
 import app.exception.GameModelException;
 import app.game.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by james on 11/26/16.
  */
 public class MakeAccusation implements Action {
+
+    private static final Logger logger = LoggerFactory.getLogger(MakeAccusation.class);
 
     private String message;
 
@@ -40,6 +44,7 @@ public class MakeAccusation implements Action {
             characterCard = model.getDealer().getCard(character);
             weaponCard = model.getDealer().getCard(weapon);
             roomCard = model.getDealer().getCard(room);
+
             boolean characterType = characterCard.type == GameProperty.CHARACTER;
             boolean weaponType = weaponCard.type == GameProperty.WEAPON;
             boolean roomType = roomCard.type == GameProperty.ROOM;
@@ -62,7 +67,6 @@ public class MakeAccusation implements Action {
             // Dealer unable to determine the card. Keep legal as false.
             message = String.format("There is no card named %s", e.getMessage());
         }
-
         return legal;
     }
     public void apply(GameModel model) {

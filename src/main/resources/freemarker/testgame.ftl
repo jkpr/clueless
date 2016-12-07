@@ -18,9 +18,10 @@ ${game}
 <hr/>
 <div id="setToken">
     <form>
-        Who:<br/>
+        Who:
         <input type="hidden" name="api" value="12345" />
         <input type="text" name="who" />
+        <br/>
         <input type="submit" value="setToken" />
     </form>
 </div>
@@ -34,16 +35,55 @@ ${game}
 <hr/>
 <div id="move">
     <form>
-        To:<br/>
+        To:
         <input type="hidden" name="api" value="12345" />
+        <br/>
         <input type="text" name="to" />
         <input type="submit" value="move" />
     </form>
 </div>
 <hr/>
+<div id="makeSuggestion">
+    <form>
+        Character:
+        <input type="text" name="character" />
+        <br/>
+        Weapon:
+        <input type="text" name="weapon" />
+        <br/>
+        <input type="hidden" name="api" value="12345" />
+        <input type="submit" value="makeSuggestion" />
+    </form>
+</div>
+<hr/>
+<div id="disproveSuggestion">
+    <form>
+        Card:
+        <input type="text" name="card" />
+        <br/>
+        <input type="hidden" name="api" value="12345" />
+        <input type="submit" value="disproveSuggestion" />
+    </form>
+</div>
+<hr/>
+<div id="makeAccusation">
+    <form>
+        Character:
+        <input type="text" name="character" />
+        <br/>
+        Weapon:
+        <input type="text" name="weapon" />
+        <br/>
+        Room:
+        <input type="text" name="room" />
+        <br/>
+        <input type="hidden" name="api" value="12345" />
+        <input type="submit" value="makeAccusation" />
+    </form>
+</div>
+<hr/>
 <div id="endTurn">
     <form>
-        To:<br/>
         <input type="hidden" name="api" value="12345" />
         <input type="submit" value="endTurn" />
     </form>
