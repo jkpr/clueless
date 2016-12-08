@@ -29,8 +29,8 @@ public class Application
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     public static DatabaseConnection connectionPool;
-    public static ObjectMapper jsonMapper;
-    public static UserManager userManager;
+    public static ObjectMapper jsonMapper = new ObjectMapper();
+    public static UserManager userManager = new UserManager();
     public static Game game;
 
     public static void main( String[] args )
@@ -42,8 +42,6 @@ public class Application
 
         // Initialize Database, JSON mapper, UserManager, GameManager
         connectionPool = new DatabaseConnection(getHerokuDb());
-        jsonMapper = new ObjectMapper();
-        userManager = new UserManager();
         game = new Game();
 
         // Initialize routes

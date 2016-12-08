@@ -390,4 +390,16 @@ public class GameModel {
     public Map<String, Boolean> getWasMoved() {
         return wasMoved;
     }
+
+    public List<String> getAllSetPlayerNames() {
+        return players.stream().filter(p -> p.isCharacterSet())
+                .map(p -> p.getCharacter().getName())
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getAllActivePlayerNames() {
+        return players.stream().filter(p -> p.isCharacterSet() && p.getStatus() != GameStatus.FINISHED)
+                .map(p -> p.getCharacter().getName())
+                .collect(Collectors.toList());
+    }
 }
