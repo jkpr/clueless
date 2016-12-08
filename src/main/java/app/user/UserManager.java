@@ -13,7 +13,7 @@ public class UserManager {
         users.add(new User("chris", "chris"));
         users.add(new User("james", "james"));
         users.add(new User("federico", "federico"));
-        users.add(new User("Ibrahim", "Ibrahim"));
+        users.add(new User("ibrahim", "ibrahim"));
     }
 
     public User getUserByUsername(String username) {

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static app.Application.jsonMapper;
 
@@ -207,18 +208,28 @@ public class Game {
                 Character character = player.getCharacter();
                 if (character != null) {
                     json.put(Messaging.CHARACTER, character.getName());
+                    json.put(Messaging.HAND, players.get(user).getHand().stream().map(c -> c.name).collect(Collectors.toList()));
                 } else {
                     json.put(Messaging.CHARACTER, "");
+                    json.put(Messaging.HAND, new ArrayList<String>());
                 }
             } else {
                 json.put(Messaging.CHARACTER, "");
+                json.put(Messaging.HAND, new ArrayList<String>());
             }
 
-            json.put(Messaging.CHARACTER, players.get(user).getCharacter().getName());
-            json.put(Messaging.NOTIFICATION, model.getHistory().peek().toString(player));
+            Action lastAction = model.getHistory().peek();
+            if (lastAction != null) {
+                json.put(Messaging.NOTIFICATION, lastAction.toString(player));
+            } else {
+                json.put(Messaging.NOTIFICATION, "");
+            }
             json.put(Messaging.BOARD, jsonMapper.writeValueAsString(model.getBoard().toPayload()));
             json.put(Messaging.STATUS, model.getStatus().toString());
             json.put(Messaging.STATUS_MESSAGE, model.getStatusMessage());
+
+            json.put(Messaging.ALL_PLAYERS, model.getAllSetPlayerNames());
+            json.put(Messaging.ACTIVE_PLAYERS, model.getAllActivePlayerNames());
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (JsonProcessingException e) {

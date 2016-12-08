@@ -29,11 +29,14 @@ public class Messaging {
     public static final String GAME = "game";
     public static final String ACTION = "action";
     // Action fields
-    public static final String CHARACTER = "character";
+    public static final String CHARACTER = "yourCharacter";
+    public static final String HAND = "yourHand";
     public static final String NOTIFICATION = "notification";
     public static final String BOARD = "board";
     public static final String STATUS = "status";
     public static final String STATUS_MESSAGE = "statusMessage";
+    public static final String ALL_PLAYERS = "allPlayers";
+    public static final String ACTIVE_PLAYERS = "activePlayers";
     // Chat fields
     public static final String USER_MESSAGE = "usermessage";
     public static final String USER_LIST = "userlist";
