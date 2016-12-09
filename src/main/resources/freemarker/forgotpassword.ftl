@@ -12,15 +12,15 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">Boddy Builder</a>
+            <a class="navbar-brand" href="/">Boddy Builders</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="game.html">Game</a></li>
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/game">Game</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="signin.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
     </div>
 </nav>
@@ -48,8 +48,8 @@
                         <!-- Button -->
 
                         <div class="col-sm-12 controls">
-                            <a id="btn-login" href="index.html" class="btn btn-success">Submit  </a>
-                            <a href="signin.html" class="pull-right need-help">Back to Login </a><span class="clearfix"></span>
+                            <a id="btn-login" href="/" class="btn btn-success">Submit  </a>
+                            <a href="/login" class="pull-right need-help">Back to Login </a><span class="clearfix"></span>
 
 
                         </div>

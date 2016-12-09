@@ -13,15 +13,15 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="http://localhost:4567/">Boddy Builder</a>
+            <a class="navbar-brand" href="/">Boddy Builders</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="http://localhost:4567/">Home</a></li>
-            <li><a href="game.html">Game</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/game">Game</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://localhost:4567/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="http://localhost:4567/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
     </div>
 </nav>
@@ -40,10 +40,10 @@
                         <input type="checkbox" value="remember-me">
                         Remember me
                     </label>
-                    <a href="forgotpassword.html" class="pull-right need-help">Forgot Password? </a><span class="clearfix"></span>
+                    <a href="/forgotpassword" class="pull-right need-help">Forgot Password? </a><span class="clearfix"></span>
                 </form>
             </div>
-            <a href="http://localhost:4567/signup" class="text-center new-account">Create an account </a>
+            <a href="/signup" class="text-center new-account">Create an account </a>
         </div>
     </div>
 </div>
