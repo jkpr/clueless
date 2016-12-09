@@ -9,6 +9,7 @@ import app.forgotpassword.ForgotpasswordController;
 import app.signup.SignupController;
 import app.message.MessageWebSocketHandler;
 import app.user.UserManager;
+import app.user.UserController;
 import app.util.Path;
 import app.util.ViewUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,6 +65,7 @@ public class Application
         Spark.post(Path.Action.DISPROVE_SUGGESTION, GameController.handleDisproveSuggestionPost);
         Spark.post(Path.Action.MAKE_ACCUSATION, GameController.handleMakeAccusationPost);
         Spark.post(Path.Action.END_TURN, GameController.handleEndTurnPost);
+        Spark.get(Path.Web.USER, UserController.serveUserPage);
 
         logger.info("Finished app initialization: port, static, freemarker, db, json mapper, routes");
     }
