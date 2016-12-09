@@ -22,7 +22,6 @@ public class Path {
         //public static final String GAME = "/game/:id";
 
         public static String LOGIN_REDIRECT = "loginRedirect";
-
         public static String getLoginWithRedirect(String to) {
             return LOGIN + "?" + LOGIN_REDIRECT + "=" + to;
         }
@@ -58,5 +57,6 @@ public class Path {
         public static final String GAME_LOBBY = "/lobby.ftl";
         public static final String GAME = "/game.ftl";
         public static final String GAME_PLAY = "/game-play.ftl";
+        public static final String USER = "/user.ftl";
     }
 }

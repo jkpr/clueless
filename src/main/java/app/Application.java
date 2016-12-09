@@ -8,6 +8,7 @@ import app.login.LoginController;
 import app.forgotpassword.ForgotpasswordController;
 import app.signup.SignupController;
 import app.message.MessageWebSocketHandler;
+import app.user.UserController;
 import app.user.UserManager;
 import app.util.Path;
 import app.util.ViewUtil;
@@ -52,6 +53,7 @@ public class Application
         Spark.get(Path.Web.FORGOTPASSWORD, ForgotpasswordController.serveForgotpasswordPage);
         Spark.post(Path.Web.LOGIN, LoginController.handleLoginPost);
         Spark.get(Path.Web.GAME_PLAY, GamePlayController.serveGamePlayPage);
+        Spark.get(Path.Web.USER, UserController.serveUserPage);
         //Spark.get(Path.Web.GAME_LOBBY, GameController.serveGameLobby);
 
         // Game Routes
