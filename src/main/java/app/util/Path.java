@@ -57,6 +57,6 @@ public class Path {
         public static final String SIGNUP = "/signup.ftl";
         public static final String GAME_LOBBY = "/lobby.ftl";
         public static final String GAME = "/game.ftl";
-        public static final String GAME_PLAY = "/clue.ftl";
+        public static final String GAME_PLAY = "/game-play.ftl";
     }
 }
