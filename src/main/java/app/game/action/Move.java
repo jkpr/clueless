@@ -8,6 +8,8 @@ import app.game.model.*;
  */
 public class Move implements Action {
 
+    public static final String NAME = "Move";
+
     private String message;
 
     Player player;

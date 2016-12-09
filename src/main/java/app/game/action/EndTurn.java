@@ -8,6 +8,7 @@ import app.game.model.Player;
  * Created by james on 11/26/16.
  */
 public class EndTurn implements Action {
+    public static final String NAME = "EndTurn";
 
     private String message;
 

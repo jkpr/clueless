@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class MakeSuggestion implements Action {
     private static final Logger logger = LoggerFactory.getLogger(MakeSuggestion.class);
+    public static final String NAME = "MakeSuggestion";
 
     private String message;
     // TODO: message?

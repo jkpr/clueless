@@ -13,7 +13,7 @@ import java.util.List;
  * Created by james on 11/26/16.
  */
 public class DisproveSuggestion implements Action {
-
+    public static final String NAME = "DisproveSuggestion";
 
     private String message;
 

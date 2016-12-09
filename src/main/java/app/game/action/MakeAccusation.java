@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 public class MakeAccusation implements Action {
 
     private static final Logger logger = LoggerFactory.getLogger(MakeAccusation.class);
+    public static final String NAME = "MakeAccusation";
 
     private String message;
 

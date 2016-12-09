@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class SetToken implements Action {
     private static final Logger logger = LoggerFactory.getLogger(SetToken.class);
+    public static final String NAME = "SetToken";
 
     private String message;
 

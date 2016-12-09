@@ -1,8 +1,12 @@
 package app.game.model;
 
 import app.exception.GameModelException;
+import app.game.action.*;
 import app.json.GameModelPayload;
 import app.json.PlayerPayload;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -387,6 +391,18 @@ public class GameModel {
         }
     }
 
+    public String getStatusWho() {
+        String whoseMove = "";
+        if (status == GameStatus.ACTIVE) {
+            whoseMove = turn.getWho().getCharacter().getName();
+        } else if (status == GameStatus.ACTIVE_SUGGESTION) {
+            whoseMove = turn.getWhoCanDisprove().getCharacter().getName();
+        } else if (status == GameStatus.FINISHED) {
+            whoseMove = winner.getCharacter().getName();
+        }
+        return whoseMove;
+    }
+
     public Map<String, Boolean> getWasMoved() {
         return wasMoved;
     }
@@ -401,5 +417,136 @@ public class GameModel {
         return players.stream().filter(p -> p.isCharacterSet() && p.getStatus() != GameStatus.FINISHED)
                 .map(p -> p.getCharacter().getName())
                 .collect(Collectors.toList());
+    }
+
+    public List<Action> getAllLegalActions(Player player) {
+        return null;
+    }
+
+    public List<Token> getFreeCharacters() {
+        List<Token> allCharacters = board.getAllCharacters();
+        for (Player player : players) {
+            allCharacters.remove(player.getCharacter());
+        }
+        return allCharacters;
+    }
+
+    public JSONObject getAllLegalActionsJson(String user, Player player, boolean isHost) {
+        JSONObject json = new JSONObject();
+
+        try {
+            if (status == GameStatus.SETUP) {
+                if (player == null) {
+                    AddPlayer addPlayer = new AddPlayer(user, new Player(), false);
+                    if (addPlayer.isLegal(this)) {
+                        json.put(AddPlayer.NAME, true);
+                    }
+                } else {
+                    // Player is set
+                    for (Token token : board.getAllCharacters()) {
+                        SetToken setToken = new SetToken(user, player, token.getName());
+                        if (setToken.isLegal(this)) {
+                            if (json.has(SetToken.NAME)) {
+                                JSONArray list = (JSONArray) json.get(SetToken.NAME);
+                                list.put(token.getName());
+                            } else {
+                                List<String> list = new ArrayList<>();
+                                list.add(token.getName());
+                                json.put(SetToken.NAME, list);
+                            }
+                        }
+                    }
+
+                    StartGame action = new StartGame(user, isHost);
+                    if (action.isLegal(this)) {
+                        json.put(StartGame.NAME, true);
+                    }
+                }
+            } else if (status == GameStatus.ACTIVE) {
+                if (player != null) {
+                    // Move
+                    try {
+                        BoardSpace boardSpace = player.getCharacter().getSpace();
+                        for (BoardSpace space : board.getSpaceConnections(boardSpace)) {
+                            Move move = new Move(player, space.name);
+                            if (move.isLegal(this)) {
+                                if (json.has(Move.NAME)) {
+                                    JSONArray list = (JSONArray) json.get(Move.NAME);
+                                    list.put(space.name);
+                                } else {
+                                    List<String> list = new ArrayList<>();
+                                    list.add(space.name);
+                                    json.put(Move.NAME, list);
+                                }
+                            }
+                        }
+                    } catch (GameModelException e) {
+                        e.printStackTrace();
+                    }
+
+                    // MakeSuggestion
+                    Action makeSuggestion = new MakeSuggestion(player, Character.MS_SCARLET, Weapon.CANDLESTICK);
+                    if (makeSuggestion.isLegal(this)) {
+                        json.put(MakeSuggestion.NAME, true);
+                    }
+
+                    // DisproveSuggestion
+                    Card suggestedCharacter = turn.getSuggestedCharacter();
+                    Card suggestedWeapon = turn.getSuggestedWeapon();
+                    Card suggestedRoom = turn.getSuggestedRoom();
+                    if (suggestedCharacter != null || suggestedWeapon != null || suggestedRoom != null) {
+                        // Character
+                        Action disproveCharacter = new DisproveSuggestion(player, suggestedCharacter.name);
+                        if (disproveCharacter.isLegal(this)) {
+                            List<String> disprovals = new ArrayList<>();
+                            disprovals.add(suggestedCharacter.name);
+                            json.put(DisproveSuggestion.NAME, disprovals);
+                        }
+                        // Weapon
+                        Action disproveWeapon = new DisproveSuggestion(player, suggestedWeapon.name);
+                        if (disproveWeapon.isLegal(this)) {
+                            if (json.has(DisproveSuggestion.NAME)) {
+                                JSONArray list = (JSONArray) json.get(DisproveSuggestion.NAME);
+                                list.put(suggestedWeapon.name);
+                            } else {
+                                List<String> disprovals = new ArrayList<>();
+                                disprovals.add(suggestedWeapon.name);
+                                json.put(DisproveSuggestion.NAME, disprovals);
+                            }
+                        }
+                        // Room
+                        DisproveSuggestion disproveRoom = new DisproveSuggestion(player, suggestedRoom.name);
+                        if (disproveRoom.isLegal(this)) {
+                            if (json.has(DisproveSuggestion.NAME)) {
+                                JSONArray list = (JSONArray) json.get(DisproveSuggestion.NAME);
+                                list.put(suggestedRoom.name);
+                            } else {
+                                List<String> disprovals = new ArrayList<>();
+                                disprovals.add(suggestedRoom.name);
+                                json.put(DisproveSuggestion.NAME, disprovals);
+                            }
+                        }
+
+                    }
+
+                    // MakeAccusation
+                    MakeAccusation makeAccusation = new MakeAccusation(player, Character.MS_SCARLET, Weapon.CANDLESTICK, BoardSpace.HALL);
+                    if (makeAccusation.isLegal(this)) {
+                        json.put(MakeAccusation.NAME, true);
+                    }
+
+                    // EndTurn
+                    EndTurn endTurn = new EndTurn(player);
+                    if (endTurn.isLegal(this)) {
+                        json.put(EndTurn.NAME, true);
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return json;
     }
 }

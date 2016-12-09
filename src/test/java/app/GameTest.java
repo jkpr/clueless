@@ -2,6 +2,7 @@ package app;
 
 import app.game.Game;
 import app.json.AddPlayerPayload;
+import app.json.MovePayload;
 import app.json.SetTokenPayload;
 import app.json.StartGamePayload;
 import org.json.JSONObject;
@@ -36,7 +37,15 @@ public class GameTest {
         payload4.setWho("Prof. Plum");
 
         game.handleSetToken("james", payload2);
+
+        json = game.getGameForUser("james");
+        System.out.println(String.valueOf(json));
+
         game.handleSetToken("federico", payload3);
+
+        json = game.getGameForUser("james");
+        System.out.println(String.valueOf(json));
+
         game.handleSetToken("chris", payload4);
 
         json = game.getGameForUser("james");
@@ -46,5 +55,10 @@ public class GameTest {
 
         json = game.getGameForUser("james");
         System.out.println(String.valueOf(json));
+    }
+
+    @Test
+    public void testGameJson() {
+
     }
 }

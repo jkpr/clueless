@@ -14,6 +14,8 @@ import java.util.List;
 public class AddPlayer implements Action {
     private static final Logger logger = LoggerFactory.getLogger(AddPlayer.class);
 
+    public static final String NAME = "AddPlayer";
+
     private String message;
     private String user;
     private Player player;

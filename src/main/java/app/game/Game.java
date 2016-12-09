@@ -224,15 +224,16 @@ public class Game {
             } else {
                 json.put(Messaging.NOTIFICATION, "");
             }
-            json.put(Messaging.BOARD, jsonMapper.writeValueAsString(model.getBoard().toPayload()));
+            json.put(Messaging.BOARD, model.getBoard().toJsonObject());
             json.put(Messaging.STATUS, model.getStatus().toString());
             json.put(Messaging.STATUS_MESSAGE, model.getStatusMessage());
+            json.put(Messaging.STATUS_WHO, model.getStatusWho());
 
             json.put(Messaging.ALL_PLAYERS, model.getAllSetPlayerNames());
             json.put(Messaging.ACTIVE_PLAYERS, model.getAllActivePlayerNames());
+
+            json.put(Messaging.ACTION, model.getAllLegalActionsJson(user, player, user.equals(host)));
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
 

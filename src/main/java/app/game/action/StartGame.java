@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class StartGame implements Action {
 
+    public static final String NAME = "StartGame";
     private String message;
 
     String user;
