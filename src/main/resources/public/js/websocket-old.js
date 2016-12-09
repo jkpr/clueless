@@ -2,7 +2,7 @@
 if (window.location.protocol == "https:") {
     var ws_scheme = "wss://";
 } else {
-    var ws_scheme = "ws://";
+    var ws_scheme = "ws://"
 };
 
 var webSocket = new ReconnectingWebSocket(ws_scheme + location.hostname + ":" + location.port + "/message");
@@ -13,8 +13,6 @@ webSocket.onmessage = function (msg) {
     console.log(json);
     if (json.type == "chat") {
         updateChat(json.data);
-    } else if (json.type == "game") {
-        updateGame(json.data);
     }
 };
 
@@ -36,10 +34,6 @@ function sendMessage(message) {
         webSocket.send(message);
         id("message").value = "";
     }
-}
-
-function updateGame(data) {
-    id("game").innerHTML = data;
 }
 
 //Update the chat-panel, and the list of connected users
