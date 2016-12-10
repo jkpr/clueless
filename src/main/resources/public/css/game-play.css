@@ -18,7 +18,7 @@
 
 @media (min-width:992px) {
   .hero .game {
-    text-align:right;
+    text-align:center;
     margin-top:10px;
     /*padding-right:30px;*/
   }
@@ -114,6 +114,24 @@ div.mr-boddy-mockup {
   background:rgba(0, 0, 0, 0.7);
   border:double;
   border-color:purple;
+}
+
+section.test-btns {
+  background-color:#180630;
+  padding:40px 0;
+  color:#fff;
+}
+
+option {
+  background-color:#180630;
+  padding:40px 0;
+  color:#fff;
+}
+
+section.test-btns .btn {
+  margin:10px;
+  text-shadow:none;
+  color:#180630;
 }
 
 .icon-feature {
@@ -227,6 +245,10 @@ div.game-notes-container {
 
 div.game-container {
   position:static;
+}
+canvas {
+  position:relative;
+  width:100%;
 }
 
 h1.text-center.notes-heading {
