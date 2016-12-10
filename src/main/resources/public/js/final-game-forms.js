@@ -37,8 +37,8 @@ $( "#move" ).submit(function( event ) {
 });
 
 $( "#makeSuggestion" ).submit(function( event ) {
-    var character = $("#suggestionCharacterList optionLselected").text();
-    var weapon = $("#suggestionWeaponList optionLselected").text();
+    var character = $("#suggestionCharacterList option:selected").text();
+    var weapon = $("#suggestionWeaponList option:selected").text();
     $.post("/game/suggest", JSON.stringify({"api":null, "character": character, "weapon": weapon}), function(data) {
         $( "#postResult" ).html(data);
     }).fail( function(data) {
@@ -48,7 +48,7 @@ $( "#makeSuggestion" ).submit(function( event ) {
 });
 
 $( "#disproveSuggestion" ).submit(function( event ) {
-    var card = $("#disproveList optionLselected").text();
+    var card = $("#disproveList option:selected").text();
     $.post("/game/disprove", JSON.stringify({"api":null, "card": card}), function(data) {
         $( "#postResult" ).html(data);
     }).fail( function(data) {
@@ -58,9 +58,9 @@ $( "#disproveSuggestion" ).submit(function( event ) {
 });
 
 $( "#makeAccusation" ).submit(function( event ) {
-    var character = $("#accusationCharacterList optionLselected").text();
-    var weapon = $("#accusationWeaponList optionLselected").text();
-    var room = $("#accusationRoomList optionLselected").text();
+    var character = $("#accusationCharacterList option:selected").text();
+    var weapon = $("#accusationWeaponList option:selected").text();
+    var room = $("#accusationRoomList option:selected").text();
     $.post("/game/accuse", JSON.stringify({"api":null, "character": character, "weapon": weapon, "room": room}), function(data) {
         $( "#postResult" ).html(data);
     }).fail( function(data) {

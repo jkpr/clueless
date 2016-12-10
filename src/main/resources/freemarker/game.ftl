@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="fonts/font-awesome.min.css">
     <link rel="stylesheet" href="css/game-play.css">
+    <link rel="stylesheet" href="css/game.css">
 </head>
 
 <body>
@@ -48,12 +49,13 @@
                     </div>
                     <div class="col-md-6 col-md-pull-3 game game-container">
                         <div class="board-img-container">
-                            <div id="game">
-                                <!-- TO BE FILLED IN BY SCRIPT -->
-                                <pre>
-                                    ${game}
+                            <pre>
+                                <div id="game">
+                                    <!-- TO BE FILLED IN BY SCRIPT -->
+                                    <pre>
+                                        ${game}
+                                </div>
                                 </pre>
-                            </div>
                         </div>
                         <p><a class="btn btn-primary btn-lg" role="button" href="#">Move </a><a class="btn btn-success btn-lg"
                                 role="button" href="#">Disprove </a><a class="btn btn-primary btn-lg" role="button" href="#">Suggest </a>
@@ -78,7 +80,7 @@
         <hr/>
         <div id="addPlayer">
             <input type="hidden" name="api" value="12345" />
-            <form><input type="submit" value="join game" /></form>
+            <form><input type="submit" value="join game" class="well" /></form>
         </div>
         <hr/>
         <div id="setToken">
@@ -160,12 +162,12 @@
                 <br/> Weapon:
                 <select id="suggestionWeaponList" onchange="chooseCharacter()">
                     <option></option>
-                    <option>candlestick</option>
-                    <option>knife</option>
-                    <option>pipe</option>
-                    <option>revolver</option>
-                    <option>rope</option>
-                    <option>wrench</option>
+                    <option>Candlestick</option>
+                    <option>Knife</option>
+                    <option>Pipe</option>
+                    <option>Revolver</option>
+                    <option>Rope</option>
+                    <option>Wrench</option>
                 </select>
                 <br/>
                 <input type="hidden" name="api" value="12345" />
@@ -184,12 +186,12 @@
                     <option>Mrs. Peacock</option>
                     <option>Mr. Green</option>
                     <option>Mrs. White</option>
-                    <option>candlestick</option>
-                    <option>knife</option>
-                    <option>pipe</option>
-                    <option>revolver</option>
-                    <option>rope</option>
-                    <option>wrench</option>
+                    <option>Candlestick</option>
+                    <option>Knife</option>
+                    <option>Pipe</option>
+                    <option>Revolver</option>
+                    <option>Rope</option>
+                    <option>Wrench</option>
                 </select>
                 <br/>
                 <input type="hidden" name="api" value="12345" />
@@ -212,12 +214,12 @@
                 <br/> Weapon:
                 <select id="accusationWeaponList" onchange="chooseCard()">
                     <option></option>
-                    <option>candlestick</option>
-                    <option>knife</option>
-                    <option>pipe</option>
-                    <option>revolver</option>
-                    <option>rope</option>
-                    <option>wrench</option>
+                    <option>Candlestick</option>
+                    <option>Knife</option>
+                    <option>Pipe</option>
+                    <option>Revolver</option>
+                    <option>Rope</option>
+                    <option>Wrench</option>
                 </select>
                 <br/> Room:
                 <select id="accusationRoomList" onchange="chooseRoom()">
