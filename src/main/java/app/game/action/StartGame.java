@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class StartGame implements Action {
 
+    public static final String NAME = "StartGame";
     private String message;
 
     String user;
@@ -50,6 +51,10 @@ public class StartGame implements Action {
     @Override
     public String toString() {
         return String.format("User %s started the game", user);
+    }
+
+    public String toString(Player player) {
+        return toString();
     }
 
     public String getMessage() {

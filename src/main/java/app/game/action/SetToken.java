@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class SetToken implements Action {
     private static final Logger logger = LoggerFactory.getLogger(SetToken.class);
+    public static final String NAME = "SetToken";
 
     private String message;
 
@@ -69,6 +70,10 @@ public class SetToken implements Action {
     @Override
     public String toString() {
         return String.format("User %s changed tokens to be %s", user, nextToken);
+    }
+
+    public String toString(Player player) {
+        return toString();
     }
 
     public String getMessage() {

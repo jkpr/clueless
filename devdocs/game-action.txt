@@ -1,0 +1,13 @@
+Game action workflow:
+
+1. Implement the action in the Java file.
+2. Create a JSON payload class
+3. Create a method in Game that will handle an incoming JSON message.
+4. Return an informative message to the POST
+5. If action successful send to all, if action failed send to sender:
+ - which character you control
+ - the updated board,
+ - a notification message about the action,
+ - the game status,
+ - a status submessage (whose turn, who won, etc.)
+6. Set up POST routes in Application.java

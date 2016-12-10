@@ -14,6 +14,8 @@ import java.util.List;
 public class AddPlayer implements Action {
     private static final Logger logger = LoggerFactory.getLogger(AddPlayer.class);
 
+    public static final String NAME = "AddPlayer";
+
     private String message;
     private String user;
     private Player player;
@@ -64,6 +66,10 @@ public class AddPlayer implements Action {
         } else {
             return String.format("Added user %s to the game.", user);
         }
+    }
+
+    public String toString(Player player) {
+        return toString();
     }
 
     public String getMessage() {

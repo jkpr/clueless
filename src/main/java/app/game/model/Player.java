@@ -14,17 +14,20 @@ public class Player {
     private Character character;
     private List<Card> hand;
     private boolean computerPlayer;
+    private GameStatus status;
 
     public Player(Character character) {
         this.character = character;
         hand = new LinkedList<>();
         computerPlayer = false;
+        status = GameStatus.SETUP;
     }
 
     public Player() {
         this.character = null;
         hand = new LinkedList<>();
         computerPlayer = false;
+        status = GameStatus.SETUP;
     }
     public Character getCharacter() {
         return character;
@@ -59,12 +62,6 @@ public class Player {
 
     public void setComputerPlayer(boolean computer) {
         computerPlayer = computer;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        boolean equal = false;
-        return equal;
     }
 
     public boolean controls(Character character) {
@@ -113,5 +110,17 @@ public class Player {
             payload.setType("human");
         }
         return payload;
+    }
+
+    public boolean isCharacterSet() {
+        return character != null;
+    }
+
+    public GameStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GameStatus status) {
+        this.status = status;
     }
 }

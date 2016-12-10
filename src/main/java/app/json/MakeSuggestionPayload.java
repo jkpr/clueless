@@ -7,7 +7,6 @@ public class MakeSuggestionPayload {
     String api;
     String character;
     String weapon;
-    String room;
 
     public String getApi() {
         return api;
@@ -31,13 +30,5 @@ public class MakeSuggestionPayload {
 
     public void setWeapon(String weapon) {
         this.weapon = weapon;
-    }
-
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
     }
 }

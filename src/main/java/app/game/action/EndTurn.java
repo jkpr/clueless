@@ -8,6 +8,7 @@ import app.game.model.Player;
  * Created by james on 11/26/16.
  */
 public class EndTurn implements Action {
+    public static final String NAME = "EndTurn";
 
     private String message;
 
@@ -37,6 +38,7 @@ public class EndTurn implements Action {
 
     public void apply(GameModel model) {
         model.endTurn();
+        model.getHistory().addHistory(this);
     }
 
     public String getMessage() {
@@ -46,5 +48,9 @@ public class EndTurn implements Action {
     @Override
     public String toString() {
         return String.format("%s ended his/her turn", player.getCharacter().getName());
+    }
+
+    public String toString(Player player) {
+        return toString();
     }
 }

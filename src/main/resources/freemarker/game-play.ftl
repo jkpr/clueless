@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-md-pull-3 game game-container">
-                    <div class="board-img-container"><img src="img/board-grid.png"></div>
+                    <div class="board-img-container"><img src="img/final-board-small-1020px.jpg"></div>
                     <p><a class="btn btn-primary btn-lg" role="button" href="#">Move </a><a class="btn btn-success btn-lg" role="button" href="#">Disprove </a><a class="btn btn-primary btn-lg" role="button" href="#">Suggest </a><a class="btn btn-success btn-lg"
                                                                                                                                                                                                                                        role="button" href="#">Accuse </a><a class="btn btn-primary btn-lg" role="button" href="#">End Turn</a></p>
                 </div>
