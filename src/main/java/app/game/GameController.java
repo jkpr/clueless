@@ -35,21 +35,23 @@ public class GameController {
             response.redirect(Path.Web.LOGIN);
             return null;
         } else {
-            String sessionId = request.cookies().get(RequestUtil.SESSION_ID);
-            logger.info("Serving game page to session id: {} and username: {}", sessionId, username);
-            Messaging.usernameMap.put(sessionId, username);
-            //for (Iterator<Chat> iter = Messaging.chatQueue.iterator(); iter.hasNext(); ) {
-            //  Chat chat = iter.next();
-            //if (chat.sessionId.equals(sessionId)) {
-            //  iter.remove();
-            //Messaging.broadcastJoinChat(username);
-            // }
-            //}
-            Map<String, Object> map = new HashMap<>();
-            map.put("user", username);
-            map.put("game", game.getVisualModel());
-            return ViewUtil.render(map, Path.Template.GAME);
-            //return ViewUtil.render(map, "/testgame.ftl");
+            String requestType = RequestUtil.getQueryType(request);
+            if (RequestUtil.JSON.equals(requestType)) {
+                return game.getGameForUser(username);
+            } else if (RequestUtil.TEXT.equals(requestType)) {
+                // TODO don't return everything here
+                return game.getVisualModel();
+            } else {
+                String sessionId = request.cookies().get(RequestUtil.SESSION_ID);
+                logger.info("Serving game page to session id: {} and username: {}", sessionId, username);
+                Messaging.usernameMap.put(sessionId, username);
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("user", username);
+                map.put("game", game.getVisualModel());
+                return ViewUtil.render(map, Path.Template.GAME);
+                //return ViewUtil.render(map, "/testgame.ftl");
+            }
         }
     };
 

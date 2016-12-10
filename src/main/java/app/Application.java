@@ -49,9 +49,11 @@ public class Application
         webSocket(Path.Web.MESSAGE, MessageWebSocketHandler.class);
         Spark.get(Path.Web.INDEX, IndexController.serveIndexPage);
         Spark.get(Path.Web.LOGIN, LoginController.serveLoginPage);
-        Spark.get(Path.Web.SIGNUP, SignupController.serveSignupPage);
-        Spark.get(Path.Web.FORGOTPASSWORD, ForgotpasswordController.serveForgotpasswordPage);
         Spark.post(Path.Web.LOGIN, LoginController.handleLoginPost);
+        Spark.get(Path.Web.LOGOUT, LoginController.handleLogout);
+        Spark.get(Path.Web.SIGNUP, SignupController.serveSignupPage);
+        Spark.get(Path.Web.FORGOTPASSWORD, UserController.serveForgotpasswordPage);
+        Spark.post(Path.Web.FORGOTPASSWORD, UserController.handleForgotpasswordPost);
         Spark.get(Path.Web.GAME_PLAY, GamePlayController.serveGamePlayPage);
         Spark.get(Path.Web.USER, UserController.serveUserPage);
         //Spark.get(Path.Web.GAME_LOBBY, GameController.serveGameLobby);
