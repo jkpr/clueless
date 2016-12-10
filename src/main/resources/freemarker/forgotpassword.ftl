@@ -22,8 +22,7 @@
                     <div style="margin-top:10px" class="form-group">
                         <!-- Button -->
 
-                        <div class="col-sm-12 controls">
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                        <div class="col-sm-12 controls"><button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
                             <a href="/login" class="pull-right need-help">Back to Login </a><span class="clearfix"></span>
 
 
