@@ -22,16 +22,44 @@ function setStatusMessage(msg) {
     $("#status-message").html(msg);
 }
 
-function setActions(actions) {
+function setMove(moveList) {
+    var moveSelect = $("#moveModalBody .form-control");
+    moveSelect.html("");
+    for (var i = 0; i < moveList.length; i++) {
+        moveSelect.append($('<option>', {
+            text: moveList[i]
+        }));
+    }
+}
+
+function setDisproveCards(cardList) {
+    var cardSelect = $("#disproveSuggestionModalBody .form-control");
+    cardSelect.html("");
+    for (var i = 0; i < cardList.length; i++) {
+        cardSelect.append($('<option>', {
+            text: cardList[i]
+        }));
+    }
+}
+
+function setActions(actions, status) {
     // TODO: actions from WebSocket
+    if (status == "SETUP") {
+        $("#clue-actions .setup-phase").removeClass("hidden");
+        $("#clue-actions .active-phase").addClass("hidden");
+    } else if (status == "ACTIVE") {
+        $("#clue-actions .setup-phase").addClass("hidden");
+        $("#clue-actions .active-phase").removeClass("hidden");
+    }
+
     if ("AddPlayer" in actions) {
-        $("#addPlayerBtn").removeClass("hidden");
+        $("#addPlayerBtn").prop("disabled", false);
     } else {
-        $("#addPlayerBtn").addClass("hidden");
+        $("#addPlayerBtn").prop("disabled", true);
     }
 
     if ("SetToken" in actions) {
-        $("#setTokenBtn").removeClass("hidden");
+        $("#setTokenBtn").prop("disabled", false);
         var setTokenArr = actions["SetToken"];
         if (setTokenArr.indexOf("Ms. Scarlet") >= 0) {
             $("#setTokenModalBody option")[0].disabled = false;
@@ -69,14 +97,49 @@ function setActions(actions) {
             $("#setTokenModalBody option")[5].disabled=true;
         }
     } else {
-        $("#setTokenBtn").addClass("hidden");
+        $("#setTokenBtn").prop("disabled", true);
     }
 
     if ("StartGame" in actions) {
-        $("#startGameBtn").removeClass("hidden");
+        $("#startGameBtn").prop("disabled", false);
     } else {
-        $("#startGameBtn").addClass("hidden");
+        $("#startGameBtn").prop("disabled", true);
     }
+
+
+    if ("Move" in actions) {
+        $("#moveBtn").prop("disabled", false);
+        setMove(actions["Move"]);
+    } else {
+        $("#moveBtn").prop("disabled", true);
+    }
+
+    if ("MakeSuggestion" in actions) {
+        $("#makeSuggestionBtn").prop("disabled", false);
+    } else {
+        $("#makeSuggestionBtn").prop("disabled", true);
+    }
+
+    if ("DisproveSuggestion" in actions) {
+        $("#disproveSuggestionBtn").prop("disabled", false);
+        setDisproveCards(actions["DisproveSuggestion"]);
+    } else {
+        $("#disproveSuggestionBtn").prop("disabled", true);
+    }
+
+    if ("MakeAccusation" in actions) {
+        $("#makeAccusationBtn").prop("disabled", false);
+    } else {
+        $("#makeAccusationBtn").prop("disabled", true);
+    }
+
+    if ("EndTurn" in actions) {
+        $("#endTurnBtn").prop("disabled", false);
+    } else {
+        $("#endTurnBtn").prop("disabled", true);
+    }
+
+
 
 }
 
@@ -112,7 +175,7 @@ $( "#setTokenModalOk" ).click(function(event) {
             // TODO: might get success message when coming from Websocket...
             setSuccessMsg(msg);
         } else {
-            setSuccessMsg("Successfully set token");
+            setSuccessMsg("Successfully set token.");
         }
     }).fail( function(data) {
         var responseData = JSON.parse(data.responseText);
@@ -120,7 +183,99 @@ $( "#setTokenModalOk" ).click(function(event) {
         if (msg != "") {
             setErrorMsg(msg);
         } else {
-            setErrorMsg("Internal server error when setting token");
+            setErrorMsg("Internal server error when setting token.");
+        }
+    });
+});
+
+$( "#moveModalOk" ).click(function(event) {
+    var moveTo = $("#moveModalBody").find(':selected').text();
+    $.post("/game/move", JSON.stringify({"api":null, "to": moveTo}), function(data) {
+        var responseData = JSON.parse(data);
+        var msg = responseData.msg;
+        if (msg != "") {
+            // TODO: might get success message when coming from Websocket...
+            setSuccessMsg(msg);
+        } else {
+            setSuccessMsg("Successfully set token.");
+        }
+    }).fail( function(data) {
+        var responseData = JSON.parse(data.responseText);
+        var msg = responseData.msg;
+        if (msg != "") {
+            setErrorMsg(msg);
+        } else {
+            setErrorMsg("Internal server error when setting token.");
+        }
+    });
+});
+
+$( "#makeSuggestionModalOk" ).click(function(event) {
+    var character = $("#makeSuggestionModalBody .character-list").find(':selected').text();
+    var weapon = $("#makeSuggestionModalBody .weapon-list").find(':selected').text();
+    $.post("/game/suggest", JSON.stringify({"api":null, "character": character, "weapon": weapon}), function(data) {
+        var responseData = JSON.parse(data);
+        var msg = responseData.msg;
+        if (msg != "") {
+            // TODO: might get success message when coming from Websocket...
+            setSuccessMsg(msg);
+        } else {
+            setSuccessMsg("Successfully set token.");
+        }
+    }).fail( function(data) {
+        var responseData = JSON.parse(data.responseText);
+        var msg = responseData.msg;
+        if (msg != "") {
+            setErrorMsg(msg);
+        } else {
+            setErrorMsg("Internal server error when setting token.");
+        }
+    });
+});
+
+
+$( "#disproveSuggestionModalOk" ).click(function(event) {
+    var card = $("#disproveSuggestionModalBody").find(':selected').text();
+    $.post("/game/disprove", JSON.stringify({"api":null, "card": card}), function(data) {
+        var responseData = JSON.parse(data);
+        var msg = responseData.msg;
+        if (msg != "") {
+            // TODO: might get success message when coming from Websocket...
+            setSuccessMsg(msg);
+        } else {
+            setSuccessMsg("Successfully set token.");
+        }
+    }).fail( function(data) {
+        var responseData = JSON.parse(data.responseText);
+        var msg = responseData.msg;
+        if (msg != "") {
+            setErrorMsg(msg);
+        } else {
+            setErrorMsg("Internal server error when setting token.");
+        }
+    });
+});
+
+$( "#makeAccusationModalOk" ).click(function(event) {
+    var character = $("#makeAccusationModalBody .character-list").find(':selected').text();
+    var weapon = $("#makeAccusationModalBody .weapon-list").find(':selected').text();
+    var room = $("#makeAccusationModalBody .room-list").find(':selected').text();
+    $.post("/game/accuse", JSON.stringify({"api":null, "character": character, "weapon": weapon, "room": room}), function(data) {
+        var responseData = JSON.parse(data);
+        var msg = responseData.msg;
+        if (msg != "") {
+            // TODO: might get success message when coming from Websocket...
+            setSuccessMsg(msg);
+        } else {
+            setSuccessMsg("Successfully set token.");
+        }
+    }).fail( function(data) {
+        var responseData = JSON.parse(data.responseText);
+        var msg = responseData.msg;
+        if (msg != "") {
+            setErrorMsg(msg);
+        } else {
+            setErrorMsg("Internal server error when setting token.");
         }
     });
 });
@@ -133,7 +288,7 @@ $( "#startGameBtn" ).click(function( event ) {
             // TODO: might get success message when coming from Websocket...
             setSuccessMsg(msg);
         } else {
-            setSuccessMsg("Successfully joined game");
+            setSuccessMsg("Successfully joined game.");
         }
     }).fail( function(data) {
         var responseData = JSON.parse(data.responseText);
@@ -141,15 +296,35 @@ $( "#startGameBtn" ).click(function( event ) {
         if (msg != "") {
             setErrorMsg(msg);
         } else {
-            setErrorMsg("Internal server error when joining game");
+            setErrorMsg("Internal server error when joining game.");
         }
     });
-    event.preventDefault();
+});
+
+$( "#endTurnBtn" ).click(function( event ) {
+    $.post("/game/endturn", JSON.stringify({"api":null}), function(data) {
+        var responseData = JSON.parse(data);
+        var msg = responseData.msg;
+        if (msg != "") {
+            // TODO: might get success message when coming from Websocket...
+            setSuccessMsg(msg);
+        } else {
+            setSuccessMsg("Successfully joined game.");
+        }
+    }).fail( function(data) {
+        var responseData = JSON.parse(data.responseText);
+        var msg = responseData.msg;
+        if (msg != "") {
+            setErrorMsg(msg);
+        } else {
+            setErrorMsg("Internal server error when joining game.");
+        }
+    });
 });
 
 function setHand(hand) {
+    console.log(hand);
     // TODO: hand of dealt cards from WebSocket
-    $("#handModalBody img").removeClass("hidden");
     $("#handModalBody img").addClass("hidden");
     for (var i = 0; i < hand.length; i++) {
         var thisCard = hand[i];
@@ -199,14 +374,13 @@ function setHand(hand) {
     }
 
     if (hand.length == 0) {
-        $("#handModalBody").text("You do not have any cards.");
+        $("#handModalBody span").text("You do not have any cards.");
     } else {
-        $("#handModalBody").text("");
+        $("#handModalBody span").text("");
     }
 }
 
 function setCharacter(character) {
-    console.log(character);
     if (character != "") {
         $("#clue-character").html("Your character: " + character);
     } else {
@@ -236,8 +410,8 @@ function insert(targetId, message) {
 
 function updateGame(json) {
     setBoard(json["board"]);
-    highlightCharacter(json["who"]);
-    setActions(json["action"]);
+    highlightCharacter(json["statusWho"]);
+    setActions(json["action"], json["status"]);
     setStatusMessage(json["statusMessage"]);
     if (json["notification"] != "") {
         setNotification(json["notification"]);

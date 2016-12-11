@@ -137,7 +137,7 @@ public class GameController {
                 JsonResponse jsonResponse = game.handleMove(player, movePayload);
                 response.status(jsonResponse.status);
                 if (jsonResponse.status == 200) {
-                    broadcastGame();
+                    broadcastOnActionSuccess();
                 }
                 return new JSONObject().put("msg", jsonResponse.msg);
             } catch (IOException e) {
@@ -160,7 +160,7 @@ public class GameController {
                 JsonResponse jsonResponse = game.handleEndTurn(player, endTurnPayload);
                 response.status(jsonResponse.status);
                 if (jsonResponse.status == 200) {
-                    broadcastGame();
+                    broadcastOnActionSuccess();
                 }
                 return new JSONObject().put("msg", jsonResponse.msg);
             } catch (IOException e) {
@@ -184,7 +184,7 @@ public class GameController {
                 JsonResponse jsonResponse = game.handleMakeSuggestion(player, payload);
                 response.status(jsonResponse.status);
                 if (jsonResponse.status == 200) {
-                    broadcastGame();
+                    broadcastOnActionSuccess();
                 }
                 return new JSONObject().put("msg", jsonResponse.msg);
             } catch (IOException e) {
@@ -207,7 +207,7 @@ public class GameController {
                 JsonResponse jsonResponse = game.handleDisproveSuggestion(player, payload);
                 response.status(jsonResponse.status);
                 if (jsonResponse.status == 200) {
-                    broadcastGame();
+                    broadcastOnActionSuccess();
                 }
                 return new JSONObject().put("msg", jsonResponse.msg);
             } catch (IOException e) {
@@ -230,7 +230,7 @@ public class GameController {
                 JsonResponse jsonResponse = game.handleMakeAccusation(player, payload);
                 response.status(jsonResponse.status);
                 if (jsonResponse.status == 200) {
-                    broadcastGame();
+                    broadcastOnActionSuccess();
                 }
                 return new JSONObject().put("msg", jsonResponse.msg);
             } catch (IOException e) {

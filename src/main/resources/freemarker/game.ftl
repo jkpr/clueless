@@ -36,15 +36,17 @@
         <img class="token-highlight hidden" id="characterHighlight" src="img/selection.png"/>
     </div>
     <div id="clue-actions">
-        <div class="btn-group-vertical btn-block">
+        <div class="btn-group-vertical btn-block setup-phase">
             <button id="addPlayerBtn" type="button" class="btn btn-primary btn-block">Join</button>
-            <button id="setTokenBtn" type="button" class="btn btn-primary btn-block hidden" data-toggle="modal" data-target="#setTokenModal">Set token</button>
-            <button id="startGameBtn" type="button" class="btn btn-primary btn-block hidden">Start game</button>
-            <button id="moveBtn" type="button" class="btn btn-primary btn-block hidden">Move</button>
-            <button id="makeSuggestionBtn" type="button" class="btn btn-primary btn-block hidden">Make suggestion</button>
-            <button id="disproveSuggestionBtn" type="button" class="btn btn-primary btn-block hidden">Disprove suggestion</button>
-            <button id="makeAccusationBtn" type="button" class="btn btn-primary btn-block hidden">Make accusation</button>
-            <button id="endTurnBtn" type="button" class="btn btn-primary btn-block hidden">End turn</button>
+            <button id="setTokenBtn" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#setTokenModal">Set token</button>
+            <button id="startGameBtn" type="button" class="btn btn-primary btn-block">Start game</button>
+        </div>
+        <div class="btn-group-vertical btn-block active-phase hidden">
+            <button id="moveBtn" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#moveModal">Move</button>
+            <button id="makeSuggestionBtn" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#makeSuggestionModal">Make suggestion</button>
+            <button id="disproveSuggestionBtn" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#disproveSuggestionModal">Disprove suggestion</button>
+            <button id="makeAccusationBtn" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#makeAccusationModal">Make accusation</button>
+            <button id="endTurnBtn" type="button" class="btn btn-primary btn-block">End turn</button>
         </div>
         <button id="handBtn" type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#handModal">My cards</button>
     </div>
@@ -54,6 +56,138 @@
 </div>
 <div style="clear: both;"></div>
 <div id="footer">
+</div>
+
+<!-- Disprove Suggestion Modal -->
+<div class="modal fade" id="disproveSuggestionModal" tabindex="-1" role="dialog" aria-labelledby="Disprove suggestion modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="disproveSuggestionModalLabel">Disprove with a card</h4>
+            </div>
+            <div class="modal-body" id="disproveSuggestionModalBody">
+                <p>Disprove the suggestion with one of your cards.</p>
+                <select class="form-control">
+                    <!-- built by JS -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="disproveSuggestionModalOk">Disprove</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Make Accusation Modal -->
+<div class="modal fade" id="makeAccusationModal" tabindex="-1" role="dialog" aria-labelledby="Make accusation modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="makeAccusationModalLabel">Make an accusation</h4>
+            </div>
+            <div class="modal-body" id="setAccusationModalBody">
+                <h4>Accuse a character</h4>
+                <select class="form-control character-list">
+                    <option>Ms. Scarlet</option>
+                    <option>Col. Mustard</option>
+                    <option>Mrs. White</option>
+                    <option>Mr. Green</option>
+                    <option>Mrs. Peacock</option>
+                    <option>Prof. Plum</option>
+                </select>
+
+                <h4>Select a weapon</h4>
+                <select class="form-control weapon-list">
+                    <option>Candlestick</option>
+                    <option>Knife</option>
+                    <option>Pipe</option>
+                    <option>Revolver</option>
+                    <option>Rope</option>
+                    <option>Wrench</option>
+                </select>
+
+                <h4>Select a weapon</h4>
+                <select class="form-control room-list">
+                    <option>Kitchen</option>
+                    <option>Ballroom</option>
+                    <option>Conservatory</option>
+                    <option>Dining room</option>
+                    <option>Billiard room</option>
+                    <option>Library</option>
+                    <option>Lounge</option>
+                    <option>Hall</option>
+                    <option>Study</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="makeAccusationModalOk">Accuse</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Make Suggestion Modal -->
+<div class="modal fade" id="makeSuggestionModal" tabindex="-1" role="dialog" aria-labelledby="Make suggestion modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="makeSuggestionModalLabel">Make a suggestion</h4>
+            </div>
+            <div class="modal-body" id="makeSuggestionModalBody">
+                <h4>Suggest a character</h4>
+                <select class="form-control character-list">
+                    <option>Ms. Scarlet</option>
+                    <option>Col. Mustard</option>
+                    <option>Mrs. White</option>
+                    <option>Mr. Green</option>
+                    <option>Mrs. Peacock</option>
+                    <option>Prof. Plum</option>
+                </select>
+
+                <h4>Select a weapon</h4>
+                <select class="form-control weapon-list">
+                    <option>Candlestick</option>
+                    <option>Knife</option>
+                    <option>Pipe</option>
+                    <option>Revolver</option>
+                    <option>Rope</option>
+                    <option>Wrench</option>
+                </select>
+                <br />
+                <p>Note: the room you are in now is the suggested room</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="makeSuggestionModalOk">Suggest</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Move Modal -->
+<div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="Move modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="moveModalLabel">Move</h4>
+            </div>
+            <div class="modal-body" id="moveModalBody">
+                <select class="form-control">
+                    <!-- built by JS -->
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="moveModalOk">Move</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Set Token Modal -->
@@ -91,7 +225,7 @@
                 <h4 class="modal-title" id="handModalLabel">My hand</h4>
             </div>
             <div class="modal-body" id="handModalBody">
-                You do not have any cards.
+                <span>You do not have any cards.</span>
                 <img id="ballroomCard" src="img/ballroomCard.jpg" class="img-rounded hidden" alt="Ballroom card" width="130" height="200">
                 <img id="billiardRoomCard" src="img/billiardRoomCard.jpg" class="img-rounded hidden" alt="Billiard room card" width="130" height="200">
                 <img id="conservatoryCard" src="img/conservatoryCard.jpg" class="img-rounded hidden" alt="Conservatory card" width="130" height="200">
@@ -128,7 +262,7 @@
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/reconnecting-websocket.min.js"></script>
-<script src="js/game.js"></script>
+<script src="js/game-board.js"></script>
 <script src="js/game-ui.js"></script>
 <script src="js/game-websocket.js"></script>
 <script src="js/game-update.js"></script>

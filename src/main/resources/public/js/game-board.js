@@ -211,7 +211,7 @@ function transformToken(token, room, offsetX, offsetY) {
         baseX = 7;
         baseY = 5;
     } else if (room == "Dining room-Lounge") {
-        baseX = 13;
+        baseX = 14;
         baseY = 5;
     } else if (room == "Billiard room-Library") {
         baseX = 5;
@@ -226,7 +226,7 @@ function transformToken(token, room, offsetX, offsetY) {
         baseX = 7;
         baseY = 11;
     } else if (room == "Dining room-Kitchen") {
-        baseX = 13;
+        baseX = 14;
         baseY = 11;
     } else if (room == "Ballroom-Conservatory") {
         baseX = 5;

@@ -381,13 +381,13 @@ public class GameModel {
             return "In setup...";
         } else if (status == GameStatus.ACTIVE) {
             String name = turn.getWho().getCharacter().getName();
-            return String.format("It is %s's turn", name);
+            return String.format("It is %s's turn.", name);
         } else if (status == GameStatus.ACTIVE_SUGGESTION) {
             String name = turn.getWhoCanDisprove().getCharacter().getName();
-            return String.format("%s can disprove", name);
+            return String.format("%s can disprove.", name);
         } else { // status == GameStatus.FINISHED
             String name = winner.getCharacter().getName();
-            return String.format("%s has won the game", name);
+            return String.format("%s has won the game.", name);
         }
     }
 
