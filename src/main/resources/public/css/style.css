@@ -1,7 +1,8 @@
 body {
     padding-top: 70px;
     overflow-y: scroll;
-    background:url(../img/lobby-cards.jpg);
+    background:url(../img/lobby-cards.jpg) no-repeat center;
+    background-size:cover;
 }
 
 #clue-content {
@@ -150,10 +151,10 @@ body {
 }
 
 .index {
-    color: #fff
-    text-align:center;
+    color: #fff;
+    text-align: center;
 }
 
 .profile {
-    color: #fff
+    color: #fff;
 }
