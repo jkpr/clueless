@@ -105,6 +105,14 @@ pipeImage.onload = function () {
 };
 pipeImage.src = "../public/images/pipe.png";
 
+//wrench
+var wrenchReady = false;
+var wrenchImage = new Image();
+wrenchImage.onload = function () {
+    wrenchReady = true;
+};
+wrenchImage.src = "../public/images/wrench.png";
+
 //revolver
 var revolverReady = false;
 var revolverImage = new Image();
