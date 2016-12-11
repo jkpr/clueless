@@ -43,9 +43,9 @@ Date: 2016-11-26
 
 # Weapons
 
-* candlestick
-* knife
-* pipe
-* revolver
-* rope
-* wrench
+* Candlestick
+* Knife
+* Pipe
+* Revolver
+* Rope
+* Wrench

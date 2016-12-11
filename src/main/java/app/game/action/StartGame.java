@@ -15,10 +15,12 @@ public class StartGame implements Action {
     private String message;
 
     String user;
+    Player player;
     boolean isHost;
 
-    public StartGame(String user, boolean isHost) {
+    public StartGame(String user, Player player, boolean isHost) {
         this.user = user;
+        this.player = player;
         this.isHost = isHost;
     }
 
@@ -29,17 +31,19 @@ public class StartGame implements Action {
         boolean setupPhase = model.getStatus() == GameStatus.SETUP;
         boolean allSet = model.allPlayersSet();
 
-        if (!enoughPlayers) {
+        if (player == null) {
+            message = String.format("%s has not joined the game and thus cannot affect the game.", user);
+        } else if (!enoughPlayers) {
             message = "Game doest not yet have minimum players";
         } else if (!setupPhase) {
             message = "Game not in setup phase";
         } else if (!isHost) {
             message = String.format("Only the host can start. %s is not host", user);
         } else if (!allSet) {
-            message = String.format("Not all players have selected a token.");
+            message = "Not all players have selected a token.";
         }
 
-        legal = enoughPlayers && setupPhase && isHost && allSet;
+        legal = player != null && enoughPlayers && setupPhase && isHost && allSet;
         return legal;
     }
 

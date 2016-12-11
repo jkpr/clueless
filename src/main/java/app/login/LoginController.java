@@ -2,6 +2,7 @@ package app.login;
 
 import app.user.UserController;
 import app.util.Path;
+import app.util.RequestUtil;
 import app.util.ViewUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,20 @@ public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     public static Route serveLoginPage = (Request request, Response response) -> {
-        return ViewUtil.render(null, Path.Template.LOGIN);
+        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        if (username != null) {
+            response.redirect(Path.Web.USER);
+            return null;
+        } else {
+            Map<String, Object> map = new HashMap<>();
+            map.put("login", true);
+            String greenMsg = request.session().attribute(GREEN_MSG);
+            if (greenMsg != null) {
+                map.put(GREEN_MSG, greenMsg);
+                request.session().removeAttribute(GREEN_MSG);
+            }
+            return ViewUtil.render(map, Path.Template.LOGIN);
+        }
     };
 
     public static Route handleLoginPost = (Request request, Response response) -> {
@@ -41,7 +55,16 @@ public class LoginController {
         } else {
             logger.info("Failed to authenticate {}", username);
             Map<String, Object> map = new HashMap<>();
+            map.put(RED_MSG, "Incorrect username or password");
+            map.put("login", true);
             return ViewUtil.render(map, Path.Template.LOGIN);
         }
+    };
+
+    public static Route handleLogout = (Request request, Response response) -> {
+        request.session().removeAttribute(CURRENT_USER);
+        request.session().attribute(GREEN_MSG, "Logged out successfully");
+        response.redirect(Path.Web.LOGIN);
+        return null;
     };
 }

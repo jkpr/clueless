@@ -161,6 +161,8 @@ public class Dealer {
                 return lounge;
             case BoardSpace.HALL:
                 return hall;
+            case BoardSpace.STUDY:
+                return study;
             case Character.MS_SCARLET:
                 return msScarlet;
             case Character.COL_MUSTARD:

@@ -31,6 +31,15 @@ public class DisproveSuggestion implements Action {
 
     public boolean isLegal(GameModel model) {
         boolean legal = false;
+
+        if (player == null) {
+            message = "User has not joined the game and thus cannot affect the game.";
+            return false;
+        } else if (model.getStatus() != GameStatus.ACTIVE) {
+            message = "Game not being played";
+            return false;
+        }
+
         try {
             card = model.getDealer().getCard(cardString);
 

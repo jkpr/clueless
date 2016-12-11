@@ -1,6 +1,7 @@
 package app.index;
 
 import app.util.Path;
+import app.util.RequestUtil;
 import app.util.ViewUtil;
 import spark.Request;
 import spark.Response;
@@ -15,9 +16,9 @@ import java.util.Map;
 public class IndexController {
     public static Route serveIndexPage = (Request request, Response response) -> {
         Map<String, Object> map = new HashMap<>();
-        String[] members = {"Christopher Chang", "James Pringle", "Ibrahim Salla"};
-        map.put("members", members);
-        map.put("footer", Path.Template.FOOTER);
+        if (request.session().attribute(RequestUtil.CURRENT_USER) != null) {
+            map.put(RequestUtil.CURRENT_USER, request.session().attribute(RequestUtil.CURRENT_USER));
+        }
         return ViewUtil.render(map, Path.Template.INDEX);
     };
 }

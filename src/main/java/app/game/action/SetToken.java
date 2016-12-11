@@ -27,12 +27,20 @@ public class SetToken implements Action {
     public SetToken(String user, Player player, String nextToken) {
         this.user = user;
         this.player = player;
-        this.currentCharacter = player.getCharacter();
+        if (player != null) {
+            this.currentCharacter = player.getCharacter();
+        }
         this.nextToken = nextToken;
     }
 
     public boolean isLegal(GameModel model) {
         boolean legal = false;
+
+        if (player == null) {
+            message = String.format("%s has not joined the game and thus cannot affect the game.", user);
+            return false;
+        }
+
         try {
             Character character = model.getBoard().getCharacter(nextToken);
             boolean tokenFree = true;
