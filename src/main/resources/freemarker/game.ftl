@@ -109,7 +109,7 @@
                     <option>Wrench</option>
                 </select>
 
-                <h4>Select a weapon</h4>
+                <h4>Select a room</h4>
                 <select class="form-control room-list">
                     <option>Kitchen</option>
                     <option>Ballroom</option>
