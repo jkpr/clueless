@@ -149,6 +149,10 @@ body {
     background: #333;
 }
 
-.index .profile {
+.index {
+    color: #fff
+}
+
+.profile {
     color: #fff
 }
