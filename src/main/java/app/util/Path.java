@@ -22,6 +22,7 @@ public class Path {
         //public static final String GAME = "/game/:id";
 
         public static String LOGIN_REDIRECT = "loginRedirect";
+
         public static String getLoginWithRedirect(String to) {
             return LOGIN + "?" + LOGIN_REDIRECT + "=" + to;
         }

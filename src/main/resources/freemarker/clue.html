@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
     <body>
-        <script src="../js/game.js"></script>
+        <script src="../public/js/game.js"></script>
         <script>
             function chooseCharacter()
             {
@@ -35,7 +35,7 @@
             <p>Your character is: <input type="text" id="character" size="20"></p>
         </form>
         <form>
-            Select a room to move to:
+            Select a room or hallway to move to:
             <select id="roomList" onchange="chooseRoom()">
                 <option></option>
                 <option>Study</option>
@@ -47,6 +47,18 @@
                 <option>Conservatory</option>
                 <option>BallRoom</option>
                 <option>Kitchen</option>
+                <option>Hall-Study</option>
+                <option>Hall-Lounge</option>
+                <option>Library-Study</option>
+                <option>Billiard room-Hall</option>
+                <option>Dining room-Lounge</option>
+                <option>Billiard room-Library</option>
+                <option>Billiard room-Dining room</option>
+                <option>Conservatory-Library</option>
+                <option>Ballroom-Billiard room</option>
+                <option>Dining room-Kitchen</option>
+                <option>Ballroom-Conservatory</option>
+                <option>Ballroom-Kitchen</option>
             </select>
             <p>Move to room: <input type="text" id="room" size="20"></p>
         </form>

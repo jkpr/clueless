@@ -32,7 +32,7 @@
         <option>Mr. Green</option>
         <option>Mrs. White</option>
     </select>
-    <p>Your character is: <input type="text" id="character" size="20"</p>
+    <p>Your character is: <input type="text" id="character" size="20"></p>
 </form>
 <form>
     Select a room to move to:
@@ -48,7 +48,7 @@
         <option>BallRoom</option>
         <option>Kitchen</option>
     </select>
-    <p>Move to room: <input type="text" id="room" size="20"</p>
+    <p>Move to room: <input type="text" id="room" size="20"></p>
 </form>
 <button id="endTurn">End Turn</button>
 </body>
