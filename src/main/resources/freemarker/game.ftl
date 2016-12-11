@@ -88,7 +88,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="makeAccusationModalLabel">Make an accusation</h4>
             </div>
-            <div class="modal-body" id="setAccusationModalBody">
+            <div class="modal-body" id="makeAccusationModalBody">
                 <h4>Accuse a character</h4>
                 <select class="form-control character-list">
                     <option>Ms. Scarlet</option>
