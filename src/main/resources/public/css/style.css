@@ -1,7 +1,7 @@
 body {
     padding-top: 70px;
     overflow-y: scroll;
-    background:url(../img/lobby-cards.jpg) no-repeat center;
+    background:url(../img/lobby-cards.jpg);
 }
 
 #clue-content {
@@ -14,6 +14,7 @@ body {
     text-align: center;
     margin: 0 auto;
     margin-bottom: 10px;
+    color: #fff
 }
 
 #status-text {
