@@ -247,7 +247,7 @@
                 <img id="knifeCard" src="img/knifeCard.jpg" class="img-rounded hidden" alt="Knife card" width="130" height="200">
                 <img id="pipeCard" src="img/pipeCard.jpg" class="img-rounded hidden" alt="Pipe card" width="130" height="200">
                 <img id="revolverCard" src="img/revolverCard.jpg" class="img-rounded hidden" alt="Revolver card" width="130" height="200">
-                <img id="ropeCard" src="img/mrsPeacockCard.jpg" class="img-rounded hidden" alt="Mrs Peacock card" width="130" height="200">
+                <img id="ropeCard" src="img/ropeCard.jpg" class="img-rounded hidden" alt="Rope card" width="130" height="200">
                 <img id="wrenchCard" src="img/wrenchCard.jpg" class="img-rounded hidden" alt="Wrench card" width="130" height="200">
             </div>
             <div class="modal-footer">

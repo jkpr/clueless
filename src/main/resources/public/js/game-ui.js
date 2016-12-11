@@ -47,7 +47,7 @@ function setActions(actions, status) {
     if (status == "SETUP") {
         $("#clue-actions .setup-phase").removeClass("hidden");
         $("#clue-actions .active-phase").addClass("hidden");
-    } else if (status == "ACTIVE") {
+    } else if (status == "ACTIVE" || status == "ACTIVE_SUGGESTION") {
         $("#clue-actions .setup-phase").addClass("hidden");
         $("#clue-actions .active-phase").removeClass("hidden");
     }

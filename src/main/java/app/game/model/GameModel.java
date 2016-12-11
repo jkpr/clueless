@@ -462,7 +462,7 @@ public class GameModel {
                         json.put(StartGame.NAME, true);
                     }
                 }
-            } else if (status == GameStatus.ACTIVE) {
+            } else if (status == GameStatus.ACTIVE || status == GameStatus.ACTIVE_SUGGESTION) {
                 if (player != null) {
                     // Move
                     try {
@@ -515,7 +515,7 @@ public class GameModel {
                             }
                         }
                         // Room
-                        DisproveSuggestion disproveRoom = new DisproveSuggestion(player, suggestedRoom.name);
+                        Action disproveRoom = new DisproveSuggestion(player, suggestedRoom.name);
                         if (disproveRoom.isLegal(this)) {
                             if (json.has(DisproveSuggestion.NAME)) {
                                 JSONArray list = (JSONArray) json.get(DisproveSuggestion.NAME);

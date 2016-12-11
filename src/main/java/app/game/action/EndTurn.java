@@ -24,7 +24,7 @@ public class EndTurn implements Action {
         if (player == null) {
             message = "User has not joined the game and thus cannot affect the game.";
             return false;
-        } else if (model.getStatus() != GameStatus.ACTIVE) {
+        } else if (model.getStatus() != GameStatus.ACTIVE && model.getStatus() != GameStatus.ACTIVE_SUGGESTION) {
             message = "Game not being played";
             return false;
         }
