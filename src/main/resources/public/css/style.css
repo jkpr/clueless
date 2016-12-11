@@ -1,48 +1,57 @@
-* {
-    box-sizing: border-box;
-}
-
-html {
+body {
+    padding-top: 70px;
     overflow-y: scroll;
 }
 
-body {
-    font-family: monospace;
-    font-size: 14px;
-    max-width: 480px;
+#clue-content {
+    width: 910px;
     margin: 0 auto;
-    padding: 20px
 }
 
-input {
-    width: 100%;
+#clue-status {
+    width: 510px;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+#status-text {
+    font-weight: bold;
+    font-style: italic;
+}
+
+#status-message {
+
+}
+
+#clue-chat {
+    width: 200px;
+    height: 300px;
     padding: 5px;
-    margin: 5px 0;
+    float: left;
+    font-family: monospace;
+    font-size: 10px;
 }
 
-button {
-    float: right;
-}
-
-li {
-    margin: 5px 0;
-}
-
+/* CHAT CONTROLS */
 #chatControls {
     overflow: auto;
-    margin: 0 0 5px 0
+    margin: 5px 0 5px 0;
+    float:left;
 }
 
 #userlist {
-    position: fixed;
-    left: 50%;
     list-style: none;
-    margin-left: 250px;
     background: #f0f0f9;
     padding: 5px 10px;
-    width: 150px;
     top: 11px;
 }
+
+#chat {
+    height:300px;
+    overflow-y: scroll;
+}
+
 
 #chat p {
     margin: 5px 0;
@@ -53,13 +62,13 @@ li {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 #chat article {
     background: #f1f1f1;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 5px;
+    margin: 5px 0;
     border-left: 5px solid #aaa;
     position: relative;
     word-wrap: break-word;
@@ -75,4 +84,65 @@ li {
     from { transform: none;        }
     50%  { transform: scale(1.05); }
     to   { transform: none;        }
+}
+/* END CHAT CONTROLS */
+
+#clue-game {
+    width: 510px;
+    height: 510px;
+    float: left;
+    background: url('../img/final-board-small-510px.jpg');
+}
+
+#clue-game .token-highlight {
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    z-index: 5;
+}
+
+#clue-game .token {
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    z-index: 10;
+}
+
+#clue-notes {
+    width: 200px;
+    padding: 5px;
+    float: left;
+}
+
+#clue-notes textarea {
+    resize: vertical;
+    width: 190px;
+    height: 200px;
+}
+
+#clue-actions {
+    width: 200px;
+    height: 300px;
+    float: left;
+    padding: 5px;
+    margin: 0 auto;
+}
+
+#handBtn {
+    margin: 15px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+#footer {
+    height: 100px;
+    background: #333;
 }

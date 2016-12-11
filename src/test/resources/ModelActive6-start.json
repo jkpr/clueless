@@ -1,0 +1,104 @@
+{
+  "status":"ACTIVE",
+  "board": {
+    "Ms. Scarlet":"Scarlet start",
+    "Col. Mustard":"Mustard start",
+    "Mrs. White":"White start",
+    "Mr. Green":"Green start",
+    "Mrs. Peacock":"Peacock start",
+    "Prof. Plum":"Plum start",
+    "Candlestick":"Dining room",
+    "Knife":"Ballroom",
+    "Pipe":"Conservatory",
+    "Revolver":"Hall",
+    "Rope":"Billiard room",
+    "Wrench":"Lounge"
+  },
+  "players": [
+    {
+      "character":"Ms. Scarlet",
+      "type":"human",
+      "hand": [
+        "Lounge",
+        "Billiard room",
+        "Candlestick"
+      ]
+    },
+    {
+      "character": "Mr. Green",
+      "type": "human",
+      "hand": [
+        "Mrs. Peacock",
+        "Mr. Green",
+        "Ms. Scarlet"
+      ]
+    },
+    {
+      "character": "Prof. Plum",
+      "type": "human",
+      "hand": [
+        "Study",
+        "Knife",
+        "Library"
+      ]
+    },
+    {
+      "character": "Mrs. White",
+      "type": "human",
+      "hand": [
+        "Ballroom",
+        "Rope",
+        "Prof. Plum"
+      ]
+    },
+    {
+      "character": "Mrs. Peacock",
+      "type":"human",
+      "hand": [
+        "Col. Mustard",
+        "Pipe",
+        "Hall"
+      ]
+    },
+    {
+      "character":"Col. Mustard",
+      "type":"human",
+      "hand": [
+        "Wrench",
+        "Conservatory",
+        "Dining room"
+      ]
+    }
+  ],
+  "murder": {
+    "character": "Mrs. White",
+    "weapon": "Revolver",
+    "room": "Kitchen"
+  },
+  "turnOrder": [
+    "Ms. Scarlet",
+    "Col. Mustard",
+    "Mrs. White",
+    "Mr. Green",
+    "Mrs. Peacock",
+    "Prof. Plum"
+  ],
+  "turn": {
+    "who": "Ms. Scarlet",
+    "hasMoved":false,
+    "hasSuggested":false,
+    "whoCanDisprove":null,
+    "suggestedCharacter":null,
+    "suggestedWeapon":null,
+    "suggestedRoom":null
+  },
+  "wasMoved": {
+    "Mrs. White":false,
+    "Mrs. Peacock":false,
+    "Ms. Scarlet":false,
+    "Prof. Plum":false,
+    "Col. Mustard":false,
+    "Mr. Green":false
+  },
+  "history":null
+}

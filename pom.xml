@@ -61,6 +61,16 @@
           </processTypes>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.4.0</version>
+        <configuration>
+          <mainClass>app.Application</mainClass>
+          <arguments>
+          </arguments>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 

@@ -22,4 +22,12 @@ public class History {
     public List<Action> getHistory() {
         return history;
     }
+
+    public Action peek() {
+        if (history.size() == 0) {
+            return null;
+        } else {
+            return history.get(history.size() - 1);
+        }
+    }
 }

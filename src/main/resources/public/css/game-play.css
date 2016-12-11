@@ -1,0 +1,262 @@
+.navbar {
+  margin-bottom:0;
+  border:none;
+}
+
+.navbar-brand .glyphicon {
+  margin-right:6px;
+}
+
+.hero {
+  height:1950px;
+  background:url(../img/lobby-cards.jpg) no-repeat center;
+  background-size:cover;
+  border:none;
+  /*background-color:#132778;*/
+  /*background:rgba(0, 0, 0, 0.9);*/
+}
+
+@media (min-width:992px) {
+  .hero .game {
+    text-align:center;
+    margin-top:10px;
+    /*padding-right:30px;*/
+  }
+}
+
+@media (max-width:992px) {
+  it {
+    text-align:center;
+  }
+}
+
+@media (max-width:992px) {
+  .hero {
+    text-align:center;
+  }
+}
+
+input {
+  width:100%;
+  padding:5px;
+  margin:5px 0;
+}
+
+button {
+  float:right;
+}
+
+li {
+  margin:5px 0;
+}
+
+#chatControls {
+  overflow:auto;
+  margin:0 0 5px 0;
+}
+
+/*#userlist {*/
+  /*position:fixed;*/
+  /*left:50%;*/
+  /*list-style:none;*/
+  /*margin-left:250px;*/
+  /*background:#f0f0f9;*/
+  /*padding:5px 10px;*/
+  /*width:150px;*/
+  /*top:11px;*/
+/*}*/
+
+#chat p {
+  margin:5px 0;
+  font-weight:300;
+}
+
+#chat .timestamp {
+  position:absolute;
+  top:10px;
+  right:10px;
+  font-size:12px;
+}
+
+#chat article {
+  background:#f1f1f1;
+  padding:10px;
+  margin:10px 0;
+  border-left:5px solid #aaa;
+  position:relative;
+  word-wrap:break-word;
+}
+
+#chat article:first-of-type {
+  background:#c9edc3;
+  border-left-color:#74a377;
+  animation:enter .2s 1;
+}
+
+.hero .game h1, .hero .game p {
+  color:#fff;
+  text-shadow:2px 2px 3px rgba(0,0,0,0.3);
+  margin-bottom:40px;
+}
+
+.hero .game .btn {
+  margin-left:10px;
+  margin-bottom:10px;
+  text-shadow:none;
+}
+
+div.mr-boddy-mockup {
+  position:relative;
+  /*max-width:250px;*/
+  min-height:370px;
+  margin:20px;
+  /*display:inline-block;*/
+  background:rgba(0, 0, 0, 0.7);
+  border:double;
+  border-color:purple;
+}
+
+section.test-btns {
+  background-color:#180630;
+  padding:40px 0;
+  color:#fff;
+}
+
+option {
+  background-color:#180630;
+  padding:40px 0;
+  color:#fff;
+}
+
+section.test-btns .btn {
+  margin:10px;
+  text-shadow:none;
+  color:#180630;
+}
+
+.icon-feature {
+  text-align:center;
+}
+
+.icon-feature .glyphicon {
+  font-size:60px;
+}
+
+section.features {
+  background-color:#180630;
+  padding:40px 0;
+  color:#fff;
+}
+
+.features h2 {
+  color:#fff;
+}
+
+.features .icon-features {
+  margin-top:15px;
+}
+
+.rules {
+  text-align:center;
+}
+
+section.rules {
+  margin:50px 0;
+  /*position:initial;*/
+}
+
+.site-footer {
+  padding:20px 0;
+  text-align:center;
+}
+
+@media (min-width:768px) {
+  .site-footer h5 {
+    text-align:left;
+  }
+}
+
+.site-footer h5 {
+  color:inherit;
+  font-size:20px;
+}
+
+div.outer-opacity-filter {
+  height:900px;
+  border:none;
+  background-size:cover;
+  background:rgba(0, 0, 0, 0.6);
+}
+
+.jumbotron {
+  padding-top:0px;
+  padding-bottom:0px;
+  margin-bottom:30px;
+  color:inherit;
+  background-color:#fafafa;
+}
+
+.btn-success:active:hover, .btn-success.active:hover, .open > .dropdown-toggle.btn-success:hover, .btn-success:active:focus, .btn-success.active:focus, .open > .dropdown-toggle.btn-success:focus, .btn-success:active.focus, .btn-success.active.focus, .open > .dropdown-toggle.btn-success.focus {
+  color:#ffffff;
+  background-color:#39186f;
+  border-color:#0c390e;
+}
+
+.btn-success:hover {
+  color:#ffffff;
+  background-color:#351f8c;
+  border-color:#0f1a41;
+}
+
+.btn-success:focus, .btn-success.focus {
+  color:#ffffff;
+  background-color:#1f518c;
+  border-color:#0c2939;
+}
+
+.btn-success {
+  color:#ffffff;
+  background-color:#a228b6;
+  border-color:#3e0d3c;
+}
+
+div.board-img-container {
+  background-size:inherit;
+}
+
+img {
+  max-width:100%;
+  /*justify-content:flex-start;*/
+  /*b:rgba(0, 0, 0, 0.6);*/
+}
+
+div.col-md-4.col-md-push-7.chat-container {
+  background:url(../img/Boddy.jpg) no-repeat center;
+  position:static;
+  /*max-width:250px;*/
+  /*margin:20px;*/
+  /*display:inline-block;*/
+}
+
+div.game-notes-container {
+  /*position:absolute;*/
+  float:right;
+}
+
+div.game-container {
+  position:static;
+}
+canvas {
+  position:relative;
+  width:100%;
+}
+
+h1.text-center.notes-heading {
+  font-size:large;
+  color:#fff;
+}
+
+.game-notes-container img {
+  /*align-items:stretch;*/
+}
+

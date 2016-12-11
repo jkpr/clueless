@@ -2,6 +2,8 @@ package app.game.model;
 
 import app.exception.GameModelException;
 import app.json.BoardPayload;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -824,5 +826,48 @@ public class Board {
             sb.append(" ");
         }
         return sb.toString();
+    }
+
+    public BoardPayload toPayload() {
+        BoardPayload payload = new BoardPayload();
+        // characters
+        payload.setMsScarlet(msScarlet.getSpace().name);
+        payload.setColMustard(colMustard.getSpace().name);
+        payload.setMrsWhite(mrsWhite.getSpace().name);
+        payload.setMrGreen(mrGreen.getSpace().name);
+        payload.setMrsPeacock(mrsPeacock.getSpace().name);
+        payload.setProfPlum(profPlum.getSpace().name);
+        // weapons
+        payload.setCandlestick(candlestick.getSpace().name);
+        payload.setKnife(knife.getSpace().name);
+        payload.setPipe(pipe.getSpace().name);
+        payload.setRevolver(revolver.getSpace().name);
+        payload.setRope(rope.getSpace().name);
+        payload.setWrench(wrench.getSpace().name);
+        return payload;
+    }
+
+    public JSONObject toJsonObject() {
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put(Character.MS_SCARLET, msScarlet.getSpace().name);
+            json.put(Character.COL_MUSTARD, colMustard.getSpace().name);
+            json.put(Character.MRS_WHITE, mrsWhite.getSpace().name);
+            json.put(Character.MR_GREEN, mrGreen.getSpace().name);
+            json.put(Character.MRS_PEACOCK, mrsPeacock.getSpace().name);
+            json.put(Character.PROF_PLUM, profPlum.getSpace().name);
+
+            json.put(Weapon.CANDLESTICK, candlestick.getSpace().name);
+            json.put(Weapon.KNIFE, knife.getSpace().name);
+            json.put(Weapon.PIPE, pipe.getSpace().name);
+            json.put(Weapon.REVOLVER, revolver.getSpace().name);
+            json.put(Weapon.ROPE, rope.getSpace().name);
+            json.put(Weapon.WRENCH, wrench.getSpace().name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return json;
     }
 }

@@ -17,10 +17,10 @@ public class Murder {
         this.room = room;
     }
 
-    public boolean isCorrectAssumption(Card character, Card weapon, Card room) {
-        boolean correctCharacter = this.character.equals(character);
-        boolean correctWeapon = this.character.equals(weapon);
-        boolean correctRoom = this.character.equals(room);
+    public boolean isCorrectAccusation(Card character, Card weapon, Card room) {
+        boolean correctCharacter = this.character == character;
+        boolean correctWeapon = this.weapon == weapon;
+        boolean correctRoom = this.room == room;
         return correctCharacter && correctWeapon && correctRoom;
     }
 
@@ -43,5 +43,13 @@ public class Murder {
         sb.append("Murder: ");
         sb.append(String.join(", ", character.name, weapon.name, room.name));
         return sb.toString();
+    }
+
+    public MurderPayload toPayload() {
+        MurderPayload payload = new MurderPayload();
+        payload.setCharacter(character.name);
+        payload.setWeapon(weapon.name);
+        payload.setRoom(room.name);
+        return payload;
     }
 }

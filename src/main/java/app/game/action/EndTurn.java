@@ -8,6 +8,7 @@ import app.game.model.Player;
  * Created by james on 11/26/16.
  */
 public class EndTurn implements Action {
+    public static final String NAME = "EndTurn";
 
     private String message;
 
@@ -19,6 +20,14 @@ public class EndTurn implements Action {
 
     public boolean isLegal(GameModel model) {
         boolean legal = false;
+
+        if (player == null) {
+            message = "User has not joined the game and thus cannot affect the game.";
+            return false;
+        } else if (model.getStatus() != GameStatus.ACTIVE && model.getStatus() != GameStatus.ACTIVE_SUGGESTION) {
+            message = "Game not being played";
+            return false;
+        }
 
         boolean activeGame = model.getStatus() == GameStatus.ACTIVE;
         boolean yourTurn = model.getTurn().getWho() == player;
@@ -37,6 +46,7 @@ public class EndTurn implements Action {
 
     public void apply(GameModel model) {
         model.endTurn();
+        model.getHistory().addHistory(this);
     }
 
     public String getMessage() {
@@ -46,5 +56,9 @@ public class EndTurn implements Action {
     @Override
     public String toString() {
         return String.format("%s ended his/her turn", player.getCharacter().getName());
+    }
+
+    public String toString(Player player) {
+        return toString();
     }
 }
