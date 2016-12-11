@@ -8,7 +8,7 @@ canvas.width = 720;
 canvas.height = 675;
 document.body.appendChild(canvas);
 
-/*
+
 canvas.addEventListener("mousedown", getPosition, false);
 
 function getPosition(event)
@@ -20,7 +20,7 @@ function getPosition(event)
 
     alert("x:" + x + " y:" + y);
 }
-*/
+
 
 // Images
 // Background image
@@ -137,22 +137,22 @@ var Rope = {};
 // Reset the game and place characters back in place
 // DO NOT CHANGE!!!!!!!
 var reset = function () {
-    ColMustard.x = 590;
+    ColMustard.x = 630;
     ColMustard.y = 200;
 
     MissScarlett.x = 465;
-    MissScarlett.y = 80;
+    MissScarlett.y = 35;
 
     MrGreen.x = 215;
-    MrGreen.y = 555;
+    MrGreen.y = 590;
 
-    MrsPeacock.x = 85;
+    MrsPeacock.x = 45;
     MrsPeacock.y = 435;
 
     MrsWhite.x = 465;
-    MrsWhite.y = 555
+    MrsWhite.y = 590;
 
-    ProfessorPlum.x = 85;
+    ProfessorPlum.x = 45;
     ProfessorPlum.y = 200;
 };
 // Draw everything
@@ -243,6 +243,66 @@ $( document ).ready(function() {
                     ProfessorPlum.x = 590;
                     ProfessorPlum.y = 555;
                 }
+                if (room == "Hall-Study")
+                {
+                    ProfessorPlum.x = 215;
+                    ProfessorPlum.y = 80;
+                }
+                if (room == "Hall-Lounge")
+                {
+                    ProfessorPlum.x = 465;
+                    ProfessorPlum.y = 80;
+                }
+                if (room == "Library-Study")
+                {
+                    ProfessorPlum.x = 85;
+                    ProfessorPlum.y = 200;
+                }
+                if (room == "Billiard room-Hall")
+                {
+                    ProfessorPlum.x = 340;
+                    ProfessorPlum.y = 200;
+                }
+                if (room == "Dining room-Lounge")
+                {
+                    ProfessorPlum.x = 590;
+                    ProfessorPlum.y = 200;
+                }
+                if ( room == "Billiard room-Library")
+                {
+                    ProfessorPlum.x = 215;
+                    ProfessorPlum.y = 310;
+                }
+                if (room == "Billiard room-Dining room")
+                {
+                    ProfessorPlum.x = 465;
+                    ProfessorPlum.y = 310;
+                }
+                if ( room == "Conservatory-Library")
+                {
+                    ProfessorPlum.x = 85;
+                    ProfessorPlum.y = 435;
+                }
+                if (room == "Ballroom-Billiard room")
+                {
+                    ProfessorPlum.x = 340;
+                    ProfessorPlum.y = 435;
+                }
+                if ( room == "Dining room-Kitchen")
+                {
+                    ProfessorPlum.x = 590;
+                    ProfessorPlum.y = 435;
+                }
+                if (room == "Ballroom-Conservatory")
+                {
+                    ProfessorPlum.x = 215;
+                    ProfessorPlum.y = 555;
+                }
+                if ( room == "Ballroom-Kitchen")
+                {
+                    ProfessorPlum.x = 465;
+                    ProfessorPlum.y = 555;
+                }
             }
 
             if (character == "Miss Scarlet") {
@@ -282,6 +342,66 @@ $( document ).ready(function() {
                     MissScarlett.x = 560;
                     MissScarlett.y = 555;
                 }
+                if (room == "Hall-Study")
+                {
+                    MissScarlett.x = 215;
+                    MissScarlett.y = 80;
+                }
+                if (room == "Hall-Lounge")
+                {
+                    MissScarlett.x = 465;
+                    MissScarlett.y = 80;
+                }
+                if (room == "Library-Study")
+                {
+                    MissScarlett.x = 85;
+                    MissScarlett.y = 200;
+                }
+                if (room == "Billiard room-Hall")
+                {
+                    MissScarlett.x = 340;
+                    MissScarlett.y = 200;
+                }
+                if (room == "Dining room-Lounge")
+                {
+                    MissScarlett.x = 590;
+                    MissScarlett.y = 200;
+                }
+                if ( room == "Billiard room-Library")
+                {
+                    MissScarlett.x = 215;
+                    MissScarlett.y = 310;
+                }
+                if (room == "Billiard room-Dining room")
+                {
+                    MissScarlett.x = 465;
+                    MissScarlett.y = 310;
+                }
+                if ( room == "Conservatory-Library")
+                {
+                    MissScarlett.x = 85;
+                    MissScarlett.y = 435;
+                }
+                if (room == "Ballroom-Billiard room")
+                {
+                    MissScarlett.x = 340;
+                    MissScarlett.y = 435;
+                }
+                if ( room == "Dining room-Kitchen")
+                {
+                    MissScarlett.x = 590;
+                    MissScarlett.y = 435;
+                }
+                if (room == "Ballroom-Conservatory")
+                {
+                    MissScarlett.x = 215;
+                    MissScarlett.y = 555;
+                }
+                if ( room == "Ballroom-Kitchen")
+                {
+                    MissScarlett.x = 465;
+                    MissScarlett.y = 555;
+                }
             }
 
             if (character == "Colonel Mustard") {
@@ -319,6 +439,66 @@ $( document ).ready(function() {
                 }
                 if (room == "Kitchen") {
                     ColMustard.x = 530;
+                    ColMustard.y = 555;
+                }
+                if (room == "Hall-Study")
+                {
+                    ColMustard.x = 215;
+                    ColMustard.y = 80;
+                }
+                if (room == "Hall-Lounge")
+                {
+                    ColMustard.x = 465;
+                    ColMustard.y = 80;
+                }
+                if (room == "Library-Study")
+                {
+                    ColMustard.x = 85;
+                    ColMustard.y = 200;
+                }
+                if (room == "Billiard room-Hall")
+                {
+                    ColMustard.x = 340;
+                    ColMustard.y = 200;
+                }
+                if (room == "Dining room-Lounge")
+                {
+                    ColMustard.x = 590;
+                    ColMustard.y = 200;
+                }
+                if ( room == "Billiard room-Library")
+                {
+                    ColMustard.x = 215;
+                    ColMustard.y = 310;
+                }
+                if (room == "Billiard room-Dining room")
+                {
+                    ColMustard.x = 465;
+                    ColMustard.y = 310;
+                }
+                if ( room == "Conservatory-Library")
+                {
+                    ColMustard.x = 85;
+                    ColMustard.y = 435;
+                }
+                if (room == "Ballroom-Billiard room")
+                {
+                    ColMustard.x = 340;
+                    ColMustard.y = 435;
+                }
+                if ( room == "Dining room-Kitchen")
+                {
+                    ColMustard.x = 590;
+                    ColMustard.y = 435;
+                }
+                if (room == "Ballroom-Conservatory")
+                {
+                    ColMustard.x = 215;
+                    ColMustard.y = 555;
+                }
+                if ( room == "Ballroom-Kitchen")
+                {
+                    ColMustard.x = 465;
                     ColMustard.y = 555;
                 }
             }
@@ -370,6 +550,66 @@ $( document ).ready(function() {
                     MrsPeacock.x = 620;
                     MrsPeacock.y = 555;
                 }
+                if (room == "Hall-Study")
+                {
+                    MrsPeacock.x = 215;
+                    MrsPeacock.y = 80;
+                }
+                if (room == "Hall-Lounge")
+                {
+                    MrsPeacock.x = 465;
+                    MrsPeacock.y = 80;
+                }
+                if (room == "Library-Study")
+                {
+                    MrsPeacock.x = 85;
+                    MrsPeacock.y = 200;
+                }
+                if (room == "Billiard room-Hall")
+                {
+                    MrsPeacock.x = 340;
+                    MrsPeacock.y = 200;
+                }
+                if (room == "Dining room-Lounge")
+                {
+                    MrsPeacock.x = 590;
+                    MrsPeacock.y = 200;
+                }
+                if ( room == "Billiard room-Library")
+                {
+                    MrsPeacock.x = 215;
+                    MrsPeacock.y = 310;
+                }
+                if (room == "Billiard room-Dining room")
+                {
+                    MrsPeacock.x = 465;
+                    MrsPeacock.y = 310;
+                }
+                if ( room == "Conservatory-Library")
+                {
+                    MrsPeacock.x = 85;
+                    MrsPeacock.y = 435;
+                }
+                if (room == "Ballroom-Billiard room")
+                {
+                    MrsPeacock.x = 340;
+                    MrsPeacock.y = 435;
+                }
+                if ( room == "Dining room-Kitchen")
+                {
+                    MrsPeacock.x = 590;
+                    MrsPeacock.y = 435;
+                }
+                if (room == "Ballroom-Conservatory")
+                {
+                    MrsPeacock.x = 215;
+                    MrsPeacock.y = 555;
+                }
+                if ( room == "Ballroom-Kitchen")
+                {
+                    MrsPeacock.x = 465;
+                    MrsPeacock.y = 555;
+                }
             }
             if (character == "Mr. Green")
             {
@@ -416,6 +656,66 @@ $( document ).ready(function() {
                 if (room == "Kitchen")
                 {
                     MrGreen.x = 650;
+                    MrGreen.y = 555;
+                }
+                if (room == "Hall-Study")
+                {
+                    MrGreen.x = 215;
+                    MrGreen.y = 80;
+                }
+                if (room == "Hall-Lounge")
+                {
+                    MrGreen.x = 465;
+                    MrGreen.y = 80;
+                }
+                if (room == "Library-Study")
+                {
+                    MrGreen.x = 85;
+                    MrGreen.y = 200;
+                }
+                if (room == "Billiard room-Hall")
+                {
+                    MrGreen.x = 340;
+                    MrGreen.y = 200;
+                }
+                if (room == "Dining room-Lounge")
+                {
+                    MrGreen.x = 590;
+                    MrGreen.y = 200;
+                }
+                if ( room == "Billiard room-Library")
+                {
+                    MrGreen.x = 215;
+                    MrGreen.y = 310;
+                }
+                if (room == "Billiard room-Dining room")
+                {
+                    MrGreen.x = 465;
+                    MrGreen.y = 310;
+                }
+                if ( room == "Conservatory-Library")
+                {
+                    MrGreen.x = 85;
+                    MrGreen.y = 435;
+                }
+                if (room == "Ballroom-Billiard room")
+                {
+                    MrGreen.x = 340;
+                    MrGreen.y = 435;
+                }
+                if ( room == "Dining room-Kitchen")
+                {
+                    MrGreen.x = 590;
+                    MrGreen.y = 435;
+                }
+                if (room == "Ballroom-Conservatory")
+                {
+                    MrGreen.x = 215;
+                    MrGreen.y = 555;
+                }
+                if ( room == "Ballroom-Kitchen")
+                {
+                    MrGreen.x = 465;
                     MrGreen.y = 555;
                 }
             }
@@ -465,6 +765,66 @@ $( document ).ready(function() {
                 {
                     MrsWhite.x = 590;
                     MrsWhite.y = 605;
+                }
+                if (room == "Hall-Study")
+                {
+                    MrsWhite.x = 215;
+                    MrsWhite.y = 80;
+                }
+                if (room == "Hall-Lounge")
+                {
+                    MrsWhite.x = 465;
+                    MrsWhite.y = 80;
+                }
+                if (room == "Library-Study")
+                {
+                    MrsWhite.x = 85;
+                    MrsWhite.y = 200;
+                }
+                if (room == "Billiard room-Hall")
+                {
+                    MrsWhite.x = 340;
+                    MrsWhite.y = 200;
+                }
+                if (room == "Dining room-Lounge")
+                {
+                    MrsWhite.x = 590;
+                    MrsWhite.y = 200;
+                }
+                if ( room == "Billiard room-Library")
+                {
+                    MrsWhite.x = 215;
+                    MrsWhite.y = 310;
+                }
+                if (room == "Billiard room-Dining room")
+                {
+                    MrsWhite.x = 465;
+                    MrsWhite.y = 310;
+                }
+                if ( room == "Conservatory-Library")
+                {
+                    MrsWhite.x = 85;
+                    MrsWhite.y = 435;
+                }
+                if (room == "Ballroom-Billiard room")
+                {
+                    MrsWhite.x = 340;
+                    MrsWhite.y = 435;
+                }
+                if ( room == "Dining room-Kitchen")
+                {
+                    MrsWhite.x = 590;
+                    MrsWhite.y = 435;
+                }
+                if (room == "Ballroom-Conservatory")
+                {
+                    MrsWhite.x = 215;
+                    MrsWhite.y = 555;
+                }
+                if ( room == "Ballroom-Kitchen")
+                {
+                    MrsWhite.x = 465;
+                    MrsWhite.y = 555;
                 }
             }
         }
