@@ -308,7 +308,7 @@ function setColMustard(room) {
     } else if (room == "Library") {
         transformToken(token, room, 1, 3);
     } else if (room == "Lounge") {
-        transformToken(token, room, 0, 4);
+        transformToken(token, room, 0, 3);
     } else if (room == "Hall") {
         transformToken(token, room, 1, 3);
     } else if (room == "Study") {
