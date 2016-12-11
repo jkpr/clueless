@@ -20,6 +20,7 @@ import java.util.Map;
 import static app.Application.game;
 import static app.Application.jsonMapper;
 import static app.message.Messaging.broadcastGame;
+import static spark.Spark.halt;
 
 /**
  * Created by james on 11/26/16.
@@ -49,8 +50,8 @@ public class GameController {
                 Map<String, Object> map = new HashMap<>();
                 map.put("user", username);
                 map.put("game", game.getVisualModel());
-                return ViewUtil.render(map, Path.Template.GAME);
-                //return ViewUtil.render(map, "/testgame.ftl");
+                //return ViewUtil.render(map, Path.Template.GAME);
+                return ViewUtil.render(map, "/testgame.ftl");
             }
         }
     };
@@ -80,9 +81,8 @@ public class GameController {
 
     public static Route handleSetTokenPost = (Request request, Response response) -> {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || !game.isUserPlayer(username)) {
-        //if (username == null) {
-            response.status(401);
+        if (username == null) {
+            halt(401);
             return null;
         } else {
             try {
@@ -103,8 +103,8 @@ public class GameController {
 
     public static Route handleStartGamePost = (Request request, Response response) -> {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || !game.isUserPlayer(username)) {
-            response.status(401);
+        if (username == null) {
+            halt(401);
             return null;
         } else {
             try {
@@ -125,8 +125,8 @@ public class GameController {
 
     public static Route handleMovePost = (Request request, Response response) -> {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || !game.isUserPlayer(username)) {
-            response.status(401);
+        if (username == null) {
+            halt(401);
             return null;
         } else {
             try {
@@ -148,8 +148,8 @@ public class GameController {
 
     public static Route handleEndTurnPost = (Request request, Response response) -> {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || !game.isUserPlayer(username)) {
-            response.status(401);
+        if (username == null) {
+            halt(401);
             return null;
         } else {
             try {
@@ -172,8 +172,8 @@ public class GameController {
     public static Route handleMakeSuggestionPost = (Request request, Response response) -> {
         logger.info("Inside GameController#handleMakeSuggestion");
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || !game.isUserPlayer(username)) {
-            response.status(401);
+        if (username == null) {
+            halt(401);
             return null;
         } else {
             try {
@@ -195,8 +195,8 @@ public class GameController {
 
     public static Route handleDisproveSuggestionPost = (Request request, Response response) -> {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || !game.isUserPlayer(username)) {
-            response.status(401);
+        if (username == null) {
+            halt(401);
             return null;
         } else {
             try {
@@ -218,8 +218,8 @@ public class GameController {
 
     public static Route handleMakeAccusationPost = (Request request, Response response) -> {
         String username = request.session().attribute(RequestUtil.CURRENT_USER);
-        if (username == null || !game.isUserPlayer(username)) {
-            response.status(401);
+        if (username == null) {
+            halt(401);
             return null;
         } else {
             try {

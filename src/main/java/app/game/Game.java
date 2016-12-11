@@ -100,7 +100,7 @@ public class Game {
     public JsonResponse handleStartGame(String username, StartGamePayload payload) {
         JsonResponse jsonResponse = new JsonResponse();
 
-        Action action = new StartGame(username, username.equals(host));
+        Action action = new StartGame(username, players.get(username), username.equals(host));
         boolean legal = action.isLegal(model);
         if (legal) {
             action.apply(model);

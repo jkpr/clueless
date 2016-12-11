@@ -457,7 +457,7 @@ public class GameModel {
                         }
                     }
 
-                    StartGame action = new StartGame(user, isHost);
+                    StartGame action = new StartGame(user, player, isHost);
                     if (action.isLegal(this)) {
                         json.put(StartGame.NAME, true);
                     }
