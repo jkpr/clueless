@@ -46,6 +46,7 @@ public class Path {
         public static final String MOVE = "/game/move";
         public static final String SET_TOKEN = "/game/token";
         public static final String START_GAME = "/game/start";
+        public static final String RESET_GAME = "/game/reset";
     }
 
     public static class Template {

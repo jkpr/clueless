@@ -240,5 +240,18 @@ public class GameController {
         }
     };
 
+    public static Route handleResetGame = (Request request, Response response) -> {
+        String username = request.session().attribute(CURRENT_USER);
+        if (username == null) {
+            response.redirect(Path.Web.LOGIN);
+            return null;
+        } else {
+            game = new Game();
+            broadcastOnActionSuccess();
+            response.redirect(Path.Web.GAME);
+            return null;
+        }
+    };
+
 
 }
