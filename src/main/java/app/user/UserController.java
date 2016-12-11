@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static app.Application.userManager;
+import static app.util.RequestUtil.CURRENT_USER;
 import static app.util.RequestUtil.GREEN_MSG;
 import static app.util.RequestUtil.getQueryEmail;
 
@@ -40,11 +41,25 @@ public class UserController {
     }
 
     public static Route serveUserPage = (Request request, Response response) -> {
-        return ViewUtil.render(null, Path.Template.USER);
+        String username = request.session().attribute(CURRENT_USER);
+        if (username == null) {
+            response.redirect(Path.Web.LOGIN);
+            return null;
+        } else {
+            Map<String, Object> map = new HashMap<>();
+            map.put(CURRENT_USER, username);
+            return ViewUtil.render(map, Path.Template.USER);
+        }
     };
 
     public static Route serveForgotpasswordPage = (Request request, Response response) -> {
-        return ViewUtil.render(null, Path.Template.FORGOTPASSWORD);
+        String username = request.session().attribute(CURRENT_USER);
+        if (username != null) {
+            response.redirect(Path.Web.USER);
+            return null;
+        } else {
+            return ViewUtil.render(null, Path.Template.FORGOTPASSWORD);
+        }
     };
 
     public static Route handleForgotpasswordPost = (Request request, Response response) -> {

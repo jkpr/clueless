@@ -57,7 +57,7 @@ public class Messaging {
         sessionUsernameMap.keySet().stream().filter(Session::isOpen).forEach(session -> {
             try {
                 JSONObject data = new JSONObject()
-                        .put(TYPE, ACTION)
+                        .put(TYPE, GAME)
                         .put(DATA, game.getGameForUser(sessionUsernameMap.get(session)));
                 session.getRemote().sendString(String.valueOf(data));
             } catch (JSONException e) {

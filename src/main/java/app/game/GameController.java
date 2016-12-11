@@ -20,6 +20,8 @@ import java.util.Map;
 import static app.Application.game;
 import static app.Application.jsonMapper;
 import static app.message.Messaging.broadcastGame;
+import static app.message.Messaging.broadcastOnActionSuccess;
+import static app.util.RequestUtil.CURRENT_USER;
 import static spark.Spark.halt;
 
 /**
@@ -31,7 +33,7 @@ public class GameController {
     // public static Route serveGameLobby ...
 
     public static Route serveGame = (Request request, Response response) -> {
-        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        String username = request.session().attribute(CURRENT_USER);
         if (username == null) {
             response.redirect(Path.Web.LOGIN);
             return null;
@@ -48,8 +50,7 @@ public class GameController {
                 Messaging.usernameMap.put(sessionId, username);
 
                 Map<String, Object> map = new HashMap<>();
-                map.put("user", username);
-                map.put("game", game.getVisualModel());
+                map.put(CURRENT_USER, username);
                 return ViewUtil.render(map, Path.Template.GAME);
                 //return ViewUtil.render(map, "/testgame.ftl");
             }
@@ -58,7 +59,7 @@ public class GameController {
 
     public static Route handleAddPlayerPost = (Request request, Response response) -> {
         // Ignore API key for now. Only use session username.
-        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        String username = request.session().attribute(CURRENT_USER);
         if (username == null) {
             response.status(401);
             return null;
@@ -69,7 +70,7 @@ public class GameController {
                 JsonResponse jsonResponse = game.handleAddPlayer(username, addPlayerPayload);
                 response.status(jsonResponse.status);
                 if (jsonResponse.status == 200) {
-                    broadcastGame();
+                    broadcastOnActionSuccess();
                 }
                 return new JSONObject().put("msg", jsonResponse.msg);
             } catch (IOException e) {
@@ -80,7 +81,7 @@ public class GameController {
     };
 
     public static Route handleSetTokenPost = (Request request, Response response) -> {
-        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        String username = request.session().attribute(CURRENT_USER);
         if (username == null) {
             halt(401);
             return null;
@@ -91,7 +92,7 @@ public class GameController {
                 JsonResponse jsonResponse = game.handleSetToken(username, setTokenPayload);
                 response.status(jsonResponse.status);
                 if (jsonResponse.status == 200) {
-                    broadcastGame();
+                    broadcastOnActionSuccess();
                 }
                 return new JSONObject().put("msg", jsonResponse.msg);
             } catch (IOException e) {
@@ -102,7 +103,7 @@ public class GameController {
     };
 
     public static Route handleStartGamePost = (Request request, Response response) -> {
-        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        String username = request.session().attribute(CURRENT_USER);
         if (username == null) {
             halt(401);
             return null;
@@ -113,7 +114,7 @@ public class GameController {
                 JsonResponse jsonResponse = game.handleStartGame(username, startGamePayload);
                 response.status(jsonResponse.status);
                 if (jsonResponse.status == 200) {
-                    broadcastGame();
+                    broadcastOnActionSuccess();
                 }
                 return new JSONObject().put("msg", jsonResponse.msg);
             } catch (IOException e) {
@@ -124,7 +125,7 @@ public class GameController {
     };
 
     public static Route handleMovePost = (Request request, Response response) -> {
-        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        String username = request.session().attribute(CURRENT_USER);
         if (username == null) {
             halt(401);
             return null;
@@ -147,7 +148,7 @@ public class GameController {
     };
 
     public static Route handleEndTurnPost = (Request request, Response response) -> {
-        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        String username = request.session().attribute(CURRENT_USER);
         if (username == null) {
             halt(401);
             return null;
@@ -171,7 +172,7 @@ public class GameController {
 
     public static Route handleMakeSuggestionPost = (Request request, Response response) -> {
         logger.info("Inside GameController#handleMakeSuggestion");
-        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        String username = request.session().attribute(CURRENT_USER);
         if (username == null) {
             halt(401);
             return null;
@@ -194,7 +195,7 @@ public class GameController {
     };
 
     public static Route handleDisproveSuggestionPost = (Request request, Response response) -> {
-        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        String username = request.session().attribute(CURRENT_USER);
         if (username == null) {
             halt(401);
             return null;
@@ -217,7 +218,7 @@ public class GameController {
     };
 
     public static Route handleMakeAccusationPost = (Request request, Response response) -> {
-        String username = request.session().attribute(RequestUtil.CURRENT_USER);
+        String username = request.session().attribute(CURRENT_USER);
         if (username == null) {
             halt(401);
             return null;

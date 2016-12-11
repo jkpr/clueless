@@ -37,15 +37,3 @@ function sendMessage(message) {
         id("message").value = "";
     }
 }
-
-
-function updateGame(json) {
-    setBoard(json["board"]);
-    highlightCharacter(json["who"]);
-    setActions(json["action"]);
-    setStatusMessage(json["statusMessage"]);
-    if (json["notification"] != "") {
-        setNotification(json["notification"]);
-    }
-    setHand(json["yourHand"]);
-}

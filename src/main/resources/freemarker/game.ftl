@@ -8,10 +8,10 @@
     -->
 </div>
 <div id="clue-content">
-    <div id="clue-status"><span id="status-text">Game status:</span> <span id="status-message">...</span> <span id="clue-character">Your character: Ms. Scarlet.</span></div>
+    <div id="clue-status"><span id="status-text">Game status:</span> <span id="status-message">...</span> <span id="clue-character"></span></div>
     <div style="clear: both;"></div>
     <div id="clue-chat">
-        <ul id="userlist"> <li>james</li><li>john</li><!-- Built by JS --> </ul>
+        <ul id="userlist"><!-- Built by JS --> </ul>
         <div id="chat"> <!-- Built by JS --> </div>
         <div id="chatControls">
             <input id="message" placeholder="Type your message">
@@ -38,7 +38,7 @@
     <div id="clue-actions">
         <div class="btn-group-vertical btn-block">
             <button id="addPlayerBtn" type="button" class="btn btn-primary btn-block">Join</button>
-            <button id="setTokenBtn" type="button" class="btn btn-primary btn-block hidden">Set token</button>
+            <button id="setTokenBtn" type="button" class="btn btn-primary btn-block hidden" data-toggle="modal" data-target="#setTokenModal">Set token</button>
             <button id="startGameBtn" type="button" class="btn btn-primary btn-block hidden">Start game</button>
             <button id="moveBtn" type="button" class="btn btn-primary btn-block hidden">Move</button>
             <button id="makeSuggestionBtn" type="button" class="btn btn-primary btn-block hidden">Make suggestion</button>
@@ -46,7 +46,7 @@
             <button id="makeAccusationBtn" type="button" class="btn btn-primary btn-block hidden">Make accusation</button>
             <button id="endTurnBtn" type="button" class="btn btn-primary btn-block hidden">End turn</button>
         </div>
-        <button id="handBtn" type="button" class="btn btn-info btn-block">My cards</button>
+        <button id="handBtn" type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#handModal">My cards</button>
     </div>
     <div id="clue-notes">
         <textarea>My notes...</textarea>
@@ -55,11 +55,82 @@
 <div style="clear: both;"></div>
 <div id="footer">
 </div>
+
+<!-- Set Token Modal -->
+<div class="modal fade" id="setTokenModal" tabindex="-1" role="dialog" aria-labelledby="Set token modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="setTokenModalLabel">Choose new token</h4>
+            </div>
+            <div class="modal-body" id="setTokenModalBody">
+                <select class="form-control">
+                    <option>Ms. Scarlet</option>
+                    <option>Col. Mustard</option>
+                    <option>Mrs. White</option>
+                    <option>Mr. Green</option>
+                    <option>Mrs. Peacock</option>
+                    <option>Prof. Plum</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="setTokenModalOk">Set token</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hand Modal -->
+<div class="modal fade" id="handModal" tabindex="-1" role="dialog" aria-labelledby="Hand modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="handModalLabel">My hand</h4>
+            </div>
+            <div class="modal-body" id="handModalBody">
+                You do not have any cards.
+                <img id="ballroomCard" src="img/ballroomCard.jpg" class="img-rounded hidden" alt="Ballroom card" width="130" height="200">
+                <img id="billiardRoomCard" src="img/billiardRoomCard.jpg" class="img-rounded hidden" alt="Billiard room card" width="130" height="200">
+                <img id="conservatoryCard" src="img/conservatoryCard.jpg" class="img-rounded hidden" alt="Conservatory card" width="130" height="200">
+                <img id="diningRoomCard" src="img/diningRoomCard.jpg" class="img-rounded hidden" alt="Dining room card" width="130" height="200">
+                <img id="hallCard" src="img/hallCard.jpg" class="img-rounded hidden" alt="Hall card" width="130" height="200">
+                <img id="kitchenCard" src="img/kitchenCard.jpg" class="img-rounded hidden" alt="Kitchen card" width="130" height="200">
+                <img id="libraryCard" src="img/libraryCard.jpg" class="img-rounded hidden" alt="Library card" width="130" height="200">
+                <img id="loungeCard" src="img/loungeCard.jpg" class="img-rounded hidden" alt="Lounge card" width="130" height="200">
+                <img id="studyCard" src="img/studyCard.jpg" class="img-rounded hidden" alt="Study card" width="130" height="200">
+
+                <img id="msScarletCard" src="img/msScarletCard.jpg" class="img-rounded hidden" alt="Ms. Scarlet card" width="130" height="200">
+                <img id="colMustardCard" src="img/colMustardCard.jpg" class="img-rounded hidden" alt="Col. Mustard card" width="130" height="200">
+                <img id="mrsWhiteCard" src="img/mrsWhiteCard.jpg" class="img-rounded hidden" alt="Mrs. White card" width="130" height="200">
+                <img id="mrGreenCard" src="img/mrGreenCard.jpg" class="img-rounded hidden" alt="Mr. Green card" width="130" height="200">
+                <img id="mrsPeacockCard" src="img/mrsPeacockCard.jpg" class="img-rounded hidden" alt="Mrs Peacock card" width="130" height="200">
+                <img id="profPlumCard" src="img/profPlumCard.jpg" class="img-rounded hidden" alt="Prof plum card" width="130" height="200">
+
+                <img id="candlestickCard" src="img/candlestickCard.jpg" class="img-rounded hidden" alt="Candlestick card" width="130" height="200">
+                <img id="knifeCard" src="img/knifeCard.jpg" class="img-rounded hidden" alt="Knife card" width="130" height="200">
+                <img id="pipeCard" src="img/pipeCard.jpg" class="img-rounded hidden" alt="Pipe card" width="130" height="200">
+                <img id="revolverCard" src="img/revolverCard.jpg" class="img-rounded hidden" alt="Revolver card" width="130" height="200">
+                <img id="ropeCard" src="img/mrsPeacockCard.jpg" class="img-rounded hidden" alt="Mrs Peacock card" width="130" height="200">
+                <img id="wrenchCard" src="img/wrenchCard.jpg" class="img-rounded hidden" alt="Wrench card" width="130" height="200">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/reconnecting-websocket.min.js"></script>
 <script src="js/game.js"></script>
 <script src="js/game-ui.js"></script>
 <script src="js/game-websocket.js"></script>
+<script src="js/game-update.js"></script>
 </body>
 </html>
