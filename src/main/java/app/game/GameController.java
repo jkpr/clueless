@@ -50,8 +50,8 @@ public class GameController {
                 Map<String, Object> map = new HashMap<>();
                 map.put("user", username);
                 map.put("game", game.getVisualModel());
-                //return ViewUtil.render(map, Path.Template.GAME);
-                return ViewUtil.render(map, "/testgame.ftl");
+                return ViewUtil.render(map, Path.Template.GAME);
+                //return ViewUtil.render(map, "/testgame.ftl");
             }
         }
     };

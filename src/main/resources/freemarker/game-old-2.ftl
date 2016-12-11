@@ -48,9 +48,9 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-md-pull-3 game game-container">
-                        <div class="board-img-container img">
+                        <div class="board-img-container">
                             <pre>
-                                <div id="game" >
+                                <div id="game">
                                     <!-- TO BE FILLED IN BY SCRIPT -->
                                     <pre>
                                         ${game}
@@ -72,7 +72,7 @@
         <h2 class="text-center"><em>[Might put rules here]</em></h2>
     </section>
 
-    <section class="col-lg-2 col-md-2 col-sm-6 col-xs-12 test-btns">
+    <section class="test-btns">
         <div>
             <h1>HTTP POST Result</h1>
             <div id="postResult"></div>
@@ -80,7 +80,7 @@
         <hr/>
         <div id="addPlayer">
             <input type="hidden" name="api" value="12345" />
-            <form><input type="submit" value="join game" role="button" class="well btn btn-lg" /></form>
+            <form><input type="submit" value="join game" class="well" /></form>
         </div>
         <hr/>
         <div id="setToken">
@@ -97,14 +97,14 @@
                     <option>Mrs. White</option>
                 </select>
                 <br/>
-                <input type="submit" value="setToken" role="button" class="well btn btn-lg" />
+                <input type="submit" value="setToken" />
             </form>
         </div>
         <hr/>
         <div id="startGame">
             <form>
                 <input type="hidden" name="api" value="12345" />
-                <input type="submit" value="startGame"role="button" class="well btn btn-lg"" />
+                <input type="submit" value="startGame" />
             </form>
         </div>
         <hr/>
@@ -143,7 +143,7 @@
                     <option>Ballroom-Conservatory</option>
                     <option>Ballroom-Kitchen</option>
                 </select>
-                <input type="submit" value="move" role="button" class="well btn btn-lg />
+                <input type="submit" value="move" />
             </form>
         </div>
         <hr/>
@@ -171,7 +171,7 @@
                 </select>
                 <br/>
                 <input type="hidden" name="api" value="12345" />
-                <input type="submit" value="makeSuggestion" role="button" class="well btn btn-lg" />
+                <input type="submit" value="makeSuggestion" />
             </form>
         </div>
         <hr/>
@@ -195,7 +195,7 @@
                 </select>
                 <br/>
                 <input type="hidden" name="api" value="12345" />
-                <input type="submit" value="disproveSuggestion" role="button" class="well btn btn-lg />
+                <input type="submit" value="disproveSuggestion" />
             </form>
         </div>
         <hr/>
@@ -236,14 +236,14 @@
                 </select>
                 <br/>
                 <input type="hidden" name="api" value="12345" />
-                <input type="submit" value="makeAccusation" role="button" class="well btn btn-lg" />
+                <input type="submit" value="makeAccusation" />
             </form>
         </div>
         <hr/>
         <div id="endTurn">
             <form>
                 <input type="hidden" name="api" value="12345" />
-                <input type="submit" value="endTurn" role="button" class="well btn btn-lg" />
+                <input type="submit" value="endTurn" />
             </form>
         </div>
         </div>
@@ -252,7 +252,7 @@
     <section class="features">
         <div class="container">
             <div class="row">
-                <div class="col-md-pull-3">
+                <div class="col-md-6">
                     <h2>Clue-Less</h2>
                     <p>Game developed by James Pringle, Christopher Chang, Ibrahim Salla, and Federico Esparza, as a team project
                         in the Fall 2016 semester of Johns Hopkins University graduate level course: Foundations of Software
@@ -284,38 +284,6 @@
             </div>
         </div>
     </footer>
-
-    <form>
-        Select your Character:
-        <select id="characterList" onchange="chooseCharacter()">
-                <option></option>
-                <option>Professor Plum</option>
-                <option>Miss Scarlet</option>
-                <option>Colonel Mustard</option>
-                <option>Mrs. Peacock</option>
-                <option>Mr. Green</option>
-                <option>Mrs. White</option>
-            </select>
-        <p>Your character is: <input type="text" id="character" size="20"></p>
-    </form>
-    <form>
-        Select a room to move to:
-        <select id="roomList" onchange="chooseRoom()">
-                <option></option>
-                <option>Study</option>
-                <option>Hall</option>
-                <option>Lounge</option>
-                <option>Library</option>
-                <option>Billiard Room</option>
-                <option>Dining Room</option>
-                <option>Conservatory</option>
-                <option>BallRoom</option>
-                <option>Kitchen</option>
-            </select>
-        <p>Move to room: <input type="text" id="room" size="20"></p>
-    </form>
-    <button id="endTurn2">End Turn</button>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/jquery.min.js"></script>
@@ -323,22 +291,6 @@
     <script type="text/javascript" src="js/reconnecting-websocket.min.js"></script>
     <script type="text/javascript" src="js/websocket.js"></script>
     <script type="text/javascript" src="js/final-game-forms.js"></script>
-    <script src="js/game-clue.js"></script>
-    <script>
-        function chooseCharacter()
-        {
-            var characterList = document.getElementById("characterList");
-            document.getElementById("character").value=characterList.options[characterList.selectedIndex].text;
-        }
-    </script>
-    <script>
-        function chooseRoom()
-        {
-            var roomList = document.getElementById("roomList");
-            document.getElementById("room").value=roomList.options[roomList.selectedIndex].text;
-        }
-    </script>
-    
 </body>
 
 </html>
