@@ -1,1 +1,148 @@
-body { padding-top: 70px; }
+body {
+    padding-top: 70px;
+    overflow-y: scroll;
+}
+
+#clue-content {
+    width: 910px;
+    margin: 0 auto;
+}
+
+#clue-status {
+    width: 510px;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+#status-text {
+    font-weight: bold;
+    font-style: italic;
+}
+
+#status-message {
+
+}
+
+#clue-chat {
+    width: 200px;
+    height: 300px;
+    padding: 5px;
+    float: left;
+    font-family: monospace;
+    font-size: 10px;
+}
+
+/* CHAT CONTROLS */
+#chatControls {
+    overflow: auto;
+    margin: 5px 0 5px 0;
+    float:left;
+}
+
+#userlist {
+    list-style: none;
+    background: #f0f0f9;
+    padding: 5px 10px;
+    top: 11px;
+}
+
+#chat {
+    height:300px;
+    overflow-y: scroll;
+}
+
+
+#chat p {
+    margin: 5px 0;
+    font-weight: 300
+}
+
+#chat .timestamp {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 10px;
+}
+
+#chat article {
+    background: #f1f1f1;
+    padding: 5px;
+    margin: 5px 0;
+    border-left: 5px solid #aaa;
+    position: relative;
+    word-wrap: break-word;
+}
+
+#chat article:first-of-type {
+    background: #c9edc3;
+    border-left-color: #74a377;
+    animation: enter .2s 1;
+}
+
+@keyframes enter {
+    from { transform: none;        }
+    50%  { transform: scale(1.05); }
+    to   { transform: none;        }
+}
+/* END CHAT CONTROLS */
+
+#clue-game {
+    width: 510px;
+    height: 510px;
+    float: left;
+    background: url('../img/final-board-small-510px.jpg');
+}
+
+#clue-game .token-highlight {
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    z-index: 5;
+}
+
+#clue-game .token {
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    z-index: 10;
+}
+
+#clue-notes {
+    width: 200px;
+    padding: 5px;
+    float: left;
+}
+
+#clue-notes textarea {
+    resize: vertical;
+    width: 190px;
+    height: 200px;
+}
+
+#clue-actions {
+    width: 200px;
+    height: 300px;
+    float: left;
+    padding: 5px;
+    margin: 0 auto;
+}
+
+#handBtn {
+    margin: 15px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+#footer {
+    height: 100px;
+    background: #333;
+}

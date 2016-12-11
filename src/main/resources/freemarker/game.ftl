@@ -1,296 +1,65 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>game-instance</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="css/game-play.css">
-    <link rel="stylesheet" href="css/game.css">
-</head>
-
-<body>
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header"><a class="navbar-brand navbar-link" href="/"><i class="glyphicon glyphicon-pawn"></i> Clue-Less</a>
-                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-            </div>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active" role="presentation"><a href="/">End Game</a></li>
-                    <li role="presentation"><a href="/user">Profile </a></li>
-                    <li role="presentation"><a href="/">Sign Out</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="jumbotron hero">
-        <div class="outer-opacity-filter">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-3 chat-container">
-                        <h1 class="text-center notes-heading">Chat </h1>
-                        <div class="mr-boddy-mockup">
-                            <div id="chatControls">
-                                <input id="message" placeholder="Type your message">
-                                <button id="send">Send</button>
-                            </div>
-                            <ul id="userlist">
-                                <!-- Built by JS -->
-                            </ul>
-                            <div id="chat">
-                                <!-- Built by JS -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-md-pull-3 game game-container">
-                        <div class="board-img-container">
-                            <pre>
-                                <div id="game">
-                                    <!-- TO BE FILLED IN BY SCRIPT -->
-                                    <pre>
-                                        ${game}
-                                </div>
-                                </pre>
-                        </div>
-                        <p><a class="btn btn-primary btn-lg" role="button" href="#">Move </a><a class="btn btn-success btn-lg"
-                                role="button" href="#">Disprove </a><a class="btn btn-primary btn-lg" role="button" href="#">Suggest </a>
-                            <a class="btn btn-success btn-lg" role="button" href="#">Accuse </a><a class="btn btn-primary btn-lg"
-                                role="button" href="#">End Turn</a></p>
-                    </div>
-                    <div class="col-lg-2 col-md-2 game game-notes-container">
-                        <h1 class="text-center notes-heading">Game Notes</h1><img src="img/game-notes.png" width="100%"></div>
-                </div>
-            </div>
+<#include "/top-matter.ftl">
+<div id="notificationArea" class="container">
+    <!-- THIS IS COMMENTED OUT FOR NOW
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
+        <strong>Success!</strong> Indicates a successful or positive action.
+    </div>
+    -->
+</div>
+<div id="clue-content">
+    <div id="clue-status"><span id="status-text">Game status:</span> <span id="status-message">...</span> <span id="clue-character">Your character: Ms. Scarlet.</span></div>
+    <div style="clear: both;"></div>
+    <div id="clue-chat">
+        <ul id="userlist"> <li>james</li><li>john</li><!-- Built by JS --> </ul>
+        <div id="chat"> <!-- Built by JS --> </div>
+        <div id="chatControls">
+            <input id="message" placeholder="Type your message">
+            <button id="send">Send</button>
         </div>
     </div>
-    <section class="rules">
-        <h2 class="text-center"><em>[Might put rules here]</em></h2>
-    </section>
+    <div id="clue-game">
+        <img class="token" id="msScarletToken" src="img/msScarlet.png"/>
+        <img class="token" id="colMustardToken" src="img/colMustard.png"/>
+        <img class="token" id="mrsWhiteToken" src="img/mrsWhite.png"/>
+        <img class="token" id="mrGreenToken" src="img/mrGreen.png"/>
+        <img class="token" id="mrsPeacockToken" src="img/mrsPeacock.png"/>
+        <img class="token" id="profPlumToken" src="img/profPlum.png"/>
 
-    <section class="test-btns">
-        <div>
-            <h1>HTTP POST Result</h1>
-            <div id="postResult"></div>
-        </div>
-        <hr/>
-        <div id="addPlayer">
-            <input type="hidden" name="api" value="12345" />
-            <form><input type="submit" value="join game" class="well" /></form>
-        </div>
-        <hr/>
-        <div id="setToken">
-            <form>
-                Who:
-                <input type="hidden" name="api" value="12345" />
-                <select id="tokenCharacterList" onchange="chooseCharacter()">
-                    <option></option>
-                    <option>Prof. Plum</option>
-                    <option>Ms. Scarlet</option>
-                    <option>Col. Mustard</option>
-                    <option>Mrs. Peacock</option>
-                    <option>Mr. Green</option>
-                    <option>Mrs. White</option>
-                </select>
-                <br/>
-                <input type="submit" value="setToken" />
-            </form>
-        </div>
-        <hr/>
-        <div id="startGame">
-            <form>
-                <input type="hidden" name="api" value="12345" />
-                <input type="submit" value="startGame" />
-            </form>
-        </div>
-        <hr/>
-        <div id="move">
-            <form>
-                To:
-                <input type="hidden" name="api" value="12345" />
-                <br/>
-                <select id="moveRoomList" onchange="chooseRoom()">
-                    <option></option>
-                    <option>Study</option>
-                    <option>Hall</option>
-                    <option>Lounge</option>
-                    <option>Library</option>
-                    <option>Billiard room</option>
-                    <option>Dining room</option>
-                    <option>Conservatory</option>
-                    <option>Ballroom</option>
-                    <option>Kitchen</option>
-                    <option>Scarlet start</option>
-                    <option>Mustard start</option>
-                    <option>White start</option>
-                    <option>Green start</option>
-                    <option>Peacock start</option>
-                    <option>Plum start</option>
-                    <option>Hall-Study</option>
-                    <option>Hall-Lounge</option>
-                    <option>Library-Study</option>
-                    <option>Billiard room-Hall</option>
-                    <option>Dining room-Lounge</option>
-                    <option>Billiard room-Library</option>
-                    <option>Billiard room-Dining room</option>
-                    <option>Conservatory-Library</option>
-                    <option>Ballroom-Billiard room</option>
-                    <option>Dining room-Kitchen</option>
-                    <option>Ballroom-Conservatory</option>
-                    <option>Ballroom-Kitchen</option>
-                </select>
-                <input type="submit" value="move" />
-            </form>
-        </div>
-        <hr/>
-        <div id="makeSuggestion">
-            <form>
-                Character:
-                <select id="suggestionCharacterList" onchange="chooseCharacter()">
-                    <option></option>
-                    <option>Prof. Plum</option>
-                    <option>Ms. Scarlet</option>
-                    <option>Col. Mustard</option>
-                    <option>Mrs. Peacock</option>
-                    <option>Mr. Green</option>
-                    <option>Mrs. White</option>
-                </select>
-                <br/> Weapon:
-                <select id="suggestionWeaponList" onchange="chooseCharacter()">
-                    <option></option>
-                    <option>Candlestick</option>
-                    <option>Knife</option>
-                    <option>Pipe</option>
-                    <option>Revolver</option>
-                    <option>Rope</option>
-                    <option>Wrench</option>
-                </select>
-                <br/>
-                <input type="hidden" name="api" value="12345" />
-                <input type="submit" value="makeSuggestion" />
-            </form>
-        </div>
-        <hr/>
-        <div id="disproveSuggestion">
-            <form>
-                Card:
-                <select id="disproveList" onchange="chooseCard()">
-                    <option></option>
-                    <option>Prof. Plum</option>
-                    <option>Ms. Scarlet</option>
-                    <option>Col. Mustard</option>
-                    <option>Mrs. Peacock</option>
-                    <option>Mr. Green</option>
-                    <option>Mrs. White</option>
-                    <option>Candlestick</option>
-                    <option>Knife</option>
-                    <option>Pipe</option>
-                    <option>Revolver</option>
-                    <option>Rope</option>
-                    <option>Wrench</option>
-                </select>
-                <br/>
-                <input type="hidden" name="api" value="12345" />
-                <input type="submit" value="disproveSuggestion" />
-            </form>
-        </div>
-        <hr/>
-        <div id="makeAccusation">
-            <form>
-                Character:
-                <select id="accusationCharacterList" onchange="chooseCharacter()">
-                    <option></option>
-                    <option>Prof. Plum</option>
-                    <option>Ms. Scarlet</option>
-                    <option>Col. Mustard</option>
-                    <option>Mrs. Peacock</option>
-                    <option>Mr. Green</option>
-                    <option>Mrs. White</option>                
-                </select>
-                <br/> Weapon:
-                <select id="accusationWeaponList" onchange="chooseCard()">
-                    <option></option>
-                    <option>Candlestick</option>
-                    <option>Knife</option>
-                    <option>Pipe</option>
-                    <option>Revolver</option>
-                    <option>Rope</option>
-                    <option>Wrench</option>
-                </select>
-                <br/> Room:
-                <select id="accusationRoomList" onchange="chooseRoom()">
-                    <option></option>
-                    <option>Study</option>
-                    <option>Hall</option>
-                    <option>Lounge</option>
-                    <option>Library</option>
-                    <option>Billiard room</option>
-                    <option>Dining room</option>
-                    <option>Conservatory</option>
-                    <option>Ballroom</option>
-                    <option>Kitchen</option>
-                </select>
-                <br/>
-                <input type="hidden" name="api" value="12345" />
-                <input type="submit" value="makeAccusation" />
-            </form>
-        </div>
-        <hr/>
-        <div id="endTurn">
-            <form>
-                <input type="hidden" name="api" value="12345" />
-                <input type="submit" value="endTurn" />
-            </form>
-        </div>
-        </div>
-    </section>
+        <img class="token" id="candlestickToken" src="img/candlestick.png"/>
+        <img class="token" id="knifeToken" src="img/knife.png"/>
+        <img class="token" id="pipeToken" src="img/pipe.png"/>
+        <img class="token" id="revolverToken" src="img/revolver.png"/>
+        <img class="token" id="ropeToken" src="img/rope.png"/>
+        <img class="token" id="wrenchToken" src="img/wrench.png"/>
 
-    <section class="features">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>Clue-Less</h2>
-                    <p>Game developed by James Pringle, Christopher Chang, Ibrahim Salla, and Federico Esparza, as a team project
-                        in the Fall 2016 semester of Johns Hopkins University graduate level course: Foundations of Software
-                        Engineering
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <div class="row icon-features">
-                        <div class="col-xs-4 icon-feature"><i class="glyphicon glyphicon-cloud"></i>
-                            <p>Heroku Deployed</p>
-                        </div>
-                        <div class="col-xs-4 icon-feature"><i class="fa fa-github-alt glyphicon"></i>
-                            <p>Github Repo</p>
-                        </div>
-                        <div class="col-xs-4 icon-feature"><i class="glyphicon glyphicon-education"></i>
-                            <p>Johns Hopkins University Software Engineering</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <img class="token-highlight hidden" id="characterHighlight" src="img/selection.png"/>
+    </div>
+    <div id="clue-actions">
+        <div class="btn-group-vertical btn-block">
+            <button id="addPlayerBtn" type="button" class="btn btn-primary btn-block">Join</button>
+            <button id="setTokenBtn" type="button" class="btn btn-primary btn-block hidden">Set token</button>
+            <button id="startGameBtn" type="button" class="btn btn-primary btn-block hidden">Start game</button>
+            <button id="moveBtn" type="button" class="btn btn-primary btn-block hidden">Move</button>
+            <button id="makeSuggestionBtn" type="button" class="btn btn-primary btn-block hidden">Make suggestion</button>
+            <button id="disproveSuggestionBtn" type="button" class="btn btn-primary btn-block hidden">Disprove suggestion</button>
+            <button id="makeAccusationBtn" type="button" class="btn btn-primary btn-block hidden">Make accusation</button>
+            <button id="endTurnBtn" type="button" class="btn btn-primary btn-block hidden">End turn</button>
         </div>
-    </section>
-    <footer class="site-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>BoddyBuilders © 2016</h5>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/reconnecting-websocket.min.js"></script>
-    <script type="text/javascript" src="js/websocket.js"></script>
-    <script type="text/javascript" src="js/final-game-forms.js"></script>
+        <button id="handBtn" type="button" class="btn btn-info btn-block">My cards</button>
+    </div>
+    <div id="clue-notes">
+        <textarea>My notes...</textarea>
+    </div>
+</div>
+<div style="clear: both;"></div>
+<div id="footer">
+</div>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/reconnecting-websocket.min.js"></script>
+<script src="js/game.js"></script>
+<script src="js/game-ui.js"></script>
+<script src="js/game-websocket.js"></script>
 </body>
-
 </html>
