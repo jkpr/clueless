@@ -26,7 +26,7 @@ var bgImage = new Image();
 bgImage.onload = function () {
     bgReady = true;
 };
-bgImage.src = "../public/img/final-board-small-1020px.jpg";
+bgImage.src = "../img/final-board-small-1020px.jpg";
 
 //Characters
 // Col Mustard
@@ -35,7 +35,7 @@ var mustardImage = new Image();
 mustardImage.onload = function () {
     mustardReady = true;
 };
-mustardImage.src = "../public/img/colMustard.png";
+mustardImage.src = "../img/colMustard.png";
 
 // Miss Scarlett
 var scarlettReady = false;
@@ -43,7 +43,7 @@ var scarlettImage = new Image();
 scarlettImage.onload = function () {
     scarlettReady = true;
 };
-scarlettImage.src = "../public/img/msScarlet.png";
+scarlettImage.src = "../img/msScarlet.png";
 
 // Mr Green
 var greenReady = false;
@@ -51,7 +51,7 @@ var greenImage = new Image();
 greenImage.onload = function () {
     greenReady = true;
 };
-greenImage.src = "../public/img/mrGreen.png";
+greenImage.src = "../img/mrGreen.png";
 
 // Mrs Peacock
 var peacockReady = false;
@@ -59,7 +59,7 @@ var peacockImage = new Image();
 peacockImage.onload = function () {
     peacockReady = true;
 };
-peacockImage.src = "../public/img/mrsPeacock.png";
+peacockImage.src = "../img/mrsPeacock.png";
 
 // Mrs White
 var whiteReady = false;
@@ -67,7 +67,7 @@ var whiteImage = new Image();
 whiteImage.onload = function () {
     whiteReady = true;
 };
-whiteImage.src = "../public/img/mrsWhite.png";
+whiteImage.src = "../img/mrsWhite.png";
 
 // Professor Plum
 var plumReady = false;
@@ -75,7 +75,7 @@ var plumImage = new Image();
 plumImage.onload = function () {
     plumReady = true;
 };
-plumImage.src = "../public/img/profPlum.png";
+plumImage.src = "../img/profPlum.png";
 
 //Weapons
 //knife
@@ -84,7 +84,7 @@ var knifeImage = new Image();
 knifeImage.onload = function () {
     knifeReady = true;
 };
-knifeImage.src = "../public/img/knife.png";
+knifeImage.src = "../img/knife.png";
 
 //candlestick
 var candleReady = false;
@@ -92,7 +92,7 @@ var candleImage = new Image();
 candleImage.onload = function () {
     candleReady = true;
 };
-candleImage.src = "../public/img/candlestick.png";
+candleImage.src = "../img/candlestick.png";
 
 //pipe
 var pipeReady = false;
@@ -100,7 +100,7 @@ var pipeImage = new Image();
 pipeImage.onload = function () {
     pipeReady = true;
 };
-pipeImage.src = "../public/img/pipe.png";
+pipeImage.src = "../img/pipe.png";
 
 //revolver
 var revolverReady = false;
@@ -108,7 +108,7 @@ var revolverImage = new Image();
 revolverImage.onload = function () {
     revolverReady = true;
 };
-revolverImage.src = "../public/img/revolver.png";
+revolverImage.src = "../img/revolver.png";
 
 //rope
 var ropeReady = false;
@@ -116,7 +116,7 @@ var ropeImage = new Image();
 ropeImage.onload = function () {
     ropeReady = true;
 };
-ropeImage.src = "../public/img/knife.png";
+ropeImage.src = "../img/knife.png";
 
 // Objects
 var ColMustard = {};

@@ -122,6 +122,10 @@ section.test-btns {
   color:#fff;
 }
 
+select {
+  color:#180630;
+}
+
 option {
   background-color:#180630;
   padding:40px 0;

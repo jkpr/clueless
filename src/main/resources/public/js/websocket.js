@@ -40,6 +40,7 @@ function sendMessage(message) {
 
 function updateGame(data) {
     id("game").innerHTML = data;
+    id("game").appendChild(canvas);
 }
 
 //Update the chat-panel, and the list of connected users
