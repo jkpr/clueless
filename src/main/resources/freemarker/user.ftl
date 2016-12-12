@@ -1,5 +1,5 @@
 <#include "/top-matter.ftl">
-<div class="container">
+<div class="container profile">
     <h2>User Profile Page</h2>
     <p>Here is a draft version of user profile. </p>
     <div class="table-responsive">

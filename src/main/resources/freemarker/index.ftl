@@ -1,6 +1,6 @@
 <#include "/top-matter.ftl">
-<div class="container">
-    <h3> CLUE-LESS GAME (my index) </h3>
+<div class="container index">
+    <h1> CLUE-LESS GAME </h1>
     <p>  by Chris & James & Federico & Ibrahim </p>
 </div>
 <#include "/bottom-matter.ftl">
